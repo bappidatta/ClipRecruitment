@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipRecruitment.Web", "ClipRecruitment.Web\ClipRecruitment.Web.csproj", "{D49C28E7-577E-4461-BA2D-0411D60696CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipRecruitment.Domain", "ClipRecruitment.Domain\ClipRecruitment.Domain.csproj", "{9351333C-0E5C-4046-9A9C-ED2C0E9F7C0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipRecruitment.Employer", "ClipRecruitment.Employer\ClipRecruitment.Employer.csproj", "{C9366790-73A0-4B22-86C8-764AA71A941C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipRecruitment.Candidate", "ClipRecruitment.Candidate\ClipRecruitment.Candidate.csproj", "{D14B3F7A-E4D6-4058-8CE3-40736209B0D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipRecruitment.Interview", "ClipRecruitment.Interview\ClipRecruitment.Interview.csproj", "{64366F0F-72F7-4A2E-8262-3329A24EC4D4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D49C28E7-577E-4461-BA2D-0411D60696CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D49C28E7-577E-4461-BA2D-0411D60696CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D49C28E7-577E-4461-BA2D-0411D60696CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D49C28E7-577E-4461-BA2D-0411D60696CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9351333C-0E5C-4046-9A9C-ED2C0E9F7C0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9351333C-0E5C-4046-9A9C-ED2C0E9F7C0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9351333C-0E5C-4046-9A9C-ED2C0E9F7C0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9351333C-0E5C-4046-9A9C-ED2C0E9F7C0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9366790-73A0-4B22-86C8-764AA71A941C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9366790-73A0-4B22-86C8-764AA71A941C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9366790-73A0-4B22-86C8-764AA71A941C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9366790-73A0-4B22-86C8-764AA71A941C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D14B3F7A-E4D6-4058-8CE3-40736209B0D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D14B3F7A-E4D6-4058-8CE3-40736209B0D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D14B3F7A-E4D6-4058-8CE3-40736209B0D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D14B3F7A-E4D6-4058-8CE3-40736209B0D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64366F0F-72F7-4A2E-8262-3329A24EC4D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64366F0F-72F7-4A2E-8262-3329A24EC4D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64366F0F-72F7-4A2E-8262-3329A24EC4D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64366F0F-72F7-4A2E-8262-3329A24EC4D4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
