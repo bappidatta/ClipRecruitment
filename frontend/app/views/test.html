@@ -1,0 +1,12 @@
+<p>{{test.title}}</p>
+<p>{{test.desc}}</p>
+<p>{{test.serviceText}}</p>
+<p>{{test.serviceText2}}</p>
+
+<div id="grid1" ui-grid="{ data: test.myData }" class="grid"></div>
+
+<datetimepicker ng-model="date" 
+                date-format="dd-MMM-yyyy" 
+                date-options="dateOptions" 
+                date-disabled="isDisabledDate(date, mode)">
+</datetimepicker>
