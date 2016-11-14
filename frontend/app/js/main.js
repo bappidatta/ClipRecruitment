@@ -8,6 +8,7 @@ import 'angular-ui-router';
 import 'angular-ui-grid';
 import 'angular-ui-bootstrap';
 import 'angular-ui-bootstrap-datetimepicker';
+import 'bootstrap';
 import './templates';
 import './filters';
 import './controllers';

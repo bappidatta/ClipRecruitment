@@ -13,16 +13,38 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
   $stateProvider
   .state('Home', {
     url: '/',
-    controller: 'ExampleCtrl as home',
-    templateUrl: 'home.html',
+    controller: 'landingController as landing',
+    templateUrl: 'landing.html',
     title: 'Home'
   })
-  .state('Test',{
-    url: '/test',
-    controller: 'TestCtrl as test',
-    templateUrl: 'test.html',
-    title: 'Test'
-  });
+  .state('Jobs', {
+    url: '/jobs', 
+    templateUrl: 'jobs_dashboard.html',
+    title: 'Jobs'
+  })
+  .state('Index', {
+    url: '/index',
+    templateUrl: 'employee_index.html',
+    title: 'Index'
+  })
+  .state('Dashboard', {
+    url: '/dashboard',
+    templateUrl: 'dashboard.html',
+    title: 'Dashboard'
+  })
+  .state('Create', {
+    url: '/create',
+    templateUrl: 'create.html',
+    title: 'Title'
+  })
+
+
+  // .state('Test',{
+  //   url: '/test',
+  //   controller: 'TestCtrl as test',
+  //   templateUrl: 'test.html',
+  //   title: 'Test'
+  // });
 
   $urlRouterProvider.otherwise('/');
 
