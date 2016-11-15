@@ -1,8 +1,8 @@
-function landingController(Alertify){
+function landingController(){
     'ngInject';
     const vm = this;
 
-    Alertify.error('asdfasfd');
+    
 
     vm.jobPostings = [
         {
