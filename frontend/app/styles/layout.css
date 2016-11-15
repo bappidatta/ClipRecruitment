@@ -819,3 +819,7 @@ footer .input-group {
         color: #222;
     }
 }
+
+.apply-block > span:hover{
+    cursor: pointer;
+}

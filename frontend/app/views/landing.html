@@ -12,44 +12,36 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-9 col-xs-12 jobs-list-area">
+                        <div class="col-sm-6 jobs-list-area" style="padding: 0px!important;">
                         <h3>Select your Expertise</h3>
                         <h3>Recently Posted jobs</h3>
+                        </div>
+                        <div class="col-sm-6 pull-right" style="padding: 0px!important;" ng-if="landing.selectedJobs.length">
+                            <h2 class="clearfix pull-left">Jobs Selected [{{landing.selectedJobs.length}}]</h2>
+                            <div class="pull-right jobs-apply-block">
+                                You are applying to {{landing.selectedJobs.length}} Job(s) <a href="#" ng-click="landing.applyToSelectedJobs()" class="apply-btn">Apply Now</a>
+                            </div>
+                        </div>
                         <div class="available-jobs">
 
                             <div class="row jobs-list" ng-repeat="job in landing.jobPostings">
                                 <div class="col-sm-9 col-xs-12">
                                     <h3>{{job.title}}</h3>
-                                    <p>A Commercial Prpoerty lawyer required to join a leading UK Law firm.</p>
-                                    <p>Blake Morgan is one of the UK's leading full service law firms, with offices in London, Wales, Thames Valley and the South East. As a key client of Hays Lega, we are supporting Blake Morgan with this exciting opportunity that has arisen for a Senior Commercial Property Lawyer/Solicitor to be based in their Southampton offices in Hampshire.</p>
+                                    <p>{{job.shortDescription}}</p>
+                                    <p>{{job.longDescription}}</p>
                                 </div>
                                 <div class="col-sm-1 col-xs-12 text-center apply-block">
                                     <h5>Apply</h5>
-                                    <span class="enable"><i class="fa fa-check"></i></span>
+                                    <span ng-class="{enable:job.selected}" ng-click="landing.selectJobs(job)"><i class="fa fa-check"></i></span>
                                 </div>
                                 <div class="col-sm-2 col-xs-12 text-center">
                                     <h5>Salary</h5>
-                                    <div class="salary-range">£15,000-£20,000</div>
+                                    <div class="salary-range">{{(job.salaryRange.from | currency: '£':0)+ "-" + (job.salaryRange.to | currency: '£':0)}}</div>
                                     <a href="#" class="btn-black">read more</a>
                                 </div>
                             </div>
                             
-                            
-                            <!--<div class="row jobs-list">
-                                <div class="col-sm-9 col-xs-12">
-                                    <h3>Paralegal</h3>
-                                    <p>A Commercial Prpoerty lawyer required to join a leading UK Law firm.</p>
-                                    <p>Blake Morgan is one of the UK's leading full service law firms, with offices in London, Wales, Thames Valley and the South East. As a key client of Hays Lega, we are supporting Blake Morgan with this exciting opportunity that has arisen for a Senior Commercial Property Lawyer/Solicitor to be based in their Southampton offices in Hampshire.</p>
-                                </div>
-                                <div class="col-sm-1 col-xs-12 text-center apply-block">
-                                    <h5>Apply</h5>
-                                    <span class=""><i class="fa fa-check"></i></span>
-                                </div>
-                                <div class="col-sm-2 col-xs-12 text-center">
-                                    <h5>Salary</h5>
-                                    <div class="salary-range">£15,000-£20,000</div>
-                                    <a href="#" class="btn-black">read more</a>
-                                </div>
-                            </div>-->
+                          
                             <a href="#" class="load-more-jobs-btn">View 156 more jobs</a>
                         </div>
 
