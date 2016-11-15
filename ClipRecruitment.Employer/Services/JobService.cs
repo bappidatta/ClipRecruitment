@@ -1,4 +1,5 @@
 ﻿using ClipRecruitment.Domain;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,18 @@ namespace ClipRecruitment.Employer.Services
             _db = db;
         }
 
-        
+        public void CreateJob()
+        {
+            _db.GetCollection("Job").InsertOne(new BsonDocument {
+                { "name", "MongoDB" },
+                { "type", "Database" },
+                { "count", 1 },
+                { "info", new BsonDocument
+                    {
+                        { "x", 203 },
+                        { "y", 102 }
+                    }}
+            });
+        }
     }
 }

@@ -10,18 +10,22 @@ namespace ClipRecruitment.Domain
 {
     public class DbContext
     {
-        private IMongoDatabase db;
-        public IMongoDatabase database
+        private IMongoDatabase db;        
+        public IMongoCollection<BsonDocument> GetCollection(string collectionName)
         {
-            get
+            if (this.db == null)
             {
                 var client = new MongoClient("mongodb://localhost:27017");
-                return client.GetDatabase("ClipRecruitment");
+                this.db = client.GetDatabase("ClipRecruitment");
             }
+                        
+            return db.GetCollection<BsonDocument>(collectionName);
         }
 
 
-        public void abc()
+
+
+        private void abc()
         {
             var client = new MongoClient("mongodb://localhost:27017");
 
@@ -43,5 +47,6 @@ namespace ClipRecruitment.Domain
 
             collection.InsertOne(document);
         }
+        
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ClipRecruitment.Domain;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,8 @@ namespace ClipRecruitment.Interview.Services
         }
         public void test()
         {
-            _db.abc();
+            
+            
         }
     }
 }

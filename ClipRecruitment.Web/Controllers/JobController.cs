@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClipRecruitment.Employer.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,9 +10,11 @@ namespace ClipRecruitment.Web.Controllers
 {
     public class JobController : ApiController
     {
-        public JobController()
+        private JobService jobService;
+        
+        public JobController(JobService jobService)
         {
-
+            this.jobService = jobService;
         }
 
         public IHttpActionResult GetAllJob()
@@ -21,10 +24,14 @@ namespace ClipRecruitment.Web.Controllers
 
         public IHttpActionResult CreateJob()
         {
-            throw new NotImplementedException();
+            jobService.CreateJob();
+            return Ok();
         }
 
-
+        public IHttpActionResult SearchJob()
+        {
+            throw new NotImplementedException();
+        }
 
     }
 }
