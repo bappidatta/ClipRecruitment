@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SimpleInjector;
+using SimpleInjector.Integration.WebApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +14,13 @@ namespace ClipRecruitment.Web
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+
+            var container = new Container();
+            container.Options.DefaultScopedLifestyle = new WebApiRequestLifestyle();
+
+            container.Verify();
+
+            GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
         }
     }
 }

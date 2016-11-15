@@ -1,4 +1,4 @@
-﻿using ClipRecruitment.Domain.ViewModels;
+﻿using ClipRecruitment.Interview.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,25 +10,18 @@ namespace ClipRecruitment.Web.Controllers
 {
     public class UserController : ApiController
     {
-        [HttpPost]
-        public IHttpActionResult Authenticate(User userVM)
+        private TestService _TestService;
+
+        public UserController(TestService TestService)
         {
-            throw new NotImplementedException();
+            _TestService = TestService;
         }
 
-        [HttpPost]
-        public IHttpActionResult Register(User userVM)
+        public IHttpActionResult GetUser(int id)
         {
-            throw new NotImplementedException();
+            _TestService.test();
+            return Ok();
         }
-
-        [HttpPost]
-        public IHttpActionResult LogIn(User userVM)
-        {
-            throw new NotImplementedException();
-        }
-
-
 
     }
 }
