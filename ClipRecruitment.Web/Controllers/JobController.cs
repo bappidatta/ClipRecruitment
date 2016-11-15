@@ -9,6 +9,11 @@ namespace ClipRecruitment.Web.Controllers
 {
     public class JobController : ApiController
     {
+        public JobController()
+        {
+
+        }
+
         public IHttpActionResult GetAllJob()
         {
             throw new NotImplementedException();
@@ -18,6 +23,8 @@ namespace ClipRecruitment.Web.Controllers
         {
             throw new NotImplementedException();
         }
+
+
 
     }
 }

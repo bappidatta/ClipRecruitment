@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClipRecruitment.Domain.Models
+namespace ClipRecruitment.Employer.ViewModels
 {
-    public class Database
+    class JobViewModel
     {
         
     }
