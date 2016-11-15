@@ -86,6 +86,7 @@
     "karma-jasmine": "^1.0.2",
     "karma-sauce-launcher": "^1.0.0",
     "merge-stream": "^1.0.0",
+    "ng-alertify": "^1.0.2",
     "pretty-hrtime": "^1.0.1",
     "run-sequence": "^1.1.5",
     "tiny-lr": "^0.2.1",

@@ -8,6 +8,7 @@ import 'angular-ui-router';
 import 'angular-ui-grid';
 import 'angular-ui-bootstrap';
 import 'angular-ui-bootstrap-datetimepicker';
+import 'ng-alertify';
 import 'bootstrap';
 import './templates';
 import './filters';
@@ -21,6 +22,7 @@ const requires = [
   'ui.grid',
   'ui.bootstrap',
   'ui.bootstrap.datetimepicker',
+  'Alertify',
   'templates',
   'app.filters',
   'app.controllers',
