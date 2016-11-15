@@ -4,8 +4,6 @@ import angular from 'angular';
 import constants from './constants';
 import onConfig  from './on_config';
 import onRun     from './on_run';
-
-
 import 'angular-ui-router';
 import 'angular-ui-grid';
 import 'angular-ui-bootstrap';
@@ -17,9 +15,8 @@ import './controllers';
 import './services';
 import './directives';
 
-
 // create and bootstrap application
-const requires = [  
+const requires = [
   'ui.router',
   'ui.grid',
   'ui.bootstrap',
