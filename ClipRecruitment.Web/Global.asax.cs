@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using System.Web.ModelBinding;
 using System.Web.Routing;
 
 namespace ClipRecruitment.Web
@@ -22,5 +23,6 @@ namespace ClipRecruitment.Web
 
             GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
         }
+                
     }
 }
