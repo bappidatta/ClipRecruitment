@@ -23,15 +23,12 @@ namespace ClipRecruitment.Employer.Services
         public async Task<JobViewModel> CreateJobAsync(JobViewModel jobVM)
         {
             var document = jobVM.ToBsonDocument();
-
-            document.Remove("_id");
-            
+            document.Remove("_id");            
             await _db.Jobs.InsertOneAsync(document);
-
             return BsonSerializer.Deserialize<JobViewModel>(document);
         }
 
-        public JobViewModel UpdateJob(JobViewModel jobVM)
+        public async Task<JobViewModel> UpdateJobAsync(JobViewModel jobVM)
         {
             var id = new ObjectId(jobVM._id);
             var filter = Builders<BsonDocument>.Filter.Eq("_id", id);
@@ -40,29 +37,27 @@ namespace ClipRecruitment.Employer.Services
                 .Set("SalaryFrom", jobVM.SalaryFrom)
                 .Set("SalaryTo", jobVM.SalaryTo)
                 .Set("IndustryType", jobVM.IndustryType)
-                .Set("Description", jobVM.Description)
+                .Set("LongDescription", jobVM.LongDescription)
+                .Set("ShortDescription", jobVM.ShortDescription)
                 .Set("EmployerID", jobVM.EmployerID);
 
-            var result  = _db.Jobs.UpdateOne(filter, update);
+            var result  = await _db.Jobs.UpdateOneAsync(filter, update);
 
             return GetJobByID(jobVM._id.ToString());
         }
 
-        public List<JobViewModel> GetAllJob()
+        public List<JobViewModel> GetAllJob(int skip, int take, out int count)
         {
-            List<JobViewModel> jobs = new List<JobViewModel>();
+            count = _db.Jobs.Find(new BsonDocument()).ToList().Count();
 
-            var filter = FilterDefinition<BsonDocument>.Empty;
-            var result = _db.Jobs.Find(FilterDefinition<BsonDocument>.Empty).ToList<BsonDocument>();
-            
-            foreach(var item in result)
+            List<JobViewModel> jobs = new List<JobViewModel>();
+            var result = _db.Jobs.Find(new BsonDocument()).Skip(skip).Limit(take).ToList();
+            foreach(var item in result.ToList())
             {
                 jobs.Add(BsonSerializer.Deserialize<JobViewModel>(item));
             }
-
-            return jobs;            
-        }
-        
+            return jobs;
+        }        
 
         public JobViewModel GetJobByID(string JobID)
         {
