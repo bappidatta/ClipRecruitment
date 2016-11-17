@@ -55,6 +55,11 @@ namespace ClipRecruitment.Employer.Services
             return employerList;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="employerVM"></param>
+        /// <returns></returns>
         public EmployerViewModel UpdateEmployer(EmployerViewModel employerVM)
         {
             var id = new ObjectId(employerVM._id);
@@ -73,6 +78,11 @@ namespace ClipRecruitment.Employer.Services
             return GetEmployerByID(employerVM._id.ToString());
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="employerId"></param>
+        /// <returns></returns>
         public EmployerViewModel GetEmployerByID(string employerId)
         {
             var id = new ObjectId(employerId);

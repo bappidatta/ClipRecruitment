@@ -37,6 +37,14 @@ namespace ClipRecruitment.Domain
             }
         }
 
+        public IMongoCollection<BsonDocument> Candidates
+        {
+            get
+            {
+                return GetCollection("Candidates");
+            }
+        }
+
         private IMongoCollection<BsonDocument> GetCollection(string collectionName)
         {
             if (this.db == null)

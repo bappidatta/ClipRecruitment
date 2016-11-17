@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClipRecruitment.Employer.ViewModels
+namespace ClipRecruitment.Candidate.ViewModels
 {
-    public class Candidate
+    public class CandidateViewModel
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
