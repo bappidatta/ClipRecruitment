@@ -14,6 +14,13 @@ namespace ClipRecruitment.Web.App_Start
         public void Configuration(IAppBuilder app)
         {
             app.MapSignalR();
+            
         }
+    }
+
+    public static class Pagination
+    {
+        public static int Size = 10;
+
     }
 }

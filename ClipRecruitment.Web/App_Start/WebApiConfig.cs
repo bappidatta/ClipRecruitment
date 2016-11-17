@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace ClipRecruitment.Web
 {
@@ -13,6 +14,11 @@ namespace ClipRecruitment.Web
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+
+            // Enable CORS [Cross Origin Resource Sharing] Globally 
+            // for all controllers 
+            var corsAttr = new EnableCorsAttribute(origins:"*", headers: "*", methods: "*");
+            config.EnableCors(corsAttr);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

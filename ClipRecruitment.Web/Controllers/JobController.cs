@@ -1,5 +1,6 @@
 ﻿using ClipRecruitment.Employer.Services;
 using ClipRecruitment.Employer.ViewModels;
+using ClipRecruitment.Web.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,30 +8,34 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
+
 
 namespace ClipRecruitment.Web.Controllers
 {
     public class JobController : ApiController
     {
-        private JobService jobService;
+        private JobService jobService;        
         
         public JobController(JobService jobService)
         {
-            this.jobService = jobService;
+            this.jobService = jobService;            
         }
 
 
         [HttpGet]
-        [Route("api/Job/GetAllJob/")]
+        [Route("api/Job/GetAllJob/")]        
         public IHttpActionResult GetAllJob(int pageNo)
         {
             try
-            {
-                int skip = pageNo * 10;
-                int take = 10;
+            {               
                 int count = 0;
-                var result = jobService.GetAllJob(skip, take, out count);
-                return Ok(new { Success = result });
+                var result = jobService.GetAllJob(
+                    skip: (pageNo * Pagination.Size), 
+                    take: Pagination.Size, 
+                    count: out count);
+
+                return Ok(new { Success = result, Count = count });
             }
             catch(Exception ex)
             {
