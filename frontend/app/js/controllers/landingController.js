@@ -1,22 +1,27 @@
 function landingController(jobService){
     'ngInject';
     const vm = this;
-    vm.pageNo = 0;
-    
-    vm.jobPostings = [];
+    vm.pageNo = 0;    
+    vm.totalCount = 0;
+    vm.jobPostings = [];    
 
+    vm.init = function(){
+        vm.getAllJob();
+    }
+        
     vm.getAllJob = function(){
-        vm.pageNo += 1;
         jobService.getAllJob(vm.pageNo).then(function(res){
-            console.log(res.data);
-        })
-    
-
-    console.log(vm.pageNo);
-    
+            if(res.data.Success){
+                vm.totalCount = res.data.Count;
+                for(var i in res.data.Success){
+                    vm.jobPostings.push(res.data.Success[i]);
+                }
+                                
+                vm.pageNo += 1;
+            }
+        });
     };
 }
-
 
 export default{
     name: 'landingController',

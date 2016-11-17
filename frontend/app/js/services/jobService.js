@@ -4,15 +4,7 @@ function jobService($http) {
   const service = {};
   
   service.getAllJob = function(pageNo){
-      return new Promise((resolve, reject) => {
-          $http.get('http://localhost:57154/api/Job/GetAllJob', {params: {pageNo: pageNo}})
-          .success((data) => {
-              resolve(data);
-          })
-          .error((err, status) => {
-              reject(err, status);
-          });
-      });    
+      return $http.get('http://localhost:57154/api/Job/GetAllJob', {params: {pageNo: pageNo}});
   };
 
   service.get = function() {

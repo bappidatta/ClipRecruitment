@@ -1,4 +1,4 @@
-<section class="banner-area" style="background-image: url(images/landing-banner.jpg)">
+<section class="banner-area" style="background-image: url(images/landing-banner.jpg)" ng-init="landing.init()">
             <div class="container">
                 <ul class="banner-menu">
                     <li><a href="#">Client</a></li>
@@ -13,14 +13,14 @@
                 <div class="row">
                     <div class="col-sm-9 col-xs-12 jobs-list-area">
                         <h3>Select your Expertise</h3>
-                        <h3>Recently Posted jobs</h3>
+                        <h3>Recently Posted jobs</h3>                        
                         <div class="available-jobs">
 
                             <div class="row jobs-list" ng-repeat="job in landing.jobPostings">
                                 <div class="col-sm-9 col-xs-12">
-                                    <h3>{{job.title}}</h3>
-                                    <p>A Commercial Prpoerty lawyer required to join a leading UK Law firm.</p>
-                                    <p>Blake Morgan is one of the UK's leading full service law firms, with offices in London, Wales, Thames Valley and the South East. As a key client of Hays Lega, we are supporting Blake Morgan with this exciting opportunity that has arisen for a Senior Commercial Property Lawyer/Solicitor to be based in their Southampton offices in Hampshire.</p>
+                                    <h3>{{job.JobTitle}}</h3>
+                                    <p>{{job.ShortDescription}}</p>
+                                    <p>{{job.LongDescription}}</p>
                                 </div>
                                 <div class="col-sm-1 col-xs-12 text-center apply-block">
                                     <h5>Apply</h5>
@@ -28,7 +28,7 @@
                                 </div>
                                 <div class="col-sm-2 col-xs-12 text-center">
                                     <h5>Salary</h5>
-                                    <div class="salary-range">£15,000-£20,000</div>
+                                    <div class="salary-range">£{{job.SalaryFrom}}-£{{job.SalaryTo}}</div>
                                     <a href="#" class="btn-black">read more</a>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                                     <a href="#" class="btn-black">read more</a>
                                 </div>
                             </div>-->
-                            <a href="#" class="load-more-jobs-btn" ng-click="landing.getAllJob()">View 156 more jobs</a>
+                            <a href="#" class="load-more-jobs-btn" ng-click="landing.getAllJob()" ng-if="landing.totalCount - landing.jobPostings.length != 0">View {{landing.totalCount - landing.jobPostings.length}} more jobs</a>
                         </div>
 
                     </div>
