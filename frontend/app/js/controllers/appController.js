@@ -1,33 +1,33 @@
-function appController(){
-    'ngInject';
+// function appController(){
+//     'ngInject';
 
-console.log("appController");
-    const vm = this;
-    vm.user = {
-        isAuthenticated: false,
-        userRole: 'anonymous',
-        signIn: vm.signIn,
-        signOut: vm.signOut,
-        signUp: vm.signUp,
+// console.log("appController");
+//     const vm = this;
+//     vm.user = {
+//         isAuthenticated: false,
+//         userRole: 'anonymous',
+//         signIn: vm.signIn,
+//         signOut: vm.signOut,
+//         signUp: vm.signUp,
 
-    };
+//     };
     
 
-// signup user 
-    vm.signIn = function(){
+// // signup user 
+//     vm.signIn = function(){
 
-    }
+//     }
 
-    vm.signUp = function(){
+//     vm.signUp = function(){
 
-    }
+//     }
 
-    vm.signOut = function(){
+//     vm.signOut = function(){
 
-    }
-}
+//     }
+// }
 
-export default{
-    name: 'appController',
-    fn: appController
-}
+// export default{
+//     name: 'appController',
+//     fn: appController
+// }

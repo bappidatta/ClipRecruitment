@@ -1,30 +1,22 @@
-function landingController(){
+function landingController(jobService){
     'ngInject';
     const vm = this;
+    vm.pageNo = 0;
+    
+    vm.jobPostings = [];
 
+    vm.getAllJob = function(){
+        vm.pageNo += 1;
+        jobService.getAllJob(vm.pageNo).then(function(res){
+            console.log(res.data);
+        })
     
 
-    vm.jobPostings = [
-        {
-            title: 'Paralegal',
-            shortDescription: 'A Commercial Prpoerty lawyer required to join a leading UK Law firm.',
-            longDescription: 'dkdkd',
-            salaryRange: {
-                from: 15000,
-                to: 20000
-            }
-        },
-        {
-            title: 'Paralegal',
-            shortDescription: 'A Commercial Prpoerty lawyer required to join a leading UK Law firm.',
-            longDescription: 'dkdkd',
-            salaryRange: {
-                from: 15000,
-                to: 20000
-            }
-        }
-    ];
+    console.log(vm.pageNo);
+    
+    };
 }
+
 
 export default{
     name: 'landingController',
