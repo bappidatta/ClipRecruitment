@@ -4,18 +4,18 @@
                     <div class="left-search-section">
 
                         <label>Industry</label>
-                        <div class="input-group">
-                            <select class="form-control">
-                                <option>Legal (Default)</option>
-                                <option>Option 2</option>
-                                <option>Option 3</option>
-                                <option>Option 4</option>
+                        <div class="input-group">                            
+                            <select class="form-control" ng-model="jobSearch.searchCriteria.IndustryID" 
+                                    ng-options="ind.id as ind.name for ind in jobSearch.industryTypes"
+                                    ng-change="jobSearch.onIndustryChange(jobSearch.searchCriteria.IndustryID)"
+                                    >
+                               <option value="">Industry Type</option>
                             </select>
-                            <select class="form-control">
-                                <option>Insolvency</option>
-                                <option>Option 2</option>
-                                <option>Option 3</option>
-                                <option>Option 4</option>
+                            <select class="form-control" ng-model="jobSearch.searchCriteria.InsolvencyID" 
+                                    ng-options="ins.id as ins.name for ins in jobSearch.insolvencyTypes"
+
+                                    >
+                                <option value="">Insolvency</option>
                             </select>
 
                         </div><!-- /input-group -->
@@ -99,8 +99,8 @@
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-9 left-padding-off bg-white">
-                    <h2 class="clearfix pull-left">Jobs Selected [1]</h2>
-                    <div class="pull-right jobs-apply-block">
+                    <h2 class="clearfix pull-left" ng-if="jobSearch.selectedJobs.length">Jobs Selected [1]</h2>
+                    <div class="pull-right jobs-apply-block" ng-if="jobSearch.selectedJobs.length">
                         You are applying to 1 Job(s) <a href="#" class="apply-btn">Apply Now</a>
                     </div>
 
@@ -108,11 +108,11 @@
                     <hr />                    
 
                     <div class="jobs-search-block">
-                        <div class="row result-item">                           
+                        <div class="row result-item" ng-repeat="job in jobSearch.selectedJobs">                           
                             <div class="col-sm-8 em-summary">
-                                <h3>Solicitor</h3>
-                                <p>A Commercial Property lawyer required to join a leading UK Law firm.</p>
-                                <p>Blake Morgan is one of the UK's leading full service law firms, with offices in Londo, Wales, Thames Valley and the South East. As a key client of Hayes Legal, we are supporting Blake Morgan with the exciting opportunity that has arisen for a Senior Commercial Property Lawyer/Solicitor to be based in their southempton offices in Hampshire.</p>
+                                <h3>{{job.Position}}</h3>
+                                <p>{{job.ShortDescription}}</p>
+                                <p>{{job.LongDescription}}</p>
                             </div>
                             <div class="col-sm-1 em-shortlist listed text-center">
                                 <strong>Apply</strong>
@@ -120,7 +120,7 @@
                             </div>
                             <div class="col-sm-3 em-price text-center">
                                 <strong>Salary</strong>
-                                <span class="arrow-button"><span class="label">£15,000-£20,000</span><span class="arrow"></span></span>
+                                <span class="arrow-button"><span class="label">£{{job.SalaryFrom}}-£{{job.SalaryTo}}</span><span class="arrow"></span></span>
                                 <div>
                                     <a href="#" class="read-more">Read More >></a>
 
@@ -128,16 +128,17 @@
                             </div>
                         </div><!-- /.result-item -->
 
-                        <h2 class="clearfix pull-left">Search Results [2]</h2>                       
+                        <h2 class="clearfix pull-left" ng-if="jobSearch.searchResult.length">Search Results [{{jobSearch.searchResult.length}}]</h2>                       
 
                         <br class="clear" />
                         <hr /> 
 
-                        <div class="row result-item">                           
+                        </div><!-- /.result-item -->
+                        <div class="row result-item" ng-repeat="job in jobSearch.searchResult">                           
                             <div class="col-sm-8 em-summary">
-                                <h3>Solicitor</h3>
-                                <p>A Commercial Property lawyer required to join a leading UK Law firm.</p>
-                                <p>Blake Morgan is one of the UK's leading full service law firms, with offices in Londo, Wales, Thames Valley and the South East. As a key client of Hayes Legal, we are supporting Blake Morgan with the exciting opportunity that has arisen for a Senior Commercial Property Lawyer/Solicitor to be based in their southempton offices in Hampshire.</p>
+                                 <h3>{{job.Position}}</h3>
+                                <p>{{job.ShortDescription}}</p>
+                                <p>{{job.LongDescription}}</p>
                             </div>
                             <div class="col-sm-1 em-shortlist text-center">
                                 <strong>Apply</strong>
@@ -145,33 +146,13 @@
                             </div>
                             <div class="col-sm-3 em-price text-center">
                                 <strong>Salary</strong>
-                                <span class="arrow-button"><span class="label">£15,000-£20,000</span><span class="arrow"></span></span>
+                                <span class="arrow-button"><span class="label">£{{job.SalaryFrom}}-£{{job.SalaryTo}}</span><span class="arrow"></span></span>
                                 <div>
                                     <a href="#" class="read-more">Read More >></a>
 
                                 </div>
                             </div>
-                        </div><!-- /.result-item -->
-                        <div class="row result-item">                           
-                            <div class="col-sm-8 em-summary">
-                                <h3>Solicitor</h3>
-                                <p>A Commercial Property lawyer required to join a leading UK Law firm.</p>
-                                <p>Blake Morgan is one of the UK's leading full service law firms, with offices in Londo, Wales, Thames Valley and the South East. As a key client of Hayes Legal, we are supporting Blake Morgan with the exciting opportunity that has arisen for a Senior Commercial Property Lawyer/Solicitor to be based in their southempton offices in Hampshire.</p>
-                            </div>
-                            <div class="col-sm-1 em-shortlist text-center">
-                                <strong>Apply</strong>
-                                <span><i class="fa fa-check-circle"></i></span>
-                            </div>
-                            <div class="col-sm-3 em-price text-center">
-                                <strong>Salary</strong>
-                                <span class="arrow-button"><span class="label">£15,000-£20,000</span><span class="arrow"></span></span>
-                                <div>
-                                    <a href="#" class="read-more">Read More >></a>
-
-                                </div>
-                            </div>
-                        </div><!-- /.result-item -->
-
+                        </div><!-- /.result-item -->    
 
                     </div>
                 </div>

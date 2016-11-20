@@ -180,13 +180,14 @@ namespace ClipRecruitment.Employer.Services
             }
 
             // salary Ranges
-            query = (from j in query.Where(x =>
+            if(jobFilteringVM.SalaryFrom != 0 && jobFilteringVM.SalaryTo != 0)
+            {
+                query = (from j in query.Where(x =>
                         (x.SalaryFrom >= jobFilteringVM.SalaryFrom && x.SalaryFrom < jobFilteringVM.SalaryTo)
                         && (x.SalaryTo <= jobFilteringVM.SalaryTo && x.SalaryTo > jobFilteringVM.SalaryFrom)
                      )
-                     select j).AsQueryable();
-
-
+                         select j).AsQueryable();
+            }
 
             var result = (from j in query
                           select new JobViewModel

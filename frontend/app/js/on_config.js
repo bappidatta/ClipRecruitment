@@ -17,9 +17,10 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
     templateUrl: 'landing.html',
     title: 'Home'
   })
-  .state('Jobs', {
-    url: '/jobs', 
-    templateUrl: 'jobs_dashboard.html',
+  .state('Search Jobs', {
+    url: '/Search-Jobs', 
+    controller: 'jobSearchController as jobSearch',
+    templateUrl: 'search-jobs.html',
     title: 'Jobs'
   })
   .state('Index', {
@@ -27,9 +28,9 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
     templateUrl: 'employee_index.html',
     title: 'Index'
   })
-  .state('Dashboard', {
-    url: '/dashboard',
-    templateUrl: 'dashboard.html',
+  .state('Search Candidate', {
+    url: '/Search-Candidate',
+    templateUrl: 'search-candidate.html',
     title: 'Dashboard'
   })
   .state('Create', {

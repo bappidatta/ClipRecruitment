@@ -7,23 +7,10 @@ function jobService($http) {
       return $http.get('http://localhost:57154/api/Job/GetAllJob', {params: {pageNo: pageNo}});
   };
 
-  service.get = function() {
-    return new Promise((resolve, reject) => {
-      $http.get('apiPath').success((data) => {
-        resolve(data);
-      }).error((err, status) => {
-        reject(err, status);
-      });
-    });
-  };
-
-  service.test = function(){
-    return 'testing service';
-  };
-
-  service.test2 = function(){
-    return 'testing service 2';
-  };
+  
+  service.searchJobs = function(searchCriteria){
+    return $http.post('http://localhost:57154/api/Job/SearchJob/', searchCriteria);
+  }
 
   return service;
 
