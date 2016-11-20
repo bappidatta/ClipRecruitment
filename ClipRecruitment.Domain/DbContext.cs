@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using ClipRecruitment.Domain.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,16 @@ namespace ClipRecruitment.Domain
         private IMongoDatabase db; 
        
 
-        public IMongoCollection<BsonDocument> Jobs
+        public IMongoCollection<Job> Jobs
         {
             get
             {
-                return GetCollection("Jobs");
+                if(this.db == null)
+                {
+                    var client = new MongoClient("mongodb://localhost:27017");
+                    this.db = client.GetDatabase("ClipRecruitment");
+                }
+                return this.db.GetCollection<Job>("Jobs");
             }
         }
 
@@ -56,8 +62,10 @@ namespace ClipRecruitment.Domain
             return db.GetCollection<BsonDocument>(collectionName);
         }
 
+        
         private void abc()
         {
+
             var client = new MongoClient("mongodb://localhost:27017");
 
             var database = client.GetDatabase("foo");

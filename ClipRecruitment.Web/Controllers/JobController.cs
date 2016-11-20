@@ -99,50 +99,73 @@ namespace ClipRecruitment.Web.Controllers
         }
 
         
-
-        public IHttpActionResult SearchJob()
+        [HttpPost]
+        [Route("api/Job/SearchJob/")]
+        public IHttpActionResult SearchJob(JobFilteringViewModel jobFilteringVM)
         {
-            throw new NotImplementedException();
+            if(!ModelState.IsValid)
+                return Ok(new { Error = "Invalid ModelState" });
+
+            try
+            {
+                var jobs = jobService.SearchJobs(jobFilteringVM);
+                return Ok(new { Success = jobs });
+            }
+            catch(Exception ex)
+            {
+                return Ok(new { Error = ex.Message });
+            }
         }
-
-
-
-
-
-
-
-
-
-
-
 
 
         //[HttpGet]
         //[Route("api/Job/SeedJobs/")]
         //public async Task<IHttpActionResult> SeedJobs(int id)
         //{
-        //    Random rnd = new Random();
-            
-        //    string title = "Job Title ";        
+        //    decimal from = 15000;
+        //    decimal to = 25000;
         //    string shortDesc = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.";
         //    string longDesc = @"Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
         //                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a 
         //                        galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also
         //                        the leap into electronic typesetting, remaining essentially unchanged.";
-        //    string industry = "Lorem Ipsum is simply";
+            
+        //    List<string> positins = new List<string>() {
+        //        "Software Developer", "Lawer","Software Engineer","Project Manager","Clerk",
+        //        "Nurse", "Doctor", "Math Teacher", "Scientist" };
+        //    List<string> locations = new List<string>() { "Amble", "Beverley", "Bewdley", "Bilston", "Bolsover", "Chatteris", "Crediton",
+        //        "Dartmouth", "Dorking", "Dorking", "Dorking", "Dorking"
+        //    };
 
-        //    for(int i = 1; i < 201; i++)
+        //    int switcher = 0;
+
+        //    for (int i = 1; i < 201; i++)
         //    {
+
+
+
 
         //        await CreateJobAsync(new JobViewModel
         //        {
+        //            IndustryID = switcher,
+        //            InsolvencyID = switcher * 2,
         //            LongDescription = longDesc,
         //            ShortDescription = shortDesc,
-        //            JobTitle = title + i.ToString(),
-        //            IndustryType = industry,
-        //            SalaryFrom = rnd.Next(15000, 20000),
-        //            SalaryTo = rnd.Next(25000, 35000)                    
+        //            Position = positins[switcher],
+        //            Location = locations[switcher],
+        //            YearOfExperience = switcher,
+        //            IsFullTime = switcher > 5 ? true : false,
+        //            IsPermanent = switcher < 5 ? true : false,
+        //            IsRemote = switcher % 2 == 0 ? true : false,
+        //            SalaryFrom = from + 500,
+        //            SalaryTo = to + 500,
         //        });
+        //        from += 500;
+        //        to += 500;
+        //        if (switcher == 8)
+        //            switcher = 0;
+        //        else
+        //            switcher++;
         //    }
 
         //    return Ok(true);
