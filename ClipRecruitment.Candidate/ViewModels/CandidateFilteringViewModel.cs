@@ -1,6 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,15 +6,14 @@ using System.Threading.Tasks;
 
 namespace ClipRecruitment.Candidate.ViewModels
 {
-    public class CandidateViewModel
+    public class CandidateFilteringViewModel
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
+
         public string _id { get; set; }
         public string CandidateName { get; set; }
         public string Profile { get; set; }
-        public string Position { get; set; }
-        public string Location { get; set; }
+        public List<string> Position { get; set; }
+        public List<string> Location { get; set; }
         public string Experince { get; set; }
         public decimal CurrentSalary { get; set; }
         public decimal ExpectedSalaryFrom { get; set; }

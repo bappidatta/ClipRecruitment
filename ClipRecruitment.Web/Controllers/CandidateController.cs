@@ -1,5 +1,6 @@
 ﻿using ClipRecruitment.Candidate.Services;
 using ClipRecruitment.Candidate.ViewModels;
+using ClipRecruitment.Web.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Web.Http;
 
 namespace ClipRecruitment.Web.Controllers
 {
-    public class CandidateController :ApiController
+    public class CandidateController : ApiController
     {
         private CandidateService candidateService;
 
@@ -24,12 +25,17 @@ namespace ClipRecruitment.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("api/Candidate/GetAllCandidates/")]
-        public IHttpActionResult GetAllEmployers()
+        public IHttpActionResult GetAllCandidates(int pageNo)
         {
             try
             {
-                var result = candidateService.GetAllCandidateList();
-                return Ok(new { Success = result });
+                int count = 0;
+
+                var result = candidateService.GetAllCandidateList(
+                    skip: (pageNo * Pagination.Size),
+                    take: Pagination.Size,
+                    count: out count);
+                return Ok(new { Success = result, Count = count });
             }
             catch (Exception ex)
             {
@@ -68,14 +74,32 @@ namespace ClipRecruitment.Web.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("api/Candidate/UpdateCandidate")]
-        public IHttpActionResult UpdateCandidate(CandidateViewModel candidateVM)
+        public async Task<IHttpActionResult> UpdateCandidate(CandidateViewModel candidateVM)
         {
             if (!ModelState.IsValid)
                 return Ok(new { Error = "ModelState Invalid!" });
             try
             {
-                var candidate = candidateService.UpdateCandidate(candidateVM);
+                var candidate = await candidateService.UpdateCandidate(candidateVM);
                 return Ok(new { Success = candidate });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new { Error = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Route("api/Candidate/SearchCandidate/")]
+        public IHttpActionResult SearchCandidate(CandidateFilteringViewModel candidateFilteringVM)
+        {
+            if (!ModelState.IsValid)
+                return Ok(new { Error = "Invalid ModelState" });
+
+            try
+            {
+                var candidates = candidateService.SearchCandidates(candidateFilteringVM);
+                return Ok(new { Success = candidates });
             }
             catch (Exception ex)
             {

@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClipRecruitment.Candidate.ViewModels
+namespace ClipRecruitment.Domain.Models
 {
-    public class CandidateViewModel
+    public class Candidates
     {
+
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string _id { get; set; }

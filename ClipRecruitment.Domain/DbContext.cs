@@ -35,19 +35,20 @@ namespace ClipRecruitment.Domain
             }
         }
 
-        public IMongoCollection<BsonDocument> Employers
+        public IMongoCollection<Employers> Employers
         {
             get
             {
-                return GetCollection("Employers");
+                
+                return getDb().GetCollection<Employers>("Employers");
             }
         }
 
-        public IMongoCollection<BsonDocument> Candidates
+        public IMongoCollection<Candidates> Candidates
         {
             get
             {
-                return GetCollection("Candidates");
+                return getDb().GetCollection<Candidates>("Candidates");
             }
         }
 
@@ -62,7 +63,17 @@ namespace ClipRecruitment.Domain
             return db.GetCollection<BsonDocument>(collectionName);
         }
 
-        
+        private IMongoDatabase getDb()
+        {
+            if (this.db == null)
+            {
+                var client = new MongoClient("mongodb://localhost:27017");
+                this.db = client.GetDatabase("ClipRecruitment");
+            }
+
+            return db;
+        }
+
         private void abc()
         {
 

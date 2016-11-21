@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClipRecruitment.Employer.ViewModels
+namespace ClipRecruitment.Domain.Models
 {
-    public class EmployerViewModel
+    public class Employers
     {
 
         [BsonId]
@@ -19,5 +19,6 @@ namespace ClipRecruitment.Employer.ViewModels
         public string MobileNo { get; set; }
         public string Email { get; set; }
         public string Location { get; set; }
+
     }
 }

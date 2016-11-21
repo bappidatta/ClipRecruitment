@@ -1,5 +1,6 @@
 ﻿using ClipRecruitment.Employer.Services;
 using ClipRecruitment.Employer.ViewModels;
+using ClipRecruitment.Web.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,12 +25,16 @@ namespace ClipRecruitment.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("api/Employer/GetAllEmployers/")]
-        public IHttpActionResult GetAllEmployers()
+        public IHttpActionResult GetAllEmployers(int pageNo)
         {
             try
             {
-                var result = employerService.GetAllEmployerList();
-                return Ok(new { Success = result });
+                int count = 0;
+                var result = employerService.GetAllEmployerList(
+                    skip: (pageNo * Pagination.Size),
+                    take: Pagination.Size,
+                    count: out count);
+                return Ok(new { Success = result, Count = count });
             }
             catch (Exception ex)
             {
@@ -61,15 +66,20 @@ namespace ClipRecruitment.Web.Controllers
             return Ok(new { Error = "Could Not Saved Data!" });
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="employerVM"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("api/Employer/UpdateEmployer")]
-        public IHttpActionResult UpdateEmployer(EmployerViewModel employerVM)
+        public async Task<IHttpActionResult> UpdateEmployer(EmployerViewModel employerVM)
         {
             if (!ModelState.IsValid)
                 return Ok(new { Error = "ModelState Invalid!" });
             try
             {
-                var employer = employerService.UpdateEmployer(employerVM);
+                var employer = await employerService.UpdateEmployer(employerVM);
                 return Ok(new { Success = employer });
             }
             catch (Exception ex)

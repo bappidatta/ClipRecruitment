@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CandidateService.cs" />
+    <Compile Include="ViewModels\CandidateFilteringViewModel.cs" />
     <Compile Include="ViewModels\CandidateViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using ClipRecruitment.Domain;
+using ClipRecruitment.Domain.Models;
 using ClipRecruitment.Employer.ViewModels;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
@@ -14,6 +15,7 @@ namespace ClipRecruitment.Employer.Services
     public class EmployerService
     {
         private DbContext _db;
+        private Employers employers;
 
         public EmployerService(DbContext db)
         {
@@ -27,32 +29,38 @@ namespace ClipRecruitment.Employer.Services
         /// <returns></returns>
         public async Task<EmployerViewModel> CreateEmployerAsync(EmployerViewModel employerVM)
         {
-            var document = employerVM.ToBsonDocument();
+            employers = new Employers
+            {
+                CompanyName = employerVM.CompanyName,
+                Email = employerVM.Email,
+                Location = employerVM.Location,
+                MobileNo = employerVM.MobileNo
+            };
 
-            document.Remove("_id");
-
-            await _db.Employers.InsertOneAsync(document);
-
-            return BsonSerializer.Deserialize<EmployerViewModel>(document);
+            await _db.Employers.InsertOneAsync(employers);
+            return GetEmployerByID(employers._id);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public List<EmployerViewModel> GetAllEmployerList()
+        public List<EmployerViewModel> GetAllEmployerList(int skip, int take, out int count)
         {
-            List<EmployerViewModel> employerList = new List<EmployerViewModel>();
+            count = _db.Employers.Find(new BsonDocument()).ToList().Count();
 
-            var filter = FilterDefinition<BsonDocument>.Empty;
-            var result = _db.Employers.Find(FilterDefinition<BsonDocument>.Empty).ToList<BsonDocument>();
+            var result = _db.Employers.AsQueryable<Employers>();
 
-            foreach (var item in result)
-            {
-                employerList.Add(BsonSerializer.Deserialize<EmployerViewModel>(item));
-            }
+            return (from e in result.Skip(skip).Take(take)
+                    select new EmployerViewModel
+                    {
+                        CompanyName = e.CompanyName,
+                        Email = e.Email,
+                        Location = e.Location,
+                        MobileNo = e.MobileNo
 
-            return employerList;
+                    }).ToList();
+
         }
 
         /// <summary>
@@ -60,20 +68,17 @@ namespace ClipRecruitment.Employer.Services
         /// </summary>
         /// <param name="employerVM"></param>
         /// <returns></returns>
-        public EmployerViewModel UpdateEmployer(EmployerViewModel employerVM)
+        public async Task<EmployerViewModel> UpdateEmployer(EmployerViewModel employerVM)
         {
             var id = new ObjectId(employerVM._id);
-            var filter = Builders<BsonDocument>.Filter.Eq("_id", id);
-            var update = Builders<BsonDocument>.Update
-                .Set("FirstName", employerVM.FirstName)
-                .Set("LastName", employerVM.LastName)
-                .Set("MobileNo", employerVM.MobileNo)
+            var filter = Builders<Employers>.Filter.Eq("_id", id);
+            var update = Builders<Employers>.Update
+                .Set("CompanyName", employerVM.CompanyName)
                 .Set("Email", employerVM.Email)
-                .Set("Sex", employerVM.Sex)
-                .Set("Salary", employerVM.Salary)
-                .Set("BirthDate", employerVM.BirthDate);
+                .Set("Location", employerVM.Location)
+                .Set("MobileNo", employerVM.MobileNo);
 
-            var result = _db.Employers.UpdateOne(filter, update);
+            var result = _db.Employers.UpdateOneAsync(filter, update);
 
             return GetEmployerByID(employerVM._id.ToString());
         }
@@ -86,12 +91,23 @@ namespace ClipRecruitment.Employer.Services
         public EmployerViewModel GetEmployerByID(string employerId)
         {
             var id = new ObjectId(employerId);
-            var filter = Builders<BsonDocument>.Filter.Eq("_id", id);
+            var filter = Builders<Employers>.Filter.Eq("_id", id);
 
-            var result = _db.Employers.Find<BsonDocument>(filter).SingleOrDefault();
+            var employers = _db.Employers.Find(filter).SingleOrDefault();
 
-            var employer = BsonSerializer.Deserialize<EmployerViewModel>(result);
-            return employer;
+            if (employers != null)
+            {
+                return new EmployerViewModel
+                {
+                    _id = employers._id,
+                    CompanyName = employers.CompanyName,
+                    Email = employers.Email,
+                    Location = employers.Location,
+                    MobileNo = employers.MobileNo
+                };
+            }
+
+            return null;
         }
     }
 }
