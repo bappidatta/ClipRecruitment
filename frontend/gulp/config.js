@@ -13,7 +13,7 @@ export default {
       'app/styles/**/*.css',
       'node_modules/angular-ui-grid/ui-grid.css',
       'node_modules/angular-ui-bootstrap-datetimepicker/datetimepicker.css',
-      'node_modules/bootstrap/dist/css/bootstrap.css'
+      'node_modules/bootstrap/dist/css/bootstrap.css'      
     ],
     dest: 'build/css',
     prodSourcemap: false,

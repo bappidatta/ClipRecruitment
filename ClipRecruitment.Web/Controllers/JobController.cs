@@ -117,60 +117,83 @@ namespace ClipRecruitment.Web.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("api/Job/GetLocations")]
+        public IHttpActionResult GetLocations(string inputString)
+        {
+            if(!string.IsNullOrEmpty(inputString))
+            {
+                return Ok(new { Success = jobService.GetLocations(inputString) });
+            }
+            return Ok(new { Error = "Not Available" });
+        }
 
-        //[HttpGet]
-        //[Route("api/Job/SeedJobs/")]
-        //public async Task<IHttpActionResult> SeedJobs(int id)
-        //{
-        //    decimal from = 15000;
-        //    decimal to = 25000;
-        //    string shortDesc = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.";
-        //    string longDesc = @"Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-        //                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a 
-        //                        galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also
-        //                        the leap into electronic typesetting, remaining essentially unchanged.";
-            
-        //    List<string> positins = new List<string>() {
-        //        "Software Developer", "Lawer","Software Engineer","Project Manager","Clerk",
-        //        "Nurse", "Doctor", "Math Teacher", "Scientist" };
-        //    List<string> locations = new List<string>() { "Amble", "Beverley", "Bewdley", "Bilston", "Bolsover", "Chatteris", "Crediton",
-        //        "Dartmouth", "Dorking", "Dorking", "Dorking", "Dorking"
-        //    };
+        [HttpGet]
+        [Route("api/Job/GetPositions")]
+        public IHttpActionResult GetPositions(string inputString)
+        {
+            if (!string.IsNullOrEmpty(inputString))
+            {
+                return Ok(new { Success = jobService.GetPositions(inputString) });
+            }
+            return Ok(new { Error = "Not Available" });
+        }
 
-        //    int switcher = 0;
+        [HttpGet]
+        [Route("api/Job/SeedJobs/")]
+        public async Task<IHttpActionResult> SeedJobs(int id)
+        {
+            decimal from = 15000;
+            decimal to = 25000;
+            string shortDesc = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.";
+            string longDesc = @"Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a 
+                                galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also
+                                the leap into electronic typesetting, remaining essentially unchanged.";
 
-        //    for (int i = 1; i < 201; i++)
-        //    {
+            List<string> positins = new List<string>() {
+                "Software Developer", "Lawer","Software Engineer","Project Manager","Clerk",
+                "Nurse", "Doctor", "Math Teacher", "Scientist" };
+            List<string> locations = new List<string>() { "Amble", "Beverley", "Bewdley", "Bilston", "Bolsover", "Chatteris", "Crediton",
+                "Dartmouth", "Dorking", "Dorking", "Dorking", "Dorking"
+            };
 
+            int switcher = 0;
 
+            for (int i = 1; i < 201; i++)
+            {
 
+                await CreateJobAsync(new JobViewModel
+                {
+                    IndustryID = switcher,
+                    InsolvencyID = switcher,
+                    LongDescription = longDesc,
+                    ShortDescription = shortDesc,
+                    Position = positins[switcher],
+                    Location = locations[switcher],
+                    YearOfExperience = switcher,
+                    IsLocal = switcher % 2 != 0 ? true : false,
+                    IsRemote = switcher % 2 == 0 ? true : false,
+                    IsFullTime = switcher % 2 != 0 ? true : false,
+                    IsPartTime = switcher % 2 == 0 ? true : false,
+                    IsPermanent = switcher % 2 != 0 ? true : false,
+                    IsTemporary = switcher % 2 == 0 ? true : false,
+                                      
 
-        //        await CreateJobAsync(new JobViewModel
-        //        {
-        //            IndustryID = switcher,
-        //            InsolvencyID = switcher * 2,
-        //            LongDescription = longDesc,
-        //            ShortDescription = shortDesc,
-        //            Position = positins[switcher],
-        //            Location = locations[switcher],
-        //            YearOfExperience = switcher,
-        //            IsFullTime = switcher > 5 ? true : false,
-        //            IsPermanent = switcher < 5 ? true : false,
-        //            IsRemote = switcher % 2 == 0 ? true : false,
-        //            SalaryFrom = from + 500,
-        //            SalaryTo = to + 500,
-        //        });
-        //        from += 500;
-        //        to += 500;
-        //        if (switcher == 8)
-        //            switcher = 0;
-        //        else
-        //            switcher++;
-        //    }
+                    SalaryFrom = from + 500,
+                    SalaryTo = to + 500,
+                });
+                from += 500;
+                to += 500;
+                if (switcher == 8)
+                    switcher = 0;
+                else
+                    switcher++;
+            }
 
-        //    return Ok(true);
+            return Ok(true);
 
-        //}
+        }
 
     }
 }

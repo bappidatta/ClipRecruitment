@@ -1,4 +1,4 @@
-<section class="main-contains">
+<section class="main-contains" ng-init="jobSearch.init()">
             <div class="container">
                 <div class="col-lg-3 col-md-3 col-sm-3 right-padding-off bg-gary">
                     <div class="left-search-section">
@@ -13,7 +13,6 @@
                             </select>
                             <select class="form-control" ng-model="jobSearch.searchCriteria.InsolvencyID" 
                                     ng-options="ins.id as ins.name for ins in jobSearch.insolvencyTypes"
-
                                     >
                                 <option value="">Insolvency</option>
                             </select>
@@ -24,7 +23,10 @@
                             <div class="col-sm-7 col-xs-12 position-block">
                                 <label>Position</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Solicitors">
+                                    <input type="text" class="form-control" placeholder="Solicitors"
+                                            ng-model="jobSearch.position"
+                                            uib-typeahead="position for position in jobSearch.getPositions($viewValue)"
+                                            >
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
                                     </span>
@@ -33,17 +35,25 @@
                             <div class="col-sm-5 col-xs-12 experience-block">
                                 <label>Experience</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="0-2 Years PQE">
+                                    <input type="text" class="form-control" placeholder="0-2 Years PQE" 
+                                        ng-model="jobSearch.experience"
+                                        maxlength="5"                                                                                
+                                        >
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button"><i class="fa fa-plus-circle"></i></button>
+                                        <button class="btn btn-default" type="button" ng-click="jobSearch.addPosition(jobSearch.position, jobSearch.experience)"><i class="fa fa-plus-circle"></i></button>
                                     </span>                                   
                                 </div><!-- /input-group -->
                             </div>
                         </div>
-                        <a href="#" class="arrow-button"><span class="label">Paralegal</span><span class="arrow"></span></a>
-                        <a href="#" class="arrow-button"><span class="title">Solicitor</span><span class="label">0-2 Years PQE</span><span class="arrow"></span></a>
+                        <a href="#" class="arrow-button" 
+                            ng-repeat="position in jobSearch.searchCriteria.PositionList" 
+                            ng-click="jobSearch.removePosition($index)"
+                            >
+                            <span class="label">{{position}}</span><span class="arrow"></span>
+                        </a>
+                        
 
-                        <div class="rectuit-cat row">                            
+                        <!--<div class="rectuit-cat row">                            
                             <ul class="col-sm-6 col-xs-12">
                                 <li>Fulltime <span><i class="fa fa-check-circle"></i></span></li>
                                 <li>Part time <span><i class="fa fa-circle-thin"></i></span></li>
@@ -54,54 +64,68 @@
                                 <li>Remote <span><i class="fa fa-check-circle"></i></span></li>
                                 <li>Locum <span><i class="fa fa-check-circle"></i></span></li>
                             </ul>
+                        </div>-->
+
+                        <div class="rectuit-cat row">                            
+                            <ul class="col-sm-6 col-xs-12">
+                                <li>Fulltime <span><input type="checkbox" class="checkbox" ng-model="jobSearch.searchCriteria.IsFullTime" ng-change="jobSearch.onIndustryChange(jobSearch.searchCriteria.IndustryID)"/></span></li>
+                                <li>Part time <span><input type="checkbox" class="checkbox" ng-model="jobSearch.searchCriteria.IsPartTime" ng-change="jobSearch.onIndustryChange(jobSearch.searchCriteria.IndustryID)"/></span></li>
+                            </ul>
+                            <ul class="col-sm-6 col-xs-12">
+                                <li>Permanent <span><input type="checkbox" class="checkbox" ng-model="jobSearch.searchCriteria.IsPermanent" ng-change="jobSearch.onIndustryChange(jobSearch.searchCriteria.IndustryID)"/></span></li>
+                                <li>Temporary <span><input type="checkbox" class="checkbox" ng-model="jobSearch.searchCriteria.IsTemporary" ng-change="jobSearch.onIndustryChange(jobSearch.searchCriteria.IndustryID)"/></span></li>
+                                <li>Remote <span><input type="checkbox" class="checkbox" ng-model="jobSearch.searchCriteria.IsRemote" ng-change="jobSearch.onIndustryChange(jobSearch.searchCriteria.IndustryID)"/></span></li>
+                                <li>Locum <span><input type="checkbox" class="checkbox" ng-model="jobSearch.searchCriteria.IsLocal" ng-change="jobSearch.onIndustryChange(jobSearch.searchCriteria.IndustryID)"/></span></li>
+                            </ul>
                         </div>
 
 
                         <label>Location</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="leeds">
+                            <input type="text" class="form-control" placeholder="leeds" 
+                                    ng-model="jobSearch.location"
+                                    uib-typeahead="location for location in jobSearch.getLocations($viewValue)"
+                                    >                            
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                                <button class="btn btn-default" type="button" ng-click="jobSearch.addLocation(jobSearch.location)"><i class="fa fa-search"></i></button>
                             </span>
                         </div><!-- /input-group -->
-                        <a href="#" class="arrow-button"><span class="label">leeds</span><span class="arrow"></span></a>
-                        <a href="#" class="arrow-button"><span class="label">Huddersfield</span><span class="arrow"></span></a>
-                        <a href="#" class="arrow-button"><span class="label">West Yorkshire </span><span class="arrow"></span></a>
+                        <a href="#" class="arrow-button" ng-repeat="loc in jobSearch.searchCriteria.LocationList track by loc" 
+                            ng-click="jobSearch.removeLocation($index)"
+                            >
+                            <span class="label">{{loc}}</span><span class="arrow"></span>
+                        </a>                       
 
                         <br class="hidden-sm" /><br class="hidden-md hidden-sm" /><br />
                         <label>Salary</label>
                         <form class="form-inline range-sal">
                             <div class="form-group">
-                                <select class="form-control">
-                                    <option>£0</option>
-                                    <option>£10</option>
-                                    <option>£20</option>
-                                    <option>£40</option>
-                                    <option>£50</option>
+                                <select class="form-control" ng-model="jobSearch.searchCriteria.SalaryFrom" 
+                                        ng-options="s as '£'+s for s in jobSearch.salaryFrom"
+                                        ng-change="jobSearch.onIndustryChange(jobSearch.searchCriteria.IndustryID)"
+                                        >                                    
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail2">To</label>
-                                <select class="form-control">
-                                    <option>£200k</option>
-                                    <option>£300k</option>
-                                    <option>£400k</option>
-                                    <option>£500k</option>
-                                    <option>£600k</option>
+                                <select class="form-control" ng-model="jobSearch.searchCriteria.SalaryTo" 
+                                        ng-options="s as '£'+s for s in jobSearch.salaryTo"
+                                        ng-change="jobSearch.onIndustryChange(jobSearch.searchCriteria.IndustryID)"
+                                        >                                    
                                 </select>
                             </div>
                             <span class="add-more"><i class="fa fa-plus-circle"></i></span>
                         </form>
 
-                        <a href="#" class="btn btn-default bg-black btns">
+                        <a href="#" class="btn btn-default bg-black btns" ng-click="jobSearch.resetSearchFilter()">
                             <i class="fa fa-times"></i>  Reset search & filters
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-9 left-padding-off bg-white">
-                    <h2 class="clearfix pull-left" ng-if="jobSearch.selectedJobs.length">Jobs Selected [1]</h2>
+                    <h2 class="clearfix pull-left" ng-if="jobSearch.selectedJobs.length">Jobs Selected [{{jobSearch.selectedJobs.length}}]</h2>
                     <div class="pull-right jobs-apply-block" ng-if="jobSearch.selectedJobs.length">
-                        You are applying to 1 Job(s) <a href="#" class="apply-btn">Apply Now</a>
+                        You are applying to {{jobSearch.selectedJobs.length}} Job(s) <a href="#" class="apply-btn">Apply Now</a>
                     </div>
 
                     <br class="clear" />
@@ -116,7 +140,7 @@
                             </div>
                             <div class="col-sm-1 em-shortlist listed text-center">
                                 <strong>Apply</strong>
-                                <span><i class="fa fa-check-circle"></i></span>
+                                <span ng-class="{enabled:job.selected}" style="cursor: pointer;" ng-click="jobSearch.selectJob(job)"><i class="fa fa-check-circle"></i></span>
                             </div>
                             <div class="col-sm-3 em-price text-center">
                                 <strong>Salary</strong>
@@ -142,7 +166,7 @@
                             </div>
                             <div class="col-sm-1 em-shortlist text-center">
                                 <strong>Apply</strong>
-                                <span><i class="fa fa-check-circle"></i></span>
+                                <span style="cursor: pointer;" ng-click="jobSearch.selectJob(job)"><i class="fa fa-check-circle"></i></span>
                             </div>
                             <div class="col-sm-3 em-price text-center">
                                 <strong>Salary</strong>

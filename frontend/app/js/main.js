@@ -4,6 +4,8 @@ import angular from 'angular';
 import constants from './constants';
 import onConfig  from './on_config';
 import onRun     from './on_run';
+import 'angular-animate';
+import 'angular-sanitize';
 import 'angular-ui-router';
 import 'angular-ui-grid';
 import 'angular-ui-bootstrap';
@@ -18,6 +20,8 @@ import './directives';
 
 // create and bootstrap application
 const requires = [
+  'ngAnimate',
+  'ngSanitize',
   'ui.router',
   'ui.grid',
   'ui.bootstrap',

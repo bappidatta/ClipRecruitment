@@ -113,70 +113,113 @@ namespace ClipRecruitment.Employer.Services
                 };
             }
             return null;
+        }   
+
+        public List<string> GetLocations(string inputString)
+        {
+            var query = _db.Jobs.AsQueryable().AsQueryable();
+            List<string>  locationList = (from l in query
+                                          .Where(x => x.Location.ToLower().Contains(inputString.ToLower())) select l.Location)
+                                          .Distinct()
+                                          .ToList();
+            
+            return locationList;
+        }
+
+        public List<string> GetPositions(string inputString)
+        {
+            var query = _db.Jobs.AsQueryable().AsQueryable();
+            List<string> positionList = (from l in query
+                                         .Where(x => x.Position.ToLower().Contains(inputString.ToLower()))
+                                         select l.Position)
+                                          .Distinct()
+                                          .ToList();
+
+            return positionList;
         }
 
         public List<JobViewModel> SearchJobs(JobFilteringViewModel jobFilteringVM)
         {
-            var query = _db.Jobs.AsQueryable().AsQueryable();
-            List<IQueryable> queryList = new List<IQueryable>();
 
+            var query = _db.Jobs.AsQueryable().AsQueryable();
+            
             // filter by industry type
-            if (jobFilteringVM.IndustryType > 0)
+            if (jobFilteringVM.IndustryID > 0)
             {
-                query = (from j in query.Where(x => x.IndustryID == jobFilteringVM.IndustryType)
+                query = (from j in query.Where(x => x.IndustryID == jobFilteringVM.IndustryID)
                          select j).AsQueryable();
             }
             // filter by insolvency
-            if (jobFilteringVM.Insolvency > 0)
-            {
-                query = (from j in query.Where(x => job.InsolvencyID == jobFilteringVM.Insolvency)
-                         select j).AsQueryable();
-            }
+            //if (jobFilteringVM.InsolvencyID > 0)
+            //{
+            //    query = (from j in query.Where(x => job.InsolvencyID == jobFilteringVM.InsolvencyID)
+            //             select j).AsQueryable();
+            //}
             // is full time job
             if (jobFilteringVM.IsFullTime)
             {
                 query = (from j in query.Where(x => x.IsFullTime == true) select j).AsQueryable();
             }
-            else
+
+            if(jobFilteringVM.IsPartTime)
             {
-                query = (from j in query.Where(x => x.IsFullTime == false) select j).AsQueryable();
+                query = (from j in query.Where(x => x.IsPartTime == true) select j).AsQueryable();
             }
             // is permanent job
             if (jobFilteringVM.IsPermanent)
             {
                 query = (from j in query.Where(x => x.IsPermanent == true) select j).AsQueryable();
             }
-            else
+            
+            if(jobFilteringVM.IsTemporary)
             {
-                query = (from j in query.Where(x => x.IsPermanent == false) select j).AsQueryable();
+                query = (from j in query.Where(x => x.IsTemporary == true) select j).AsQueryable();
             }
             // is remote job
             if (jobFilteringVM.IsRemote)
             {
                 query = (from j in query.Where(x => x.IsRemote == true) select j).AsQueryable();
             }
-            else
+            
+            if(jobFilteringVM.IsLocal)
             {
-                query = (from j in query.Where(x => x.IsRemote == false) select j).AsQueryable();
+                query = (from j in query.Where(x => x.IsLocal == true) select j).AsQueryable();
             }
 
 
             // filter by locations
-            if (jobFilteringVM.Location != null && jobFilteringVM.Location.Count > 0)
+            if (jobFilteringVM.LocationList != null && jobFilteringVM.LocationList.Count > 0)
             {
-                query = (from j in query.Where(x => jobFilteringVM.Location.Contains(x.Location)) select j).AsQueryable();
+                query = (from j in query.Where(x => jobFilteringVM.LocationList.Contains(x.Location)) select j).AsQueryable();
             }
 
             //filter by positions
-            if (jobFilteringVM.Position != null && jobFilteringVM.Position.Count > 0)
-            {
-                query = (from j in query.Where(x => jobFilteringVM.Position.Contains(x.Position)) select j).AsQueryable();
-            }
+            //if (jobFilteringVM.PositionList != null && jobFilteringVM.PositionList.Count > 0)
+            //{
+            //    query = (from j in query.Where(x => jobFilteringVM.PositionList.Contains(x.Position)) select j).AsQueryable();
+            //}
 
-            // year of experience
-            if (jobFilteringVM.Experience != null && jobFilteringVM.Experience.Count > 0)
+            //// year of experience
+            //if (jobFilteringVM.ExperienceList != null && jobFilteringVM.ExperienceList.Count > 0)
+            //{
+            //    query = (from j in query.Where(x => jobFilteringVM.ExperienceList.Contains(x.YearOfExperience.ToString())) select j).AsQueryable();
+            //}
+
+            // experience and position 
+            if(jobFilteringVM.PositionExperienceList.Count > 0)
             {
-                query = (from j in query.Where(x => jobFilteringVM.Experience.Contains(x.YearOfExperience.ToString())) select j).AsQueryable();
+                foreach(var item in jobFilteringVM.PositionExperienceList)
+                {
+                    query = (from j in query
+                             .Where(x => 
+                                x.Position.ToLower().Contains(item.Position.ToLower())
+                                &&  (
+                                        x.YearOfExperience >= item.ExperienceRange.From && 
+                                        item.ExperienceRange.From != 0 ? x.YearOfExperience <= item.ExperienceRange.From : x.YearOfExperience <= 100
+                                    )
+                             )                   
+                             select j).AsQueryable();
+                }
             }
 
             // salary Ranges
