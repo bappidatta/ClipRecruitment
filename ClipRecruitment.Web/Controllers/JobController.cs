@@ -160,8 +160,12 @@ namespace ClipRecruitment.Web.Controllers
 
             int switcher = 0;
 
-            for (int i = 1; i < 201; i++)
+            for (int i = 1; i < 26; i++)
             {
+                // 1. Full - Permanent - Local
+                // 2. Full - Permanent - Remote
+                // 3. Full - Temp - Remote
+                // 4. Full - Temp - Local
 
                 await CreateJobAsync(new JobViewModel
                 {
@@ -171,21 +175,19 @@ namespace ClipRecruitment.Web.Controllers
                     ShortDescription = shortDesc,
                     Position = positins[switcher],
                     Location = locations[switcher],
-                    YearOfExperience = switcher,
-                    IsLocal = switcher % 2 != 0 ? true : false,
-                    IsRemote = switcher % 2 == 0 ? true : false,
-                    IsFullTime = switcher % 2 != 0 ? true : false,
-                    IsPartTime = switcher % 2 == 0 ? true : false,
-                    IsPermanent = switcher % 2 != 0 ? true : false,
-                    IsTemporary = switcher % 2 == 0 ? true : false,
-                                      
-
+                    YearOfExperience = switcher,                    
+                    IsFullTime = true, // 
+                    IsPartTime = false,
+                    IsPermanent = false, // 
+                    IsTemporary = true,
+                    IsLocal = true, //
+                    IsRemote = false,
                     SalaryFrom = from + 500,
                     SalaryTo = to + 500,
                 });
                 from += 500;
                 to += 500;
-                if (switcher == 8)
+                if (switcher > 6)
                     switcher = 0;
                 else
                     switcher++;

@@ -23,14 +23,14 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
     templateUrl: 'search-jobs.html',
     title: 'Jobs'
   })
-  .state('Index', {
-    url: '/index',
-    templateUrl: 'employee_index.html',
+  .state('Search Candidate Video', {
+    url: '/Search-Candidate-Video',
+    templateUrl: 'search-candidate-video.html',
     title: 'Index'
   })
-  .state('Search Candidate', {
-    url: '/Search-Candidate',
-    templateUrl: 'search-candidate.html',
+  .state('Search Candidate Profile', {
+    url: '/Search-Candidate-Profile',
+    templateUrl: 'search-candidate-profile.html',
     title: 'Dashboard'
   })
   .state('Create', {

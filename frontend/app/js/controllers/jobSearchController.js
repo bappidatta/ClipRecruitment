@@ -14,15 +14,11 @@ function jobSearchController(jobService, commonService)
 
     vm.salaryFrom = [15000, 25000, 35000, 45000, 55000, 65000];
     vm.salaryTo = [25000, 35000, 45000, 55000, 65000, 75000, 85000, 95000];
-    
-
-
 
     vm.searchCriteria = {
         IndustryID: 0,
         InsolvencyID: 0,
-        PositionList: [],
-        PositionExperienceList: [],
+        PositionList: [],        
         IsFullTime: false,
         IsPartTime: false,
         IsPermanent: false,
@@ -38,53 +34,60 @@ function jobSearchController(jobService, commonService)
         vm.searchJobs(vm.searchCriteria);
     }
 
-    vm.onIndustryChange = function(){        
-        vm.searchJobs(vm.searchCriteria);     
-    }
-
-    vm.onSolvencyChange = function(){
-        vm.searchJobs(vm.searchCriteria);  
-    }
-
-    vm.addPositionExperience = function(position, experience){        
-        if(commonService.isReal(position) && commonService.isReal(experience)){
-            let posExp = positionExperience(position, experience);
-            if(!isDuplicatePositionExperience(vm.searchCriteria.PositionExperienceList, posExp)){
-                vm.searchCriteria.PositionExperienceList.push(posExp);
-                vm.position = '';
-                vm.experience = '';
-                vm.searchJobs(vm.searchCriteria);
-            }
+    vm.onIndustryChange = function(industryID){        
+        if(!commonService.isReal(industryID)){
+            vm.searchCriteria.IndustryID = 0;
+            vm.searchJobs(vm.searchCriteria);
+        }
+        else{
+            vm.searchJobs(vm.searchCriteria);
         }
     }
 
+    vm.onSolvencyChange = function(insolvencyID){
+        if(!commonService.isReal(insolvencyID)){
+            vm.searchCriteria.InsolvencyID = 0;
+            vm.searchJobs(vm.searchCriteria);
+        }else{
+            vm.searchJobs(vm.searchCriteria);
+        }
+    }
+
+    vm.addPosition = function(position){        
+        if(position){            
+            let index = vm.searchCriteria.PositionList.indexOf(position);
+            if(index < 0){
+                vm.searchCriteria.PositionList.push(position);
+                vm.position = '';                
+                vm.searchJobs(vm.searchCriteria);
+            }else{
+                alertify.warning('Already Added!');
+            }
+        }
+    }
     
     vm.removePosition = function(index){
-        vm.searchCriteria.PositionExperienceList.splice(index, 1);
+        vm.searchCriteria.PositionList.splice(index, 1);
         vm.searchJobs(vm.searchCriteria);
     }
 
-
     vm.addLocation = function(location){
-        if(location != null && location != ''){
+        if(location){            
             let index = vm.searchCriteria.LocationList.indexOf(location);
             if(index < 0){
                 vm.searchCriteria.LocationList.unshift(location);
                 vm.searchJobs(vm.searchCriteria);
                 vm.location = '';
+            }else{
+                alertify.warning('Already Added!');
             }
-        }
-        console.log(vm.searchCriteria.LocationList);
+        }        
     }
-
-
 
     vm.removeLocation = function(index){
         vm.searchCriteria.LocationList.splice(index, 1);
         vm.searchJobs(vm.searchCriteria);
     }
-
-    
 
     vm.searchJobs = function(searchCriteria){
         jobService.searchJobs(searchCriteria).then(function(res){            
@@ -108,7 +111,6 @@ function jobSearchController(jobService, commonService)
         }        
     }
 
-
     vm.getLocations = function(viewValue){
        if(viewValue != null && viewValue != ''){
             return jobService.getLocations(viewValue).then(function(res){
@@ -124,14 +126,12 @@ function jobSearchController(jobService, commonService)
         });
        }
     }
-
    
     vm.resetSearchFilter = function(){        
             vm.searchCriteria = {
             IndustryID: 0,
             InsolvencyID: 0,
-            PositionList: [],
-            PositionExperienceList: [],
+            PositionList: [],            
             IsFullTime: false,
             IsPartTime: false,
             IsPermanent: false,
@@ -144,37 +144,6 @@ function jobSearchController(jobService, commonService)
         }
         vm.searchJobs(vm.searchCriteria); 
     }
-
-
-    // 
-    function positionExperience(position, experience){
-        let exp = experience.split('-');
-        let from = parseInt(exp[0]);
-        let to = parseInt(exp[1]);
-
-        return {
-            Position: position,
-            ExperienceRange : {
-                From: from,
-                To: to
-            }
-        }
-    }
-
-    function isDuplicatePositionExperience(list, object){
-        for(var i in list){
-            if(list[i].Position.toLowerCase() == object.Position.toLowerCase()){
-                if(list[i].ExperienceRange.From == object.ExperienceRange.From && list[i].ExperienceRange.To == object.ExperienceRange.To){
-                return true;
-                }
-            }
-        }  
-     return false;
-    }
-
-   
-    
-
 
 }
 
