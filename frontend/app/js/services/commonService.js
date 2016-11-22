@@ -1,4 +1,4 @@
-function commonFunc() {
+function commonService() {
   'ngInject';
 
   const service = {};
@@ -25,6 +25,6 @@ function commonFunc() {
 
 
 export default {
-  name: 'commonFunc',
-  fn: commonFunc
+  name: 'commonService',
+  fn: commonService
 };

@@ -1,4 +1,4 @@
-function jobSearchController(jobService, commonFunc)
+function jobSearchController(jobService, commonService)
 {
     'ngInject';
     const vm = this;
@@ -46,43 +46,28 @@ function jobSearchController(jobService, commonFunc)
         vm.searchJobs(vm.searchCriteria);  
     }
 
-    vm.addPositionExperience = function(position, experience){
-        if(commonFunc.isReal(position) && commonFunc.isReal(experience))
-        {
-            var posExp = positionExperience(position, experience);
+    vm.addPositionExperience = function(position, experience){        
+        if(commonService.isReal(position) && commonService.isReal(experience)){
+            let posExp = positionExperience(position, experience);
             if(!isDuplicatePositionExperience(vm.searchCriteria.PositionExperienceList, posExp)){
                 vm.searchCriteria.PositionExperienceList.push(posExp);
+                vm.position = '';
+                vm.experience = '';
+                vm.searchJobs(vm.searchCriteria);
             }
         }
     }
 
-    vm.addPosition = function(position, experience){
-        console.log(experience, position);
-
-            if((position != null && position != '') && (experience != null && experience != '')){
-
-                var exp = experience.split('-');
-                console.log(exp);
-
-                // var index = vm.searchCriteria.PositionList.indexOf(position);
-                // if(index < 0){
-                //     vm.searchCriteria.PositionList.unshift(position);
-                //     vm.searchJobs(vm.searchCriteria);
-                //     vm.position = '';
-                // }
-            }
-            console.log(vm.searchCriteria.LocationList);
-        }
-
+    
     vm.removePosition = function(index){
-        vm.searchCriteria.PositionList.splice(index, 1);
+        vm.searchCriteria.PositionExperienceList.splice(index, 1);
         vm.searchJobs(vm.searchCriteria);
     }
 
 
     vm.addLocation = function(location){
         if(location != null && location != ''){
-            var index = vm.searchCriteria.LocationList.indexOf(location);
+            let index = vm.searchCriteria.LocationList.indexOf(location);
             if(index < 0){
                 vm.searchCriteria.LocationList.unshift(location);
                 vm.searchJobs(vm.searchCriteria);
@@ -102,23 +87,23 @@ function jobSearchController(jobService, commonFunc)
     
 
     vm.searchJobs = function(searchCriteria){
-        jobService.searchJobs(searchCriteria).then(function(res){
-            console.log(res.data.Success);
+        jobService.searchJobs(searchCriteria).then(function(res){            
              vm.searchResult = res.data.Success;
              vm.selectedJobs = [];
+             console.log(vm.searchResult);
         });
     }
 
+    //select job for application
     vm.selectJob = function(job){
         job.selected = !job.selected;
-        var index = commonFunc.indexOfObjectInArray(vm.selectedJobs, '_id', job._id);
-
+        let index = commonService.indexOfObjectInArray(vm.selectedJobs, '_id', job._id);
         if( index > -1){            
             vm.searchResult.push(vm.selectedJobs.splice(index, 1)[0]);
         }
         else{
             vm.selectedJobs.push(job);
-            var index2 = commonFunc.indexOfObjectInArray(vm.searchResult, '_id', job._id);
+            let index2 = commonService.indexOfObjectInArray(vm.searchResult, '_id', job._id);
             vm.searchResult.splice(index2, 1);
         }        
     }
@@ -161,11 +146,11 @@ function jobSearchController(jobService, commonFunc)
     }
 
 
-
+    // 
     function positionExperience(position, experience){
-        exp = experience.split('-');
-        from = exp[0];
-        to = exp[1];
+        let exp = experience.split('-');
+        let from = parseInt(exp[0]);
+        let to = parseInt(exp[1]);
 
         return {
             Position: position,
@@ -183,8 +168,7 @@ function jobSearchController(jobService, commonFunc)
                 return true;
                 }
             }
-        }
-  
+        }  
      return false;
     }
 

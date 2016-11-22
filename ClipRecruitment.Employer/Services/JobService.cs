@@ -142,6 +142,8 @@ namespace ClipRecruitment.Employer.Services
         {
 
             var query = _db.Jobs.AsQueryable().AsQueryable();
+            List<JobViewModel> finalResult = new List<JobViewModel>();
+            
             
             // filter by industry type
             if (jobFilteringVM.IndustryID > 0)
@@ -193,6 +195,15 @@ namespace ClipRecruitment.Employer.Services
                 query = (from j in query.Where(x => jobFilteringVM.LocationList.Contains(x.Location)) select j).AsQueryable();
             }
 
+            if (jobFilteringVM.SalaryFrom != 0 && jobFilteringVM.SalaryTo != 0)
+            {
+                query = (from j in query.Where(x =>
+                        (x.SalaryFrom >= jobFilteringVM.SalaryFrom && x.SalaryFrom < jobFilteringVM.SalaryTo)
+                        && (x.SalaryTo <= jobFilteringVM.SalaryTo && x.SalaryTo > jobFilteringVM.SalaryFrom)
+                     )
+                         select j).AsQueryable();
+            }
+
             //filter by positions
             //if (jobFilteringVM.PositionList != null && jobFilteringVM.PositionList.Count > 0)
             //{
@@ -206,32 +217,39 @@ namespace ClipRecruitment.Employer.Services
             //}
 
             // experience and position 
-            if(jobFilteringVM.PositionExperienceList.Count > 0)
+            if (jobFilteringVM.PositionExperienceList.Count > 0)
             {
-                foreach(var item in jobFilteringVM.PositionExperienceList)
-                {
-                    query = (from j in query
-                             .Where(x => 
-                                x.Position.ToLower().Contains(item.Position.ToLower())
-                                &&  (
-                                        x.YearOfExperience >= item.ExperienceRange.From && 
-                                        item.ExperienceRange.From != 0 ? x.YearOfExperience <= item.ExperienceRange.From : x.YearOfExperience <= 100
-                                    )
-                             )                   
-                             select j).AsQueryable();
-                }
-            }
+                //List<IQueryable<Job>> queryList = new List<IQueryable<Job>>();
+                //foreach(var item in jobFilteringVM.PositionExperienceList)
+                //{
+                //    var q = (from j in query.Where(x => x.Position.ToLower().Contains(item.Position.ToLower()) &&
+                //                                                (x.YearOfExperience >= item.ExperienceRange.From && x.YearOfExperience <= item.ExperienceRange.To)
+                //                                                )
+                //             select j).AsQueryable();
+                //    queryList.Add(q);
+                //}
 
-            // salary Ranges
-            if(jobFilteringVM.SalaryFrom != 0 && jobFilteringVM.SalaryTo != 0)
-            {
-                query = (from j in query.Where(x =>
-                        (x.SalaryFrom >= jobFilteringVM.SalaryFrom && x.SalaryFrom < jobFilteringVM.SalaryTo)
-                        && (x.SalaryTo <= jobFilteringVM.SalaryTo && x.SalaryTo > jobFilteringVM.SalaryFrom)
-                     )
+                //foreach(var q in queryList)
+                //{
+                //    query.Concat(q);
+                //}
+
+                //foreach(var item in jobFilteringVM.PositionExperienceList)
+                //{
+                //    var q = (from j in query.Where(x => item.Position.ToLower().Contains(x.Position.ToLower())
+                //             && (x.YearOfExperience >= item.ExperienceRange.From && x.YearOfExperience <= item.ExperienceRange.To)
+                //             )
+                //             select j).AsQueryable();
+
+
+                //}
+
+                query = (from j in query.Where(x => x.Position.ToLower().Contains(jobFilteringVM.PositionExperienceList[0].Position.ToLower())
+                        && (x.YearOfExperience >= jobFilteringVM.PositionExperienceList[0].ExperienceRange.From && x.YearOfExperience <= jobFilteringVM.PositionExperienceList[0].ExperienceRange.To)
+                        )
                          select j).AsQueryable();
             }
-
+            
             var result = (from j in query
                           select new JobViewModel
                           {
@@ -248,7 +266,7 @@ namespace ClipRecruitment.Employer.Services
                               LongDescription = j.LongDescription,
                               Position = j.Position,
                               YearOfExperience = j.YearOfExperience,
-                              _id = j._id
+                              _id = j._id                              
                           }
                          ).ToList();
 

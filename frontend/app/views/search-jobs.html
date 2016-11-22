@@ -40,16 +40,16 @@
                                         maxlength="5"                                                                                
                                         >
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button" ng-click="jobSearch.addPosition(jobSearch.position, jobSearch.experience)"><i class="fa fa-plus-circle"></i></button>
+                                        <button class="btn btn-default" type="button" ng-click="jobSearch.addPositionExperience(jobSearch.position, jobSearch.experience)"><i class="fa fa-plus-circle"></i></button>
                                     </span>                                   
                                 </div><!-- /input-group -->
                             </div>
                         </div>
                         <a href="#" class="arrow-button" 
-                            ng-repeat="position in jobSearch.searchCriteria.PositionList" 
+                            ng-repeat="position in jobSearch.searchCriteria.PositionExperienceList" 
                             ng-click="jobSearch.removePosition($index)"
                             >
-                            <span class="label">{{position}}</span><span class="arrow"></span>
+                            <span class="label">{{position.ExperienceRange.From + '-' + position.ExperienceRange.To + ' Years ' + position.Position}}</span><span class="arrow"></span>
                         </a>
                         
 
