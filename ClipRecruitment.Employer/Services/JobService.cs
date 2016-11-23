@@ -2,7 +2,6 @@
 using ClipRecruitment.Domain.Models;
 using ClipRecruitment.Employer.ViewModels;
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -118,35 +117,12 @@ namespace ClipRecruitment.Employer.Services
             return null;
         }   
 
-        public List<string> GetLocations(string inputString)
-        {
-            var query = _db.Jobs.AsQueryable().AsQueryable();
-            List<string>  locationList = (from l in query
-                                          .Where(x => x.Location.ToLower().Contains(inputString.ToLower())) select l.Location)
-                                          .Distinct()
-                                          .ToList();
-            
-            return locationList;
-        }
-
-        public List<string> GetPositions(string inputString)
-        {
-            var query = _db.Jobs.AsQueryable().AsQueryable();
-            List<string> positionList = (from l in query
-                                         .Where(x => x.Position.ToLower().Contains(inputString.ToLower()))
-                                         select l.Position)
-                                          .Distinct()
-                                          .ToList();
-
-            return positionList;
-        }
+    
 
         public List<JobViewModel> SearchJobs(JobFilteringViewModel jobFilteringVM)
         {
 
             var query = _db.Jobs.AsQueryable().AsQueryable();
-            List<JobViewModel> finalResult = new List<JobViewModel>();
-            
             
             // filter by industry type
             if (jobFilteringVM.IndustryID > 0)

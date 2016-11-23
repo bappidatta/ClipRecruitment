@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipRecruitment.Candidate",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipRecruitment.Interview", "ClipRecruitment.Interview\ClipRecruitment.Interview.csproj", "{64366F0F-72F7-4A2E-8262-3329A24EC4D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipRecruitment.Common", "ClipRecruitment.Common\ClipRecruitment.Common.csproj", "{07D4031B-EFEF-49E6-B2A6-1D3A47592CBE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{64366F0F-72F7-4A2E-8262-3329A24EC4D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64366F0F-72F7-4A2E-8262-3329A24EC4D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64366F0F-72F7-4A2E-8262-3329A24EC4D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07D4031B-EFEF-49E6-B2A6-1D3A47592CBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07D4031B-EFEF-49E6-B2A6-1D3A47592CBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07D4031B-EFEF-49E6-B2A6-1D3A47592CBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07D4031B-EFEF-49E6-B2A6-1D3A47592CBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

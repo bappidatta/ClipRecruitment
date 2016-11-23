@@ -113,7 +113,7 @@ function jobSearchController(jobService, commonService)
 
     vm.getLocations = function(viewValue){
        if(viewValue != null && viewValue != ''){
-            return jobService.getLocations(viewValue).then(function(res){
+            return commonService.getLocations(viewValue).then(function(res){
                 return res.data.Success;                    
         });
        }
@@ -121,7 +121,7 @@ function jobSearchController(jobService, commonService)
 
     vm.getPositions = function(viewValue){
        if(viewValue != null && viewValue != ''){
-            return jobService.getPositions(viewValue).then(function(res){
+            return commonService.getPositions(viewValue).then(function(res){
                 return res.data.Success;                    
         });
        }

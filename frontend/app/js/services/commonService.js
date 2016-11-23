@@ -1,4 +1,4 @@
-function commonService() {
+function commonService($http) {
   'ngInject';
 
   const service = {};
@@ -17,6 +17,16 @@ function commonService() {
     }
 
    
+  service.getLocations = function(val){
+    return $http.get('http://localhost:57154/api/Job/GetLocations/', {params: {inputString: val}});
+  }
+
+  service.getPositions = function(val){
+    return $http.get('http://localhost:57154/api/Job/GetPositions/', {params: {inputString: val}});
+  }
+
+
+  
   return service;
   
 } // end of service

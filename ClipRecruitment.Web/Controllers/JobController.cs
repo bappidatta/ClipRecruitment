@@ -1,4 +1,5 @@
-﻿using ClipRecruitment.Employer.Services;
+﻿using ClipRecruitment.Common.Services;
+using ClipRecruitment.Employer.Services;
 using ClipRecruitment.Employer.ViewModels;
 using ClipRecruitment.Web.App_Start;
 using System;
@@ -15,11 +16,13 @@ namespace ClipRecruitment.Web.Controllers
 {
     public class JobController : ApiController
     {
-        private JobService jobService;        
+        private JobService jobService;
+        private CommonService commonService;
         
-        public JobController(JobService jobService)
+        public JobController(JobService jobService, CommonService commonService)
         {
-            this.jobService = jobService;            
+            this.jobService = jobService;
+            this.commonService = commonService;
         }
 
 
@@ -123,7 +126,7 @@ namespace ClipRecruitment.Web.Controllers
         {
             if(!string.IsNullOrEmpty(inputString))
             {
-                return Ok(new { Success = jobService.GetLocations(inputString) });
+                return Ok(new { Success = commonService.GetLocations(inputString) });
             }
             return Ok(new { Error = "Not Available" });
         }
@@ -134,7 +137,7 @@ namespace ClipRecruitment.Web.Controllers
         {
             if (!string.IsNullOrEmpty(inputString))
             {
-                return Ok(new { Success = jobService.GetPositions(inputString) });
+                return Ok(new { Success = commonService.GetPositions(inputString) });
             }
             return Ok(new { Error = "Not Available" });
         }

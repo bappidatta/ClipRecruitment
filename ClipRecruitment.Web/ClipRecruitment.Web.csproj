@@ -225,6 +225,10 @@
       <Project>{d14b3f7a-e4d6-4058-8ce3-40736209b0d6}</Project>
       <Name>ClipRecruitment.Candidate</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ClipRecruitment.Common\ClipRecruitment.Common.csproj">
+      <Project>{07D4031B-EFEF-49E6-B2A6-1D3A47592CBE}</Project>
+      <Name>ClipRecruitment.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ClipRecruitment.Employer\ClipRecruitment.Employer.csproj">
       <Project>{c9366790-73a0-4b22-86c8-764aa71a941c}</Project>
       <Name>ClipRecruitment.Employer</Name>
