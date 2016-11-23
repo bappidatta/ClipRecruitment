@@ -162,18 +162,18 @@ namespace ClipRecruitment.Candidate.Services
                 query = (from c in query.Where(x => x.Profile.Contains(candidateFilteringVM.Profile)) select c).AsQueryable();
             }
 
-            if (candidateFilteringVM.Position != null && candidateFilteringVM.Position.Count() > 0)
+            if (candidateFilteringVM.PositionList != null && candidateFilteringVM.PositionList.Count() > 0)
             {
-                query = (from c in query.Where(x => candidateFilteringVM.Position.Contains(x.Position)) select c).AsQueryable();
+                query = (from c in query.Where(x => candidateFilteringVM.PositionList.Contains(x.Position)) select c).AsQueryable();
             }
 
             query = (from c in query.Where(x => x.IsFullTime == candidateFilteringVM.IsFullTime) select c).AsQueryable();
 
             query = (from c in query.Where(x => x.IsPermanent == candidateFilteringVM.IsPermanent) select c).AsQueryable();
 
-            if (candidateFilteringVM.Location != null && candidateFilteringVM.Location.Count() > 0)
+            if (candidateFilteringVM.LocationList != null && candidateFilteringVM.LocationList.Count() > 0)
             {
-                query = (from c in query.Where(x => candidateFilteringVM.Location.Contains(x.Location)) select c).AsQueryable();
+                query = (from c in query.Where(x => candidateFilteringVM.LocationList.Contains(x.Location)) select c).AsQueryable();
             }
 
             if (candidateFilteringVM.Skills != null && candidateFilteringVM.Skills.Count() > 0)

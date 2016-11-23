@@ -25,6 +25,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
   })
   .state('Search Candidate Video', {
     url: '/Search-Candidate-Video',
+    controller:'candidateVideoProfileSearchController as candidateVideoProfileSearch',
     templateUrl: 'search-candidate-video.html',
     title: 'Index'
   })
