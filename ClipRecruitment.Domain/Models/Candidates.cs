@@ -14,7 +14,9 @@ namespace ClipRecruitment.Domain.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string _id { get; set; }
+        public string Url { get; set; }
         public string CandidateName { get; set; }
+        public string Objectives { get; set; }
         public string Profile { get; set; }
         public string Position { get; set; }
         public string Location { get; set; }

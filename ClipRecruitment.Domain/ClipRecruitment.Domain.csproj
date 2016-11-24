@@ -60,6 +60,9 @@
     <Compile Include="Models\Candidates.cs" />
     <Compile Include="Models\Employers.cs" />
     <Compile Include="Models\Job.cs" />
+    <Compile Include="Models\Locations.cs" />
+    <Compile Include="Models\Positions.cs" />
+    <Compile Include="Models\Skills.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

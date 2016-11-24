@@ -1,69 +1,177 @@
-function candidateVideoProfileSearchController(candidateVideoProfileSearchService,commonService){
+function candidateVideoProfileSearchController(candidateVideoProfileSearchService, commonService, $sce) {
     'ngInject';
 
     const vm = this;
-    vm.SuggestedPositionList = ["Solicitor","paralegal","MFGH","KLOP"]
+    vm.SuggestedPositionList = ["Solicitor", "paralegal", "MFGH", "KLOP"];
+    vm.SuggestedLocationList = ["Leeds", "Huddersfield", "West Yorkshire"];
+    vm.SuggestedSkillList = ["C#", "Java", "Spring MVC"];
 
     vm.searchCriteria = {
         Profile: "",
-        PositionList:[],
-        LocationList:[],
-        IsFullTime:true,
-        IsPermanent:true,
-        Skills:[]
+        PositionList: [],
+        LocationList: [],
+        IsFullTime: true,
+        IsPermanent: true,
+        Skills: []
     }
 
-vm.init= function(){
-}
+    vm.CandidateList = [];
 
-vm.search = function(){
-    console.log(vm.searchCriteria);
-}
+    vm.trustSrc = function (src) {
+        return $sce.trustAsResourceUrl(src);
+    };
 
-/**
- * Get All Positions
- */
-vm.getPositions = function(viewValue){
-       if(viewValue != null && viewValue != ''){
-          return vm.SuggestedPositionList;
-       }
+    vm.init = function () {
+        candidateVideoProfileSearchService.getAllCandidates(0).then(function (res) {
+            vm.CandidateList = res.data.Success;
+        });
     }
 
-/**
- * Add Position
- */
-    vm.addPosition = function(position){        
-        if(position){            
+    vm.search = function () {
+        console.log(vm.searchCriteria);
+        candidateVideoProfileSearchService.searchCandidates(vm.searchCriteria).then(function (res) {
+            vm.CandidateList = res.data.Success;
+        });
+    }
+
+    /**
+     * Get All Positions
+     */
+    vm.getPositions = function (viewValue) {
+        if (viewValue != null && viewValue != '') {
+            return commonService.getPositions(viewValue).then(function (res) {
+                return res.data.Success;
+            });
+        }
+    }
+
+    /**
+     * Add Position
+     */
+    vm.addPosition = function (position) {
+        if (position) {
             let index = vm.searchCriteria.PositionList.indexOf(position);
-            if(index < 0){
+            if (index < 0) {
                 vm.searchCriteria.PositionList.push(position);
-                vm.position = '';                
-                //call Search for search data from server
-            }else{
+                vm.position = '';
+                vm.search();
+            } else {
                 alert('Already Added!');
+                vm.position = '';
             }
         }
     }
-    
+
     /**
      * remove position from position list
      */
-    vm.removePosition = function(index){
+    vm.removePosition = function (index) {
         vm.searchCriteria.PositionList.splice(index, 1);
-       //call Search for search data from server 
+        vm.search(); 
     }
 
-    vm.onPermanentChange = function(){
-        console.log(vm.searchCriteria.IsPermanent);
+    /**
+     * Get Filtered Locations
+     */
+    vm.getLocations = function (viewValue) {
+        if (viewValue != null && viewValue != '') {
+            return commonService.getLocations(viewValue).then(function (res) {
+                return res.data.Success;
+            });
+        }
     }
 
-    vm.onFullTimeChange = function(){
-        console.log(vm.searchCriteria.IsFullTime);
+    /**
+     * Add Location
+     */
+    vm.addLocation = function (location) {
+        if (location) {
+            let index = vm.searchCriteria.LocationList.indexOf(location);
+            if (index < 0) {
+                vm.searchCriteria.LocationList.push(location);
+                vm.location = '';
+                vm.search();
+            } else {
+                alert('Already Added!');
+                vm.location = '';
+            }
+        }
+    }
+
+    /**
+     * remove location from Search Criteria Location list
+     */
+    vm.removeLocation = function (index) {
+        vm.searchCriteria.LocationList.splice(index, 1);
+        vm.search(); 
+    }
+
+    /**
+     * Get Filtered Skills
+     */
+    vm.getSkills = function (viewValue) {
+        if (viewValue != null && viewValue != '') {
+            return commonService.getSkills(viewValue).then(function (res) {
+                return res.data.Success;
+            });
+        }
+    }
+
+    /**
+     * Add Location
+     */
+    vm.addSkill = function (skill) {
+        if (skill) {
+            let index = vm.searchCriteria.Skills.indexOf(skill);
+            if (index < 0) {
+                vm.searchCriteria.Skills.push(skill);
+                vm.skill = '';
+                vm.search();
+            } else {
+                alert('Already Added!');
+                vm.skill = '';
+            }
+        }
+    }
+
+    /**
+     * remove location from Search Criteria Location list
+     */
+    vm.removeSkill = function (index) {
+        vm.searchCriteria.Skills.splice(index, 1);
+        vm.search(); 
+    }
+
+    /**
+     * On Check Uncheck Permanent Item
+     */
+    vm.onPermanentChange = function () {
+        vm.search();
+    }
+
+    /**
+     * On Check Uncheck Full Time
+     */
+    vm.onFullTimeChange = function () {
+        vm.search();
+    }
+
+    vm.Reset = function(){
+        vm.searchCriteria = {
+        Profile: "",
+        PositionList: [],
+        LocationList: [],
+        IsFullTime: true,
+        IsPermanent: true,
+        Skills: []
+    };
+    vm.CandidateList = [];
+    vm.init();
     }
 
 }
 
-export default{
+export default {
     name: 'candidateVideoProfileSearchController',
     fn: candidateVideoProfileSearchController
 };

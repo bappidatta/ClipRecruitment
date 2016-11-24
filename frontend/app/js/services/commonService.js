@@ -18,11 +18,15 @@ function commonService($http) {
 
    
   service.getLocations = function(val){
-    return $http.get('http://localhost:57154/api/Job/GetLocations/', {params: {inputString: val}});
+    return $http.get('http://localhost:57154/api/Common/GetLocations/', {params: {inputString: val}});
   }
 
   service.getPositions = function(val){
-    return $http.get('http://localhost:57154/api/Job/GetPositions/', {params: {inputString: val}});
+    return $http.get('http://localhost:57154/api/Common/GetPositions/', {params: {inputString: val}});
+  }
+
+   service.getSkills = function(val){
+    return $http.get('http://localhost:57154/api/Common/GetSkills/', {params: {inputString: val}});
   }
 
 

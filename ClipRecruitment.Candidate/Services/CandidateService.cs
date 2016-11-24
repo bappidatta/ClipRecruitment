@@ -34,6 +34,8 @@ namespace ClipRecruitment.Candidate.Services
             candidates = new Candidates
             {
                 CandidateName = candidateVM.CandidateName,
+                Url = candidateVM.Url,
+                Objectives = candidateVM.Objectives,
                 Profile = candidateVM.Profile,
                 Position = candidateVM.Position,
                 Location = candidateVM.Location,
@@ -68,6 +70,8 @@ namespace ClipRecruitment.Candidate.Services
                     {
                         _id = c._id,
                         CandidateName = c.CandidateName,
+                        Url = c.Url,
+                        Objectives = c.Objectives,
                         Profile = c.Profile,
                         Position = c.Position,
                         Location = c.Location,
@@ -95,6 +99,8 @@ namespace ClipRecruitment.Candidate.Services
             var filter = Builders<Candidates>.Filter.Eq("_id", id);
             var update = Builders<Candidates>.Update
                 .Set("CandidateName", candidateVM.CandidateName)
+                .Set("Url", candidateVM.Url)
+                .Set("Objectives", candidateVM.Objectives)
                 .Set("Profile", candidateVM.Profile)
                 .Set("Position", candidateVM.Position)
                 .Set("Location", candidateVM.Location)
@@ -133,6 +139,8 @@ namespace ClipRecruitment.Candidate.Services
                 {
                     _id = candidates._id,
                     CandidateName = candidates.CandidateName,
+                    Url = candidates.Url,
+                    Objectives = candidates.Objectives,
                     Profile = candidates.Profile,
                     Position = candidates.Position,
                     Location = candidates.Location,
@@ -164,7 +172,11 @@ namespace ClipRecruitment.Candidate.Services
 
             if (candidateFilteringVM.PositionList != null && candidateFilteringVM.PositionList.Count() > 0)
             {
-                query = (from c in query.Where(x => candidateFilteringVM.PositionList.Contains(x.Position)) select c).AsQueryable();
+                foreach (string position in candidateFilteringVM.PositionList)
+                {
+                    query = (from c in query.Where(x => x.Position.ToLower().Contains(position)) select c).AsQueryable();
+                }
+                
             }
 
             query = (from c in query.Where(x => x.IsFullTime == candidateFilteringVM.IsFullTime) select c).AsQueryable();
@@ -173,7 +185,10 @@ namespace ClipRecruitment.Candidate.Services
 
             if (candidateFilteringVM.LocationList != null && candidateFilteringVM.LocationList.Count() > 0)
             {
-                query = (from c in query.Where(x => candidateFilteringVM.LocationList.Contains(x.Location)) select c).AsQueryable();
+                foreach (string location in candidateFilteringVM.LocationList)
+                {
+                    query = (from c in query.Where(x => x.Location.ToLower().Contains(location)) select c).AsQueryable();
+                }
             }
 
             if (candidateFilteringVM.Skills != null && candidateFilteringVM.Skills.Count() > 0)
@@ -190,6 +205,8 @@ namespace ClipRecruitment.Candidate.Services
                           {
                               _id = c._id,
                               CandidateName = c.CandidateName,
+                              Url = c.Url,
+                              Objectives = c.Objectives,
                               Profile = c.Profile,
                               Position = c.Position,
                               Location = c.Location,

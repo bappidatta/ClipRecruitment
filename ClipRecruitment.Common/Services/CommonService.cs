@@ -17,9 +17,8 @@ namespace ClipRecruitment.Common.Services
 
         public List<string> GetLocations(string inputString)
         {
-            var query = _db.Jobs.AsQueryable().AsQueryable();
-            List<string> locationList = (from l in query
-                                         .Where(x => x.Location.ToLower().Contains(inputString.ToLower()))
+            var query = _db.Locations.AsQueryable().AsQueryable();
+            List<string> locationList = (from l in query.Where(x => x.Location.ToLower().Contains(inputString.ToLower()))
                                          select l.Location)
                                           .Distinct()
                                           .ToList();
@@ -29,7 +28,7 @@ namespace ClipRecruitment.Common.Services
 
         public List<string> GetPositions(string inputString)
         {
-            var query = _db.Jobs.AsQueryable().AsQueryable();
+            var query = _db.Positions.AsQueryable().AsQueryable();
             List<string> positionList = (from l in query
                                          .Where(x => x.Position.ToLower().Contains(inputString.ToLower()))
                                          select l.Position)
@@ -37,6 +36,18 @@ namespace ClipRecruitment.Common.Services
                                           .ToList();
 
             return positionList;
+        }
+
+        public List<string> GetSkills(string inputString)
+        {
+            var query = _db.Skills.AsQueryable().AsQueryable();
+            List<string> skillList = (from l in query
+                                         .Where(x => x.Skill.ToLower().Contains(inputString.ToLower()))
+                                         select l.Skill)
+                                          .Distinct()
+                                          .ToList();
+
+            return skillList;
         }
     }
 }

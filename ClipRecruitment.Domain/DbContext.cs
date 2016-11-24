@@ -52,6 +52,30 @@ namespace ClipRecruitment.Domain
             }
         }
 
+        public IMongoCollection<Positions> Positions
+        {
+            get
+            {
+                return getDb().GetCollection<Positions>("Positions");
+            }
+        }
+
+        public IMongoCollection<Locations> Locations
+        {
+            get
+            {
+                return getDb().GetCollection<Locations>("Locations");
+            }
+        }
+
+        public IMongoCollection<Skills> Skills
+        {
+            get
+            {
+                return getDb().GetCollection<Skills>("Skills");
+            }
+        }
+
         private IMongoCollection<BsonDocument> GetCollection(string collectionName)
         {
             if (this.db == null)

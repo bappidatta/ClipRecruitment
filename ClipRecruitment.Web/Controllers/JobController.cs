@@ -120,27 +120,6 @@ namespace ClipRecruitment.Web.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("api/Job/GetLocations")]
-        public IHttpActionResult GetLocations(string inputString)
-        {
-            if(!string.IsNullOrEmpty(inputString))
-            {
-                return Ok(new { Success = commonService.GetLocations(inputString) });
-            }
-            return Ok(new { Error = "Not Available" });
-        }
-
-        [HttpGet]
-        [Route("api/Job/GetPositions")]
-        public IHttpActionResult GetPositions(string inputString)
-        {
-            if (!string.IsNullOrEmpty(inputString))
-            {
-                return Ok(new { Success = commonService.GetPositions(inputString) });
-            }
-            return Ok(new { Error = "Not Available" });
-        }
 
         [HttpGet]
         [Route("api/Job/SeedJobs/")]

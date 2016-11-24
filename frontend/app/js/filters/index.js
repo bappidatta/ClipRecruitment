@@ -18,7 +18,7 @@ function declare(filterMap) {
       declare(item);
     }
   });
-}
+} 
 
 declare(filters);
 

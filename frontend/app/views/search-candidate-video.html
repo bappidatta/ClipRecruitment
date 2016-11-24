@@ -37,30 +37,46 @@
                     </ul>
                 </div>
 
-                <label>Location</label>
-                <div class="input-group">
+                <div class="row position-experience">
+                    <div class="col-sm-12 col-xs-12 position-block">
+                        <label>Location</label>
+                        <div class="input-group">
 
-                    <input type="text" class="form-control" placeholder="leeds">
-                    <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">Go!</button>
+                            <input type="text" class="form-control" placeholder="leeds" ng-model="candidateVideoProfileSearch.location" uib-typeahead="location for location in candidateVideoProfileSearch.getLocations($viewValue)"
+                            />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" ng-click="candidateVideoProfileSearch.addLocation(candidateVideoProfileSearch.location)">Go!</button>
                             </span>
+                        </div>
+                    </div>
                 </div>
                 <!-- /input-group -->
-                <a href="#" class="arrow-button"><span class="label">leeds</span><span class="arrow"></span></a>
-                <a href="#" class="arrow-button"><span class="label">Huddersfield</span><span class="arrow"></span></a>
-                <a href="#" class="arrow-button"><span class="label">West Yorkshire </span><span class="arrow"></span></a>
+                <a href="#" class="arrow-button" ng-repeat="location in candidateVideoProfileSearch.searchCriteria.LocationList" ng-click="candidateVideoProfileSearch.removeLocation($index)">
+                    <span class="label">{{location}}</span><span class="arrow"></span>
+                </a>
 
-                <br class="hidden-sm" /><br class="hidden-md hidden-sm" /><br />
-                <label>Skills</label>
+                <div class="row position-experience">
+                    <div class="col-sm-12 col-xs-12 position-block">
+                        <label>Skills</label>
+                        <div class="input-group">
 
-                <a href="#" class="arrow-button"><span class="label">Litigation</span><span class="arrow"></span></a>
-                <a href="#" class="arrow-button"><span class="label">Defendant</span><span class="arrow"></span></a>
-                <a href="#" class="arrow-button"><span class="label">Applications </span><span class="arrow"></span></a>
-                <a href="#" class="arrow-button"><span class="label">Court Att.. </span><span class="arrow"></span></a>
-                <a href="#" class="arrow-button hidden-md"><span class="label">Management </span><span class="arrow"></span></a>
+                            <input type="text" class="form-control" placeholder="Skills" ng-model="candidateVideoProfileSearch.skill" uib-typeahead="skill for skill in candidateVideoProfileSearch.getSkills($viewValue)"
+                            />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" ng-click="candidateVideoProfileSearch.addSkill(candidateVideoProfileSearch.skill)">Go!</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- /input-group -->
+                <a href="#" class="arrow-button" ng-repeat="skill in candidateVideoProfileSearch.searchCriteria.Skills" ng-click="candidateVideoProfileSearch.removeSkill($index)">
+                    <span class="label">{{skill}}</span><span class="arrow"></span>
+                </a>
+
                 <br />
 
-                <a href="#" class="btn btn-default bg-black btns">
+                <a href="#" class="btn btn-default bg-black btns" ng-click="candidateVideoProfileSearch.Reset()">
                     <i class="fa fa-times"></i> Reset search & filters
                 </a>
             </div>
@@ -70,7 +86,7 @@
             <a href="#" class="save-result pull-right"><i class="fa fa-floppy-o"></i> Save Results</a>
             <br class="clear" />
             <hr />
-            <div id="no-more-tables">
+            <div id="no-more-tables">                
                 <table class="table ">
                     <thead>
                         <tr>
@@ -85,26 +101,27 @@
                             <th>Expected Salary</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody  ng-repeat="candidate in candidateVideoProfileSearch.CandidateList">
+                        
                         <tr>
                             <td rowspan="2">
 
-                                <iframe id="ytplayer" type="text/html" width="210" height="118" src="https://www.youtube.com/embed/EwK28LO6ckM?controls=0&amp;end=50&amp;fs=0&amp;color=white&amp;theme=light"
+                                <iframe id="ytplayer" type="text/html" width="210" height="118" ng-src="{{candidateVideoProfileSearch.trustSrc(candidate.Url)}}"
                                     frameborder="0" allowfullscreen></iframe>
                             </td>
                             <td data-title="Name">
-                                <h4> Smith, A </h4>
+                                <h4> {{candidate.CandidateName}} </h4>
                             </td>
-                            <td data-title="Position">Solicitor</td>
-                            <td data-title="Location">Mansfield</td>
-                            <td data-title="Experience">2 Miles</td>
-                            <td data-title="Current Salary">£19,000</td>
-                            <td data-title="Expected Salary">£20,000 - 25,000</td>
+                            <td data-title="Position">{{candidate.Position}}</td>
+                            <td data-title="Location">{{candidate.Location}}</td>
+                            <td data-title="Experience">{{candidate.Experince}}</td>
+                            <td data-title="Current Salary">{{candidate.CurrentSalary}}</td>
+                            <td data-title="Expected Salary">{{candidate.ExpectedSalaryFrom}}-{{candidate.ExpectedSalaryTo}}</td>
                         </tr>
                         <tr class="no-border paragraph">
-                            <td colspan="6" class="texts-left">I am a experienced Clinical Negligence Solicitors having worked in comple..</td>
+                            <td colspan="6" class="texts-left">{{candidate.Objectives}}</td>
                         </tr>
-                        <tr>
+                        <!--<tr>
                             <td rowspan="2">
                                 <iframe id="ytplayer" type="text/html" width="210" height="118" src="https://www.youtube.com/embed/EwK28LO6ckM?controls=0&amp;end=50&amp;fs=0&amp;color=white&amp;theme=light"
                                     frameborder="0" allowfullscreen></iframe>
@@ -154,7 +171,7 @@
                         </tr>
                         <tr class="no-border paragraph">
                             <td colspan="6" class="texts-left">I am a experienced Clinical Negligence Solicitors having worked in comple..</td>
-                        </tr>
+                        </tr>-->
                     </tbody>
                 </table>
             </div>
