@@ -1,42 +1,48 @@
-function candidateVideoProfileSearchController(candidateVideoProfileSearchService, commonService, $sce) {
+function candidateProfileSearchController(candidateProfileSearchService, commonService, $sce) {
     'ngInject';
 
     const vm = this;
-
     vm.searchCriteria = {
-        isVideoProfileSearch: true,
-        Profile: '',
+        isVideoProfileSearch: false,
+        Profile: "",
         PositionList: [],
         LocationList: [],
         IsFullTime: true,
         IsPermanent: true,
+        IsPartTime: true,
+        IsTemporary: true,
+        IsRemote: true,
+        IsLocum: true,
+        ExpectedSalaryFrom: 0,
+        ExpectedSalaryTo: 0,
         Skills: []
     }
 
     vm.CandidateList = [];
-    vm.searchResultFound=0;
+    vm.searchResultFound = 0;
 
     vm.trustSrc = function (src) {
         return $sce.trustAsResourceUrl(src);
     };
 
     vm.init = function () {
-        candidateVideoProfileSearchService.getAllCandidates(0).then(function (res) {
-            vm.CandidateList = res.data.Success;
-            vm.searchResultFound = vm.CandidateList.length;
-        });        
-    }
-
-/*
- * Search based on filtering Criteria 
- */
-    vm.search = function () {
-        candidateVideoProfileSearchService.searchCandidates(vm.searchCriteria).then(function (res) {
+        candidateProfileSearchService.getAllCandidates(0).then(function (res) {
             vm.CandidateList = res.data.Success;
             vm.searchResultFound = vm.CandidateList.length;
         });
     }
 
+    /**
+     * Search Function
+     */
+    vm.search = function () {
+        console.log("===>>>"+vm.searchCriteria);
+        candidateProfileSearchService.searchCandidates(vm.searchCriteria).then(function (res) {
+            vm.CandidateList = res.data.Success;
+            vm.searchResultFound = vm.CandidateList.length;
+            console.log(vm.CandidateList);
+        });
+    }
     /**
      * Get All Positions
      */
@@ -70,12 +76,12 @@ function candidateVideoProfileSearchController(candidateVideoProfileSearchServic
      */
     vm.removePosition = function (index) {
         vm.searchCriteria.PositionList.splice(index, 1);
-        vm.search(); 
+        vm.search();
     }
 
     /**
      * Get Filtered Locations
-     */
+    */
     vm.getLocations = function (viewValue) {
         if (viewValue != null && viewValue != '') {
             return commonService.getLocations(viewValue).then(function (res) {
@@ -106,76 +112,48 @@ function candidateVideoProfileSearchController(candidateVideoProfileSearchServic
      */
     vm.removeLocation = function (index) {
         vm.searchCriteria.LocationList.splice(index, 1);
-        vm.search(); 
+        vm.search();
     }
 
-    /**
-     * Get Filtered Skills
-     */
-    vm.getSkills = function (viewValue) {
-        if (viewValue != null && viewValue != '') {
-            return commonService.getSkills(viewValue).then(function (res) {
-                return res.data.Success;
-            });
-        }
+
+    vm.onCheckBoxSelectionChange = function () {
+        vm.search();
     }
 
-    /**
-     * Add Location
-     */
-    vm.addSkill = function (skill) {
-        if (skill) {
-            let index = vm.searchCriteria.Skills.indexOf(skill);
-            if (index < 0) {
-                vm.searchCriteria.Skills.push(skill);
-                vm.skill = '';
-                vm.search();
+    vm.onFromSlarayChange = function () {
+        //call search function
+        if (!isNaN(vm.searchCriteria.ExpectedSalaryFrom)) {
+            var salaryFrom = parseFloat(vm.searchCriteria.ExpectedSalaryFrom);
+            var salaryTo = parseFloat(vm.searchCriteria.ExpectedSalaryTo);
+            if (salaryTo != 0 && salaryFrom > salaryTo) {
+                vm.searchCriteria.ExpectedSalaryFrom = 0;
             } else {
-                alert('Already Added!');
-                vm.skill = '';
+                vm.search();
             }
+        } else {
+            vm.searchCriteria.ExpectedSalaryFrom = 0;
         }
     }
 
-    /**
-     * remove location from Search Criteria Location list
-     */
-    vm.removeSkill = function (index) {
-        vm.searchCriteria.Skills.splice(index, 1);
-        vm.search(); 
+    vm.onToSlarayChange = function () {
+        //call search function
+        if (!isNaN(vm.searchCriteria.ExpectedSalaryTo)) {
+            var salaryTo = parseFloat(vm.searchCriteria.ExpectedSalaryTo);
+            var salaryFrom = parseFloat(vm.searchCriteria.ExpectedSalaryFrom);
+            if (salaryFrom != 0 && salaryTo < salaryFrom) {
+                vm.searchCriteria.ExpectedSalaryTo = 0;
+            } else {
+                vm.search();
+            }
+        } else {
+            vm.searchCriteria.ExpectedSalaryTo = 0;
+        }
     }
 
-    /**
-     * On Check Uncheck Permanent Item
-     */
-    vm.onPermanentChange = function () {
-        vm.search();
-    }
-
-    /**
-     * On Check Uncheck Full Time
-     */
-    vm.onFullTimeChange = function () {
-        vm.search();
-    }
-
-    vm.Reset = function(){
-        vm.searchCriteria = {
-        isVideoProfileSearch: true,
-        Profile: '',
-        PositionList: [],
-        LocationList: [],
-        IsFullTime: true,
-        IsPermanent: true,
-        Skills: []
-    };
-    vm.CandidateList = [];
-    vm.init();
-    }
 
 }
 
 export default {
-    name: 'candidateVideoProfileSearchController',
-    fn: candidateVideoProfileSearchController
+    name: 'candidateProfileSearchController',
+    fn: candidateProfileSearchController
 };

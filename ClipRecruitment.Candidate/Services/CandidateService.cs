@@ -34,7 +34,8 @@ namespace ClipRecruitment.Candidate.Services
             candidates = new Candidates
             {
                 CandidateName = candidateVM.CandidateName,
-                Url = candidateVM.Url,
+                VideoUrl = candidateVM.VideoUrl,
+                ImageUrl = candidateVM.ImageUrl,
                 Objectives = candidateVM.Objectives,
                 Profile = candidateVM.Profile,
                 Position = candidateVM.Position,
@@ -45,6 +46,10 @@ namespace ClipRecruitment.Candidate.Services
                 ExpectedSalaryTo = candidateVM.ExpectedSalaryTo,
                 IsFullTime = candidateVM.IsFullTime,
                 IsPermanent = candidateVM.IsPermanent,
+                IsPartTime = candidateVM.IsPartTime,
+                IsTemporary = candidateVM.IsTemporary,
+                IsRemote = candidateVM.IsRemote,
+                IsLocum = candidateVM.IsLocum,
                 Skills = candidateVM.Skills,
                 MobileNo = candidateVM.MobileNo,
                 Email = candidateVM.Email,
@@ -70,7 +75,8 @@ namespace ClipRecruitment.Candidate.Services
                     {
                         _id = c._id,
                         CandidateName = c.CandidateName,
-                        Url = c.Url,
+                        VideoUrl = c.VideoUrl,
+                        ImageUrl = c.ImageUrl,
                         Objectives = c.Objectives,
                         Profile = c.Profile,
                         Position = c.Position,
@@ -81,6 +87,10 @@ namespace ClipRecruitment.Candidate.Services
                         ExpectedSalaryTo = c.ExpectedSalaryTo,
                         IsFullTime = c.IsFullTime,
                         IsPermanent = c.IsPermanent,
+                        IsPartTime = c.IsPartTime,
+                        IsLocum = c.IsLocum,
+                        IsRemote = c.IsRemote,
+                        IsTemporary = c.IsTemporary,
                         Skills = c.Skills,
                         MobileNo = c.MobileNo,
                         Email = c.Email,
@@ -99,7 +109,8 @@ namespace ClipRecruitment.Candidate.Services
             var filter = Builders<Candidates>.Filter.Eq("_id", id);
             var update = Builders<Candidates>.Update
                 .Set("CandidateName", candidateVM.CandidateName)
-                .Set("Url", candidateVM.Url)
+                .Set("VideoUrl", candidateVM.VideoUrl)
+                .Set("ImageUrl", candidateVM.ImageUrl)
                 .Set("Objectives", candidateVM.Objectives)
                 .Set("Profile", candidateVM.Profile)
                 .Set("Position", candidateVM.Position)
@@ -110,6 +121,10 @@ namespace ClipRecruitment.Candidate.Services
                 .Set("ExpectedSalaryTo", candidateVM.ExpectedSalaryTo)
                 .Set("IsFullTime", candidateVM.IsFullTime)
                 .Set("IsPermanent", candidateVM.IsPermanent)
+                .Set("IsPartTime", candidateVM.IsPartTime)
+                .Set("IsRemote", candidateVM.IsRemote)
+                .Set("IsTemporary", candidateVM.IsTemporary)
+                .Set("IsLocum", candidateVM.IsLocum)
                 .Set("Skills", candidateVM.Skills)
                 .Set("MobileNo", candidateVM.MobileNo)
                 .Set("Email", candidateVM.Email)
@@ -139,7 +154,8 @@ namespace ClipRecruitment.Candidate.Services
                 {
                     _id = candidates._id,
                     CandidateName = candidates.CandidateName,
-                    Url = candidates.Url,
+                    VideoUrl = candidates.VideoUrl,
+                    ImageUrl = candidates.ImageUrl,
                     Objectives = candidates.Objectives,
                     Profile = candidates.Profile,
                     Position = candidates.Position,
@@ -150,6 +166,10 @@ namespace ClipRecruitment.Candidate.Services
                     ExpectedSalaryTo = candidates.ExpectedSalaryTo,
                     IsFullTime = candidates.IsFullTime,
                     IsPermanent = candidates.IsPermanent,
+                    IsPartTime = candidates.IsPartTime,
+                    IsTemporary = candidates.IsTemporary,
+                    IsRemote = candidates.IsRemote,
+                    IsLocum = candidates.IsLocum,
                     Skills = candidates.Skills,
                     MobileNo = candidates.MobileNo,
                     Email = candidates.Email,
@@ -167,45 +187,68 @@ namespace ClipRecruitment.Candidate.Services
 
             if (!String.IsNullOrEmpty(candidateFilteringVM.Profile.Trim()))
             {
-                query = (from c in query.Where(x => x.Profile.Contains(candidateFilteringVM.Profile)) select c).AsQueryable();
+                query = (from c in query.Where(x => x.Profile.ToLower().Contains(candidateFilteringVM.Profile.ToLower())) select c).AsQueryable();
             }
 
             if (candidateFilteringVM.PositionList != null && candidateFilteringVM.PositionList.Count() > 0)
             {
                 foreach (string position in candidateFilteringVM.PositionList)
                 {
-                    query = (from c in query.Where(x => x.Position.ToLower().Contains(position)) select c).AsQueryable();
+                    query = (from c in query.Where(x => x.Position.ToLower().Contains(position.ToLower())) select c).AsQueryable();
                 }
-                
+
             }
 
             query = (from c in query.Where(x => x.IsFullTime == candidateFilteringVM.IsFullTime) select c).AsQueryable();
 
             query = (from c in query.Where(x => x.IsPermanent == candidateFilteringVM.IsPermanent) select c).AsQueryable();
 
+            if (!candidateFilteringVM.isVideoProfileSearch)
+            {
+                query = (from c in query.Where(x => x.IsPartTime == candidateFilteringVM.IsPartTime) select c).AsQueryable();
+
+                query = (from c in query.Where(x => x.IsTemporary == candidateFilteringVM.IsTemporary) select c).AsQueryable();
+
+                query = (from c in query.Where(x => x.IsRemote == candidateFilteringVM.IsRemote) select c).AsQueryable();
+
+                query = (from c in query.Where(x => x.IsLocum == candidateFilteringVM.IsLocum) select c).AsQueryable();
+
+
+                if (candidateFilteringVM.ExpectedSalaryFrom != 0 && candidateFilteringVM.ExpectedSalaryTo != 0)
+                {
+                    query = (from c in query.Where(x =>
+                        (x.ExpectedSalaryFrom >= candidateFilteringVM.ExpectedSalaryFrom && x.ExpectedSalaryFrom < candidateFilteringVM.ExpectedSalaryTo)
+                        && (x.ExpectedSalaryTo <= candidateFilteringVM.ExpectedSalaryTo && x.ExpectedSalaryTo > candidateFilteringVM.ExpectedSalaryFrom)
+                        )
+                             select c).AsQueryable();
+                }
+            }
+
             if (candidateFilteringVM.LocationList != null && candidateFilteringVM.LocationList.Count() > 0)
             {
                 foreach (string location in candidateFilteringVM.LocationList)
                 {
-                    query = (from c in query.Where(x => x.Location.ToLower().Contains(location)) select c).AsQueryable();
+                    query = (from c in query.Where(x => x.Location.ToLower().Contains(location.ToLower())) select c).AsQueryable();
                 }
             }
 
             if (candidateFilteringVM.Skills != null && candidateFilteringVM.Skills.Count() > 0)
             {
-                foreach(string skill in candidateFilteringVM.Skills)
+                foreach (string skill in candidateFilteringVM.Skills)
                 {
                     query = (from c in query.Where(x => x.Skills.Contains(skill)) select c).AsQueryable();
                 }
 
             }
 
+
             var result = (from c in query
                           select new CandidateViewModel
                           {
                               _id = c._id,
                               CandidateName = c.CandidateName,
-                              Url = c.Url,
+                              VideoUrl = c.VideoUrl,
+                              ImageUrl = c.ImageUrl,
                               Objectives = c.Objectives,
                               Profile = c.Profile,
                               Position = c.Position,
@@ -216,6 +259,10 @@ namespace ClipRecruitment.Candidate.Services
                               ExpectedSalaryTo = c.ExpectedSalaryTo,
                               IsFullTime = c.IsFullTime,
                               IsPermanent = c.IsPermanent,
+                              IsPartTime = c.IsPartTime,
+                              IsTemporary = c.IsTemporary,
+                              IsRemote = c.IsRemote,
+                              IsLocum = c.IsLocum,
                               Skills = c.Skills,
                               MobileNo = c.MobileNo,
                               Email = c.Email,

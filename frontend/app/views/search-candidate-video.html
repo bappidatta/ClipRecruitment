@@ -82,7 +82,7 @@
             </div>
         </div>
         <div class="col-lg-9 col-md-9 col-sm-9 left-padding-off bg-white">
-            <h2 class="clearfix pull-left">Search Results 04</h2>
+            <h2 class="clearfix pull-left">Search Results {{candidateVideoProfileSearch.searchResultFound}} Found</h2>
             <a href="#" class="save-result pull-right"><i class="fa fa-floppy-o"></i> Save Results</a>
             <br class="clear" />
             <hr />
@@ -106,7 +106,7 @@
                         <tr>
                             <td rowspan="2">
 
-                                <iframe id="ytplayer" type="text/html" width="210" height="118" ng-src="{{candidateVideoProfileSearch.trustSrc(candidate.Url)}}"
+                                <iframe id="ytplayer" type="text/html" width="210" height="118" ng-src="{{candidateVideoProfileSearch.trustSrc(candidate.VideoUrl)}}"
                                     frameborder="0" allowfullscreen></iframe>
                             </td>
                             <td data-title="Name">

@@ -31,6 +31,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
   })
   .state('Search Candidate Profile', {
     url: '/Search-Candidate-Profile',
+    controller:'candidateProfileSearchController as candidateProfileSearch',
     templateUrl: 'search-candidate-profile.html',
     title: 'Dashboard'
   })

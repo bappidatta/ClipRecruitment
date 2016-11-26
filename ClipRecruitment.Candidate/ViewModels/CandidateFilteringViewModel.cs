@@ -10,6 +10,7 @@ namespace ClipRecruitment.Candidate.ViewModels
     {
 
         public string _id { get; set; }
+        public bool isVideoProfileSearch { get; set; }
         public string CandidateName { get; set; }
         public string Profile { get; set; }
         public List<string> PositionList { get; set; }
@@ -19,7 +20,11 @@ namespace ClipRecruitment.Candidate.ViewModels
         public decimal ExpectedSalaryFrom { get; set; }
         public decimal ExpectedSalaryTo { get; set; }
         public bool IsFullTime { get; set; }
+        public bool IsPartTime { get; set; }
         public bool IsPermanent { get; set; }
+        public bool IsTemporary { get; set; }
+        public bool IsRemote { get; set; }
+        public bool IsLocum { get; set; }
         public List<string> Skills { get; set; }
 
         public string MobileNo { get; set; }
