@@ -11,14 +11,14 @@ namespace ClipRecruitment.Domain
 {
     public class DbContext
     {
-        private IMongoDatabase db; 
-       
+        private IMongoDatabase db;
+
 
         public IMongoCollection<Job> Jobs
         {
             get
             {
-                if(this.db == null)
+                if (this.db == null)
                 {
                     var client = new MongoClient("mongodb://localhost:27017");
                     this.db = client.GetDatabase("ClipRecruitment");
@@ -39,7 +39,7 @@ namespace ClipRecruitment.Domain
         {
             get
             {
-                
+
                 return getDb().GetCollection<Employers>("Employers");
             }
         }
@@ -73,6 +73,14 @@ namespace ClipRecruitment.Domain
             get
             {
                 return getDb().GetCollection<Skills>("Skills");
+            }
+        }
+
+        public IMongoCollection<Vacancy> Vacancy
+        {
+            get
+            {
+                return getDb().GetCollection<Vacancy>("Vacancy");
             }
         }
 
@@ -121,6 +129,6 @@ namespace ClipRecruitment.Domain
 
             collection.InsertOne(document);
         }
-        
+
     }
 }

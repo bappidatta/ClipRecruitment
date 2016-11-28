@@ -40,6 +40,11 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
     templateUrl: 'create.html',
     title: 'Title'
   })
+  .state('Vacancy', {
+    url: '/publish-a-vacancy',
+    templateUrl: 'publish-a-vacancy.html',
+    title: 'Vacancy'
+  })
 
 
   // .state('Test',{

@@ -203,6 +203,7 @@
     <Compile Include="Controllers\EmployerController.cs" />
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\VacancyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
