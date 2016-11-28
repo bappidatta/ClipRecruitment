@@ -36,7 +36,6 @@ function candidateProfileSearchController(candidateProfileSearchService, commonS
      * Search Function
      */
     vm.search = function () {
-        console.log("===>>>"+vm.searchCriteria);
         candidateProfileSearchService.searchCandidates(vm.searchCriteria).then(function (res) {
             vm.CandidateList = res.data.Success;
             vm.searchResultFound = vm.CandidateList.length;

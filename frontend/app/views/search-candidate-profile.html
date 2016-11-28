@@ -91,193 +91,50 @@
 
 
             <div class="employer-search-block">
-                <div class="row result-item">
+                <div class="row result-item" ng-repeat="candidate in candidateProfileSearch.CandidateList">
                     <div class="col-sm-2 em-video">
-                        <img src="images/OU-logo.gif" class="img-responsive">
+                        <img ng-src="{{candidateProfileSearch.trustSrc(candidate.ImageUrl)}}" class="img-responsive">
                     </div>
                     <div class="col-sm-3 em-details">
-                        <h4>Anderson G.</h4>
+                        <h4>{{candidateProfileSearch.CandidateName}}</h4>
                         <table class="table no-border">
                             <tbody>
                                 <tr>
                                     <td><strong>Position:</strong></td>
-                                    <td><strong>Solicitor</strong></td>
+                                    <td><strong>{{candidate.Position}}</strong></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Experience:</strong></td>
-                                    <td>6 Years (PQE: 2)</td>
+                                    <td>{{candidate.Experince}}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Location:</strong></td>
-                                    <td>Mansfield</td>
+                                    <td>{{candidate.Location}}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Current Salary:</strong></td>
-                                    <td>£15,000-£19,000</td>
+                                    <td>{{candidate.CurrentSalary}}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Expected Salary:</strong></td>
-                                    <td>£20,000-£25,000</td>
+                                    <td>{{candidate.ExpectedSalaryFrom}}-{{candidate.ExpectedSalaryTo}}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="col-sm-4 em-summary">
                         <strong>Summary</strong>
-                        <p>Hardworking, loyal, focused, and determined to achieve goals and challenging tasks ith good growth
-                            opportunities. Find me on Linkedin as ###### (Moderated).</p>
+                        <p>{{candidate.Objectives}}</p>
                     </div>
                     <div class="col-sm-1 em-shortlist listed text-center">
                         <strong>Shortlist</strong>
-                        <span><i class="fa fa-check-circle"></i></span>
+                        <span><input type="checkbox" class="checkbox" /></span>
                     </div>
                     <div class="col-sm-2 em-price text-center">
                         <strong>Price</strong>
                         <span class="arrow-button"><span class="label">£500</span><span class="arrow"></span></span>
                     </div>
                 </div>
-                <!-- /.result-item -->
-
-                <!--<div class="row result-item">
-                    <div class="col-sm-2 em-video">
-                        <img src="images/OU-logo.gif" class="img-responsive">
-                    </div>
-                    <div class="col-sm-3 em-details">
-                        <h4>Anderson G.</h4>
-                        <table class="table no-border">
-                            <tbody>
-                                <tr>
-                                    <td><strong>Position:</strong></td>
-                                    <td><strong>Solicitor</strong></td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Experience:</strong></td>
-                                    <td>6 Years (PQE: 2)</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Location:</strong></td>
-                                    <td>Mansfield</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Current Salary:</strong></td>
-                                    <td>£15,000-£19,000</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Expected Salary:</strong></td>
-                                    <td>£20,000-£25,000</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-sm-4 em-summary">
-                        <strong>Summary</strong>
-                        <p>Hardworking, loyal, focused, and determined to achieve goals and challenging tasks ith good growth
-                            opportunities. Find me on Linkedin as ###### (Moderated).</p>
-                    </div>
-                    <div class="col-sm-1 em-shortlist text-center">
-                        <strong>Shortlist</strong>
-                        <span><i class="fa fa-check-circle"></i></span>
-                    </div>
-                    <div class="col-sm-2 em-price text-center">
-                        <strong>Price</strong>
-                        <span class="arrow-button"><span class="label">£500</span><span class="arrow"></span></span>
-                    </div>
-                </div>-->
-                <!-- /.result-item -->
-
-                <!--<div class="row result-item">
-                    <div class="col-sm-2 em-video">
-                        <img src="images/OU-logo.gif" class="img-responsive">
-                    </div>
-                    <div class="col-sm-3 em-details">
-                        <h4>Anderson G.</h4>
-                        <table class="table no-border">
-                            <tbody>
-                                <tr>
-                                    <td><strong>Position:</strong></td>
-                                    <td><strong>Solicitor</strong></td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Experience:</strong></td>
-                                    <td>6 Years (PQE: 2)</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Location:</strong></td>
-                                    <td>Mansfield</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Current Salary:</strong></td>
-                                    <td>£15,000-£19,000</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Expected Salary:</strong></td>
-                                    <td>£20,000-£25,000</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-sm-4 em-summary">
-                        <strong>Summary</strong>
-                        <p>Hardworking, loyal, focused, and determined to achieve goals and challenging tasks ith good growth
-                            opportunities. Find me on Linkedin as ###### (Moderated).</p>
-                    </div>
-                    <div class="col-sm-1 em-shortlist text-center">
-                        <strong>Shortlist</strong>
-                        <span><i class="fa fa-check-circle"></i></span>
-                    </div>
-                    <div class="col-sm-2 em-price text-center">
-                        <strong>Price</strong>
-                        <span class="arrow-button"><span class="label">£500</span><span class="arrow"></span></span>
-                    </div>
-                </div>-->
-                <!-- /.result-item -->
-
-                <!--<div class="row result-item">
-                    <div class="col-sm-2 em-video">
-                        <img src="images/OU-logo.gif" class="img-responsive">
-                    </div>
-                    <div class="col-sm-3 em-details">
-                        <h4>Anderson G.</h4>
-                        <table class="table no-border">
-                            <tbody>
-                                <tr>
-                                    <td><strong>Position:</strong></td>
-                                    <td><strong>Solicitor</strong></td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Experience:</strong></td>
-                                    <td>6 Years (PQE: 2)</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Location:</strong></td>
-                                    <td>Mansfield</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Current Salary:</strong></td>
-                                    <td>£15,000-£19,000</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Expected Salary:</strong></td>
-                                    <td>£20,000-£25,000</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-sm-4 em-summary">
-                        <strong>Summary</strong>
-                        <p>Hardworking, loyal, focused, and determined to achieve goals and challenging tasks ith good growth
-                            opportunities. Find me on Linkedin as ###### (Moderated).</p>
-                    </div>
-                    <div class="col-sm-1 em-shortlist text-center">
-                        <strong>Shortlist</strong>
-                        <span><i class="fa fa-check-circle"></i></span>
-                    </div>
-                    <div class="col-sm-2 em-price text-center">
-                        <strong>Price</strong>
-                        <span class="arrow-button"><span class="label">£500</span><span class="arrow"></span></span>
-                    </div>
-                </div>-->
-                <!-- /.result-item -->
             </div>
         </div>
     </div>
