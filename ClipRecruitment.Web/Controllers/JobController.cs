@@ -14,6 +14,7 @@ using System.Web.Http.Cors;
 
 namespace ClipRecruitment.Web.Controllers
 {
+    [Authorize]
     public class JobController : ApiController
     {
         private JobService jobService;
@@ -25,7 +26,7 @@ namespace ClipRecruitment.Web.Controllers
             this.commonService = commonService;
         }
 
-
+        [AllowAnonymous]
         [HttpGet]
         [Route("api/Job/GetAllJob/")]        
         public IHttpActionResult GetAllJob(int pageNo)

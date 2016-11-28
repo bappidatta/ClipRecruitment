@@ -1,6 +1,7 @@
-function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compileProvider) {
-  'ngInject';
-
+function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compileProvider, $httpProvider) {
+  'ngInject';    
+  $httpProvider.interceptors.push('httpRequestInterceptor');
+  $httpProvider.interceptors.push('authInterceptor');
   if (process.env.NODE_ENV === 'production') {
     $compileProvider.debugInfoEnabled(false);
   }

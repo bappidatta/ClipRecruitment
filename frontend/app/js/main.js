@@ -39,6 +39,50 @@ window.app = angular.module('app', requires);
 
 angular.module('app').constant('AppSettings', constants);
 
+angular.module('app').factory('httpRequestInterceptor', [
+    '$q',
+    function ($q) {      
+        return {
+            'responseError': function (rejection) {
+                return $q.reject(rejection);
+            }
+        };
+    }
+]);
+
+
+angular.module('app').factory('authInterceptor', [
+    '$rootScope',
+    '$q',
+    '$window',
+    '$location',
+    function ($rootScope, $q, $window, $location) {
+        return {
+            request: function (config) {
+                config.headers = config.headers || {};
+                if ($window.sessionStorage.token) {
+                    config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+                } else {
+                    if ($location.$$url == '/signup') {
+                        $location.path('/signup');
+                    }
+                    else {
+                        $location.path('/login');
+                    }
+                }
+                return config;
+            },
+            response: function (response) {
+                if (response.status === 401) {
+                    // handle the case where the user is not authenticated
+                }
+                return response || $q.when(response);
+            }
+        };
+    }
+]);
+
+
 angular.module('app').config(onConfig);
 
 angular.module('app').run(onRun);
