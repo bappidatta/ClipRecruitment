@@ -63,11 +63,14 @@ angular.module('app').factory('authInterceptor', [
                 if ($window.sessionStorage.token) {
                     config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
                 } else {
+                  console.log($location.$$url);
                     if ($location.$$url == '/signup') {
                         $location.path('/signup');
+                    }else if($location.$$url == '/' || $location.$$url == '/landing'){
+                        $location.path('/landing');
                     }
                     else {
-                        $location.path('/login');
+                        $location.path('/SignIn');
                     }
                 }
                 return config;

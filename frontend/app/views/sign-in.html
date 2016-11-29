@@ -1,0 +1,12 @@
+<form class="form-horizontal">
+    <div class="form-group">
+        <div class="col-lg-offset-4 col-lg-4">
+            <input type="text" class="form-control" placeholder="Username" ng-model="auth.userInfo.userName"/>
+            <input type="password" class="form-control" placeholder="Password" ng-model="auth.userInfo.password"/>
+        </div>
+         <div class="col-lg-offset-4 col-lg-4">
+            <button class="btn btn-primary" ng-click="auth.signIn()">Login</button>            
+        </div>
+    </div>
+    
+</form>

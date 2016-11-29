@@ -4,7 +4,7 @@ function candidateProfileSearchController(candidateProfileSearchService, commonS
     const vm = this;
     vm.searchCriteria = {
         isVideoProfileSearch: false,
-        Profile: "",
+        Profile: '',
         PositionList: [],
         LocationList: [],
         IsFullTime: true,

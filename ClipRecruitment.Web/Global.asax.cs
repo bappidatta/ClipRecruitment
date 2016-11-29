@@ -1,4 +1,8 @@
-﻿using SimpleInjector;
+﻿using AspNet.Identity.MongoDB;
+using ClipRecruitment.Web.App_Start;
+using ClipRecruitment.Web.Models;
+using Microsoft.AspNet.Identity;
+using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
 using System;
 using System.Collections.Generic;
@@ -15,12 +19,9 @@ namespace ClipRecruitment.Web
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
-
             var container = new Container();
-            container.Options.DefaultScopedLifestyle = new WebApiRequestLifestyle();
-
+            container.Options.DefaultScopedLifestyle = new WebApiRequestLifestyle();            
             container.Verify();
-
             GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
         }
                 

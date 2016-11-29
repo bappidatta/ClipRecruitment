@@ -15,8 +15,8 @@
       <link rel="stylesheet" href="css/datetimepicker.css">
   </head>
   <body>
-      <header>
-
+      
+       <header>
             <nav class="navbar navbar-default">
                 <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
@@ -75,30 +75,29 @@
 
                                 </ul>
                             </li>
-                            <li class="dropdown clearfix">
+                            <li class="dropdown clearfix" ng-if="$window.sessionStorage.token">
                                 <a href="#" class="dropdown-toggle user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                     Chapman <i class="fa fa-caret-down color-red"></i>
 
-                                </a>
+                                </a>                                
                                 <ul class="dropdown-menu clearfix">
-
-
                                     <li><a href="#">Settings</a></li>
                                     <li><a href="#">Logout</a></li>
-
-                                </ul>
-                            </li>
+                                </ul>                                
+                            </li>                            
                         </ul>
+                        <a href="/SignIn">Dashboard</a>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
             </nav>
-        </header>
+        </header>   
 
         <section class="bg-black strips">
             <div class="container">
                 ENTERPRISE ACCOUNT // Chapman Dhillon Solicitors
             </div>
         </section>
+      
 
       <div ui-view>
           <h3>Loading...</h3>

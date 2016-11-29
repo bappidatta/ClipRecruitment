@@ -11,8 +11,8 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
     requireBase: false
   });
 
-  $stateProvider
-  .state('Home', {
+  $stateProvider   
+  .state('Landing', {
     url: '/',
     controller: 'landingController as landing',
     templateUrl: 'landing.html',
@@ -39,7 +39,13 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
   .state('Create', {
     url: '/create',
     templateUrl: 'create.html',
-    title: 'Title'
+    title: 'Create'
+  })
+  .state('Login', {
+    url: '/SignIn',
+    templateUrl: 'sign-in.html',
+    controller: 'authController as auth',
+    title : 'SignIn'
   })
   .state('Vacancy', {
     url: '/publish-a-vacancy',
@@ -56,7 +62,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
   // });
 
   $urlRouterProvider.otherwise('/');
-
+    
 }
 
 export default OnConfig;

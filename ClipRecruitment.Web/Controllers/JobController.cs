@@ -14,7 +14,7 @@ using System.Web.Http.Cors;
 
 namespace ClipRecruitment.Web.Controllers
 {
-    [Authorize]
+    
     public class JobController : ApiController
     {
         private JobService jobService;
