@@ -15,6 +15,7 @@ function landingController(jobService){
                 vm.totalCount = res.data.Count;
                 for(var i in res.data.Success){
                     vm.jobPostings.push(res.data.Success[i]);
+                    console.log(vm.jobPostings);
                 }
                                 
                 vm.pageNo += 1;

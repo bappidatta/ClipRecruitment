@@ -5,7 +5,7 @@ function authService($http) {
 
     };
 
-    var authData = {
+    service.authData = {
         isAuth: false,
         userName: ''
     }
@@ -30,10 +30,8 @@ function authService($http) {
         return $http.post(serviceBase + 'api/Account/Register', userInfo);
     }
 
-    service.signOut = function () {
-        localStorage.removeItem('authData');
-        authData.isAuth = false;
-        authData.userName = '';
+    service.signOut = function () {        
+        return $http.get(serviceBase + 'api/Account/SignOut/');
     }
 
 

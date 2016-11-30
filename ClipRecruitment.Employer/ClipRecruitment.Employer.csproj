@@ -63,6 +63,7 @@
     <Compile Include="ViewModels\EmployerViewModel.cs" />
     <Compile Include="ViewModels\JobFilteringViewModel.cs" />
     <Compile Include="ViewModels\JobViewModel.cs" />
+    <Compile Include="ViewModels\VacancyViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClipRecruitment.Domain\ClipRecruitment.Domain.csproj">

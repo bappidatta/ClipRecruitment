@@ -13,7 +13,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity;
 using System.Web.Http;
-using System.Web.Mvc;
 using AspNet.Identity.MongoDB;
 using System.Web.Http.Cors;
 
@@ -101,6 +100,14 @@ namespace ClipRecruitment.Web.Controllers
             return Ok(true);
         }
 
+        [HttpGet]
+        [Route("api/Account/SignOut/")]
+        public IHttpActionResult SignOut()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalBearer);
+            return Ok(true);
+        }
+
        
 
         protected override void Dispose(bool disposing)
@@ -141,35 +148,7 @@ namespace ClipRecruitment.Web.Controllers
         //    }
         //    return RedirectToAction("Index", "Home");
         //}
-
-        internal class ChallengeResult : HttpUnauthorizedResult
-        {
-            public ChallengeResult(string provider, string redirectUri)
-                : this(provider, redirectUri, null)
-            {
-            }
-
-            public ChallengeResult(string provider, string redirectUri, string userId)
-            {
-                LoginProvider = provider;
-                RedirectUri = redirectUri;
-                UserId = userId;
-            }
-
-            public string LoginProvider { get; set; }
-            public string RedirectUri { get; set; }
-            public string UserId { get; set; }
-
-            public override void ExecuteResult(ControllerContext context)
-            {
-                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
-                if (UserId != null)
-                {
-                    properties.Dictionary[XsrfKey] = UserId;
-                }
-                context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
-            }
-        }
+        
         #endregion
     }
 }

@@ -5,8 +5,7 @@
             <input type="password" class="form-control" placeholder="Password" ng-model="auth.userInfo.password"/>
         </div>
          <div class="col-lg-offset-4 col-lg-4">
-            <button class="btn btn-primary" ng-click="auth.signIn()">Login</button>            
+            <button class="btn btn-primary" ng-click="auth.signIn(auth.userInfo)">Login</button>            
         </div>
-    </div>
-    
+    </div>    
 </form>
