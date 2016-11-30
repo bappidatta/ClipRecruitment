@@ -15,14 +15,18 @@ using Microsoft.AspNet.Identity;
 using System.Web.Http;
 using AspNet.Identity.MongoDB;
 using System.Web.Http.Cors;
+using ClipRecruitment.Candidate.ViewModels;
+using ClipRecruitment.Candidate.Services;
 
 namespace ClipRecruitment.Web.Controllers
 {
     
     public class AccountController : ApiController
     {
-        public AccountController()
+        private CandidateService _candidateService;
+        public AccountController(CandidateService candidateService)
         {
+            _candidateService = candidateService;
             UserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(HttpContext.Current.GetOwinContext()
                                                         .Get<ApplicationIdentityContext>().Users));
         }
@@ -83,7 +87,7 @@ namespace ClipRecruitment.Web.Controllers
        [System.Web.Mvc.Route("api/Account/Register/")]
        [System.Web.Mvc.AllowAnonymous]
        //[ValidateAntiForgeryToken]
-        public async Task<IHttpActionResult> Register(RegisterViewModel model)
+        public async Task<IHttpActionResult> Register(CandidateViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +95,16 @@ namespace ClipRecruitment.Web.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInHelper.SignInAsync(user, false, false);
+                    model.AuthID = user.Id;
+                    try
+                    {
+                        await _candidateService.CreateCandidateAsync(model);
+                    }
+                    catch(Exception ex)
+                    {
+
+                    }
+                    await SignInHelper.SignInAsync(user, false, false);                    
                     return Ok(true);
                 }
             }

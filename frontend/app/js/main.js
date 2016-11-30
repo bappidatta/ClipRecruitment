@@ -60,13 +60,17 @@ angular.module('app').factory('authInterceptor', [
         return {
             request: function (config) {
                 config.headers = config.headers || {};
-                if ($window.sessionStorage.token) {
-                    console.log(typeof($window.sessionStorage.token));
+                if ($window.sessionStorage.token) {                    
                     config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
-                } else {
-                  console.log($location.$$url);
-                    if ($location.$$url == '/signup') {
-                        $location.path('/signup');
+                    $rootScope.userName = $window.localStorage.userName;
+                    $rootScope.signOut = function(){
+                        $window.sessionStorage.removeItem('token');
+                        $location.path('/landing');
+                        $rootScope.userName = '';
+                    }
+                } else {                  
+                    if ($location.$$url == '/Candidate-Signup') {
+                        $location.path('/Candidate-Signup');
                     }else if($location.$$url == '/' || $location.$$url == '/landing'){
                         $location.path('/landing');
                     }

@@ -59,6 +59,7 @@
     <Compile Include="DbContext.cs" />
     <Compile Include="Models\Candidates.cs" />
     <Compile Include="Models\Employers.cs" />
+    <Compile Include="Models\JobIndustry.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\Locations.cs" />
     <Compile Include="Models\Positions.cs" />

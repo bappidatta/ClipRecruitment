@@ -52,6 +52,11 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
     templateUrl: 'publish-a-vacancy.html',
     title: 'Vacancy'
   })
+  .state('Candidate Signup', {
+    url: '/Candidate-Signup',    
+    controller: 'candidateSignupController as cSignup',
+    templateUrl: 'candidate-signup.html'
+  })
 
 
   // .state('Test',{

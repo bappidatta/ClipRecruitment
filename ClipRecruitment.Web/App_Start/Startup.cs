@@ -32,14 +32,8 @@ namespace ClipRecruitment.Web.App_Start
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
                 AllowInsecureHttp = true
             });
-            
-             
+                         
         }
-
-            
-
-
-
     }
 
     public static class Pagination

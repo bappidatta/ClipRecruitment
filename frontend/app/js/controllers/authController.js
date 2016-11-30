@@ -1,27 +1,26 @@
-function authController(authService, localStorageService, $rootScope){
+function authController(authService, localStorageService, locationService, $rootScope){
     'ngInject';
     
     const vm = this;
     vm.userInfo = {};
     
     
-    vm.signIn = function(userInfo){
+    vm.signIn = function(userInfo){        
         authService.signIn(userInfo).then(function(res){
-            localStorage.setItem('authData', {token: res.access_token, userName: userInfo.userName});
-                 authService.authData.isAuth = true;
-                 authService.authData.userName = userInfo.userName;
-                 localStorageService.set({token: res.data.access_token, userName: userInfo.userName});
+            console.log(res);
+            localStorage.setItem('authData', {token: res.access_token, userName: userInfo.userName});                
+                 localStorageService.set({userName: userInfo.userName});
                  $rootScope.userName = userInfo.userName;
                  sessionStorage.setItem('token', res.data.access_token);
-                 console.log(res);                 
+                 $rootScope.signOut = vm.signOut;
+                 locationService.redirectTo('/landing');
         });
     }
 
     vm.signOut = function(){
-        authService.signOut().then(function(){
-            sessionStorage.removeItem('token');  
-            console.log(sessionStorage.getItem('token'));          
-        });
+            sessionStorage.removeItem('token');
+            $rootScope.userName = '';
+            locationService.redirectTo('/landing');
     }
 }
 

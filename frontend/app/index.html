@@ -75,21 +75,23 @@
 
                                 </ul>
                             </li>
-                            <li class="dropdown clearfix" ng-if="!$window.sessionStorage.token">
+                            <li class="dropdown clearfix" ng-if="userName">
                                 <a href="#" class="dropdown-toggle user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    Chapman <i class="fa fa-caret-down color-red"></i>
+                                    {{userName}} <i class="fa fa-caret-down color-red"></i>
+                                    
                                 </a>                                
                                 <ul class="dropdown-menu clearfix">
                                     <li><a href="#">Settings</a></li>
-                                    <li><a href="http://localhost:57154/api/Account/SignOut/">Logout</a></li>
+                                    <li><a href="#" ng-click="signOut()">Logout</a></li>
                                 </ul>                                
                             </li>    
-                            <li class="dropdown clearfix" ng-if="!$window.sessionStorage.token">
+                            <li class="dropdown clearfix" ng-if="!userName">
                                 <a href="/SignIn" class="dropdown-toggle user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    SignIn <i class="fa fa-caret-down color-red"></i>
+                                    SignIn {{sessionStorage.token}} <i class="fa fa-caret-down color-red"></i>
                                 </a>                                
                                 <ul class="dropdown-menu clearfix">
                                     <li><a href="/SignIn">SignIn</a></li>                                   
+                                    <li><a href="/Candidate-Signup">SignUp</a></li>
                                 </ul>                                
                             </li>             
                         </ul>

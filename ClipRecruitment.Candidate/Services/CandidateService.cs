@@ -53,7 +53,12 @@ namespace ClipRecruitment.Candidate.Services
                 Skills = candidateVM.Skills,
                 MobileNo = candidateVM.MobileNo,
                 Email = candidateVM.Email,
-                Sex = candidateVM.Sex
+                Sex = candidateVM.Sex,
+                
+                AuthID = candidateVM.AuthID,
+                FirstName = candidateVM.FirstName,
+                IndustryList = candidateVM.IndustryList,
+                Surname = candidateVM.Surname,                
             };
 
             await _db.Candidates.InsertOneAsync(candidates);

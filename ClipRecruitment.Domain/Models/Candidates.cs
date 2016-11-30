@@ -36,5 +36,11 @@ namespace ClipRecruitment.Domain.Models
         public string MobileNo { get; set; }
         public string Email { get; set; }
         public string Sex { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string AuthID { get; set; }
+        public List<string> IndustryList { get; set; }
+        public string FirstName { get; set; }
+        public string Surname { get; set; }
+
     }
 }

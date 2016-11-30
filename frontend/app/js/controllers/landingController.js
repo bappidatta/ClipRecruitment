@@ -6,7 +6,7 @@ function landingController(jobService){
     vm.jobPostings = [];    
 
     vm.init = function(){
-        vm.getAllJob();
+        vm.getAllJob();        
     }
         
     vm.getAllJob = function(){
@@ -14,10 +14,8 @@ function landingController(jobService){
             if(res.data.Success){
                 vm.totalCount = res.data.Count;
                 for(var i in res.data.Success){
-                    vm.jobPostings.push(res.data.Success[i]);
-                    console.log(vm.jobPostings);
-                }
-                                
+                    vm.jobPostings.push(res.data.Success[i]);                    
+                }                                
                 vm.pageNo += 1;
             }
         });

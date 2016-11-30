@@ -14,6 +14,7 @@ namespace ClipRecruitment.Common.Services
         {
             _db = db;
         }
+                
 
         public List<string> GetLocations(string inputString)
         {

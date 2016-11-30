@@ -2,6 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,5 +36,17 @@ namespace ClipRecruitment.Candidate.ViewModels
         public string MobileNo { get; set; }
         public string Email { get; set; }
         public string Sex { get; set; }
+
+        public List<string> IndustryList { get; set; }
+        public string FirstName { get; set; }
+        public string Surname { get; set; }
+        public string Password { get; set; }
+        [Compare("Password")]
+        public string ConfirmPassword { get; set; }
+        [Compare("Email")]
+        public string ConfirmEmail { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string AuthID { get; set; }
+
     }
 }

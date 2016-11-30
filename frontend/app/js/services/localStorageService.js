@@ -2,19 +2,15 @@ function localStorageService() {
   'ngInject';
 
   const service = {};
-  var authData  = {
-        token: '',
+  var authData  = {        
         userName: ''
       };
 
-  service.set = function(authData){
-      console.log(authData);
-      localStorage.setItem('token', authData.token);
+  service.set = function(authData){            
       localStorage.setItem('userName', authData.userName);
   };
 
-  service.get = function(){
-    authData.token = localStorage.getItem('token');
+  service.get = function(){    
     authData.userName = location.getItem('userName');  
     return authData;
   }

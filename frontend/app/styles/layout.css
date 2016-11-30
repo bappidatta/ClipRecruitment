@@ -1002,3 +1002,8 @@ form label {
         color: #222;
     }
 }
+
+
+form.ng-submitted .ng-invalid{
+    border: 1px solid #ff6a00;
+}
