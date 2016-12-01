@@ -41,52 +41,114 @@
                 <div class="col-sm-6 col-xs-12">
                     <div class="form-bg">
                         <div class="form-group">
-                            <label for="firstName">First Name</label>
-                            <input type="text" class="form-control" id="firstName" 
+                            <label for="firstName">First Name 
+                                <span ng-show="cSignup.candidateForm.firstName.$touched && cSignup.candidateForm.firstName.$invalid
+                                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.firstName.$invalid">
+                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                                </span>
+                                <span ng-show="cSignup.candidateForm.firstName.$valid">
+                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
+                                </span>
+                            </label>
+                            <input name="firstName" type="text" class="form-control" id="firstName" 
                                 ng-model="cSignup.signUpModel.FirstName" 
-                                
+                                ng-model-options="{updateOn: 'blur'}"
+                                required maxlength="20" minlength="2"
                                 >
                         </div>
                         <div class="form-group">
-                            <label for="surName">Surname</label>
-                            <input type="text" class="form-control" id="surName" 
+                            <label for="surName">Surname 
+                                <span ng-show="cSignup.candidateForm.surName.$touched && cSignup.candidateForm.surName.$invalid
+                                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.surName.$invalid">
+                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                                </span>
+                                <span ng-show="cSignup.candidateForm.surName.$valid">
+                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
+                                </span>
+                            </label>
+                            <input name="surName" type="text" class="form-control" id="surName" 
                                 ng-model="cSignup.signUpModel.SurName"
-                                
+                                ng-model-options="{updateOn: 'blur'}"
+                                required maxlength="20" minlength="2"
                             >
                         </div>
                         <div class="form-group">
-                            <label for="emailAddress">Email Address</label>
-                            <input type="email" class="form-control" id="emailAddress" 
-                            ng-model="cSignup.signUpModel.Email"
-                            
+                            <label for="emailAddress">Email Address 
+                                <span ng-show="cSignup.candidateForm.email.$touched && cSignup.candidateForm.email.$invalid
+                                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.email.$invalid">
+                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                                </span>
+                                <span ng-show="cSignup.candidateForm.email.$valid">
+                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
+                                </span>
+                            </label>
+                            <input name="email" type="email" class="form-control" id="emailAddress" 
+                                ng-model="cSignup.signUpModel.Email"
+                                ng-model-options="{updateOn: 'blur'}"
+                                required maxlength="30"
                             >
                         </div>
                         <div class="form-group">
-                            <label for="confirmEmailAddress">Confirm Email Address</label>
-                            <input type="email" class="form-control" id="confirmEmailAddress" 
+                            <label for="confirmEmailAddress">Confirm Email Address 
+                                 <span ng-show="cSignup.candidateForm.confirmEmail.$touched && cSignup.candidateForm.confirmEmail.$invalid
+                                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.confirmEmail.$invalid">
+                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                                </span>
+                                <span ng-show="cSignup.candidateForm.confirmEmail.$valid">
+                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
+                                </span>
+                            </label>
+                            <input name="confirmEmail" type="email" class="form-control" id="confirmEmailAddress" 
                                 ng-model="cSignup.signUpModel.ConfirmEmail"
                                 
+                                required maxlength="30"
+                                ng-blur="cSignup.confirmEmail()"                                
                             >
                         </div>
                         <div class="form-group">
-                            <label for="enterPassword">Password</label>
-                            <input type="password" class="form-control" id="enterPassword" 
+                            <label for="enterPassword">Password 
+                                 <span ng-show="cSignup.candidateForm.password.$touched && cSignup.candidateForm.password.$invalid 
+                                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.password.$invalid">
+                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                                </span>
+                                <span ng-show="cSignup.candidateForm.password.$valid">
+                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
+                                </span>
+                            </label>
+                            <input name="password" type="password" class="form-control" id="enterPassword" 
                                 ng-model="cSignup.signUpModel.Password"
-                                
+                                ng-model-options="{updateOn: 'blur'}"
+                                required maxlength="16" minlength="6"
                                 >
                         </div>
                         <div class="form-group">
-                            <label for="enterConfirmPassword">Confirm Password</label>
-                            <input type="password" class="form-control" id="enterConfirmPassword" 
+                            <label for="enterConfirmPassword">Confirm Password 
+                                 <span ng-show="cSignup.candidateForm.confirmPassword.$touched && cSignup.candidateForm.confirmPassword.$invalid 
+                                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.confirmPassword.$invalid">
+                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                                </span>
+                                <span ng-show="cSignup.candidateForm.confirmPassword.$valid">
+                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
+                                </span>
+                            </label>
+                            <input name="confirmPassword" type="password" class="form-control" id="enterConfirmPassword" 
                                 ng-model="cSignup.signUpModel.ConfirmPassword"
-                                
+                                ng-blur="cSignup.confirmPassword()"
+                                required maxlength="16" minlength="6"
                                 >
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-xs-12">
                     <div class="form-bg">
-                        <label>Your Sector</label>
+                        <label>Your Sector 
+                            <span ng-show="cSignup.candidateForm.$submitted && !cSignup.signUpModel.IndustryList.length">
+                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                                </span>
+                                <span ng-show="cSignup.candidateForm.$submitted && cSignup.signUpModel.IndustryList.length">
+                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
+                                </span>
+                        </label>
                         <div class="row checkbox">
                             <div class="col-sm-6 col-xs-12">
                                 <label>
@@ -174,19 +236,40 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="uploadCV">Upload your CV</label>
+                            <label for="uploadCV">Upload your CV 
+
+                            </label>
                             <input type="file" ng-model="cSignup.signUpModel.CV">
                             <span class="form-sub">We accept DOC, DOCX, PDF & RTF formates</span>
                         </div>
                         <div class="form-group">
-                            <label for="">Current Location</label>
-                            <input type="text" class="form-control" ng-model="cSignup.signUpModel.Location" 
-                                    uib-typeahead="position for position in cSignup.getPositions($viewValue)"
-                                    required>
+                            <label for="">Current Location 
+                                <span ng-show="cSignup.candidateForm.location.$touched && cSignup.candidateForm.location.$invalid 
+                                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.location.$invalid">
+                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                                </span>
+                                <span ng-show="cSignup.candidateForm.location.$valid">
+                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
+                                </span>
+                            </label>
+                            <input name="location" type="text" class="form-control" ng-model="cSignup.signUpModel.Location" 
+                                    uib-typeahead="location for location in cSignup.getLocation($viewValue)"
+                                    ng-model-options="{updateOn: 'blur'}"
+                                    required 
+                                    maxlength="20" minlength="2"
+                                    >
                         </div>
                         <div class="form-group">
-                            <label for="">Current Salary</label>
-                            <select class="form-control" ng-model="cSignup.signUpModel.CurrentSalary" 
+                            <label for="">Current Salary 
+                                <span ng-show="cSignup.candidateForm.salery.$touched && cSignup.candidateForm.salery.$invalid
+                                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.salery.$invalid">
+                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                                </span>
+                                <span ng-show="cSignup.candidateForm.salery.$valid">
+                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
+                                </span>
+                            </label>
+                            <select name="salery" class="form-control" ng-model="cSignup.signUpModel.CurrentSalary" 
                                     ng-options="s as '£'+s for s in cSignup.salaryRange"
                                     required>
                                         <option value="">Select your current Salary</option>
