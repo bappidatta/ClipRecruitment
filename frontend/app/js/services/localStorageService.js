@@ -11,7 +11,7 @@ function localStorageService() {
   };
 
   service.get = function(){    
-    authData.userName = location.getItem('userName');  
+    authData.userName = localStorage.getItem('userName');  
     return authData;
   }
 

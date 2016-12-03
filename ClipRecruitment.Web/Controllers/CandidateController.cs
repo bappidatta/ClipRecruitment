@@ -67,11 +67,12 @@ namespace ClipRecruitment.Web.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> SignUp(CandidateViewModel candidateVM)
         {
+
             if (!ModelState.IsValid)
                 return Ok(new { Error = "Invalid data submitted!" });
 
 
-            var user = new ApplicationUser { UserName = candidateVM.Email, Email = candidateVM.Email };
+            var user = new ApplicationUser { UserName = candidateVM.Email, Email = candidateVM.Email, IsEmployer = false };
             try
             {
                 var result = await UserManager.CreateAsync(user, candidateVM.Password);
@@ -81,7 +82,7 @@ namespace ClipRecruitment.Web.Controllers
             catch (Exception)
             {
                 return Ok(new { Error = "Someting went wrong while creating user profile!" });
-            }            
+            }
             return Ok(new { Success = "User account created successfully!" });
         }
 

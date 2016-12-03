@@ -47,10 +47,11 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
     controller: 'authController as auth',
     title : 'SignIn'
   })
-  .state('Vacancy', {
-    url: '/publish-a-vacancy',
-    templateUrl: 'publish-a-vacancy.html',
-    title: 'Vacancy'
+  .state('Job Posting', {
+    url: '/Job-Posting',
+    controller: 'jobPostingController as jobPosting',
+    templateUrl: 'job-posting.html',
+    title: 'Job Posting'
   })
   .state('Candidate Signup', {
     url: '/Candidate-Signup',    

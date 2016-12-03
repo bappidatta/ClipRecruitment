@@ -1,6 +1,6 @@
 function commonService($http) {
   'ngInject';
-
+  var serviceBase = 'http://localhost:57154/';
   const service = {};
   
   service.isReal = function(item){
@@ -18,18 +18,21 @@ function commonService($http) {
 
    
   service.getLocations = function(val){
-    return $http.get('http://localhost:57154/api/Common/GetLocations/', {params: {inputString: val}});
+    return $http.get(serviceBase + 'api/Common/GetLocations/', {params: {inputString: val}});
   }
 
   service.getPositions = function(val){
-    return $http.get('http://localhost:57154/api/Common/GetPositions/', {params: {inputString: val}});
+    return $http.get(serviceBase + 'api/Common/GetPositions/', {params: {inputString: val}});
   }
 
    service.getSkills = function(val){
-    return $http.get('http://localhost:57154/api/Common/GetSkills/', {params: {inputString: val}});
+    return $http.get(serviceBase + 'api/Common/GetSkills/', {params: {inputString: val}});
   }
 
 
+  service.getUser = function(userName){
+    return $http.get(serviceBase + 'api/Common/GetUser/', {params: {userName}});
+  }
   
   return service;
   

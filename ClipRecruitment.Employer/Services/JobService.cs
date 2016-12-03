@@ -25,22 +25,25 @@ namespace ClipRecruitment.Employer.Services
         {
             job = new Job
             {
-                IndustryID = jobVM.IndustryID,
+                Industry = jobVM.Industry,
                 InsolvencyID = jobVM.InsolvencyID,
                 EmployerID = jobVM.EmployerID,
                 SalaryFrom = jobVM.SalaryFrom,
                 SalaryTo = jobVM.SalaryTo,
-                ShortDescription = jobVM.ShortDescription,
                 IsFullTime = jobVM.IsFullTime,
                 IsPermanent = jobVM.IsPermanent,
                 IsRemote = jobVM.IsRemote,
                 IsLocal = jobVM.IsLocal,
                 IsPartTime = jobVM.IsPartTime,
                 IsTemporary = jobVM.IsRemote,
-                Location = jobVM.Location,
-                LongDescription = jobVM.LongDescription,
+                LocationList = jobVM.LocationList,
+                Description = jobVM.Description,
                 Position = jobVM.Position,
                 YearOfExperience = jobVM.YearOfExperience,
+                SkillSet = jobVM.SkillSet, 
+                EducationLevel = jobVM.EducationLevel
+                
+                
             };
 
             await _db.Jobs.InsertOneAsync(job);
@@ -54,8 +57,7 @@ namespace ClipRecruitment.Employer.Services
             var update = Builders<Job>.Update
                 .Set("SalaryFrom", jobVM.SalaryFrom)
                 .Set("SalaryTo", jobVM.SalaryTo)                
-                .Set("LongDescription", jobVM.LongDescription)
-                .Set("ShortDescription", jobVM.ShortDescription)
+                .Set("LongDescription", jobVM.Description)
                 .Set("EmployerID", jobVM.EmployerID);
 
             var result = await _db.Jobs.UpdateOneAsync(filter, update);            
@@ -72,17 +74,16 @@ namespace ClipRecruitment.Employer.Services
             return (from j in result.Skip(skip).Take(take)
              select new JobViewModel
              {
-                 IndustryID = j.IndustryID,
+                 Industry = j.Industry,
                  InsolvencyID = j.InsolvencyID,
                  EmployerID = j.EmployerID,
                  SalaryFrom = j.SalaryFrom,
                  SalaryTo = j.SalaryTo,
-                 ShortDescription = j.ShortDescription,
                  IsFullTime = j.IsFullTime,
                  IsPermanent = j.IsPermanent,
                  IsRemote = j.IsRemote,
-                 Location = j.Location,
-                 LongDescription = j.LongDescription,
+                 LocationList = j.LocationList,
+                 Description = j.Description,
                  Position = j.Position,
                  YearOfExperience = j.YearOfExperience,
                  _id = j._id
@@ -98,17 +99,16 @@ namespace ClipRecruitment.Employer.Services
             {
                 return new JobViewModel
                 {
-                    IndustryID = job.IndustryID,
+                    Industry = job.Industry,
                     InsolvencyID = job.InsolvencyID,
                     EmployerID = job.EmployerID,
                     SalaryFrom = job.SalaryFrom,
                     SalaryTo = job.SalaryTo,
-                    ShortDescription = job.ShortDescription,
                     IsFullTime = job.IsFullTime,
                     IsPermanent = job.IsPermanent,
                     IsRemote = job.IsRemote,
-                    Location = job.Location,
-                    LongDescription = job.LongDescription,
+                    LocationList = job.LocationList,
+                    Description = job.Description,
                     Position = job.Position,
                     YearOfExperience = job.YearOfExperience,
                     _id = job._id
@@ -125,9 +125,9 @@ namespace ClipRecruitment.Employer.Services
             var query = _db.Jobs.AsQueryable().AsQueryable();
             
             // filter by industry type
-            if (jobFilteringVM.IndustryID > 0)
+            if (!string.IsNullOrEmpty(jobFilteringVM.Industry))
             {
-                query = (from j in query.Where(x => x.IndustryID == jobFilteringVM.IndustryID)
+                query = (from j in query.Where(x => x.Industry == jobFilteringVM.Industry)
                          select j).AsQueryable();
             }
             
@@ -172,10 +172,10 @@ namespace ClipRecruitment.Employer.Services
 
 
             // filter by locations
-            if (jobFilteringVM.LocationList != null && jobFilteringVM.LocationList.Count > 0)
-            {
-                query = (from j in query.Where(x => jobFilteringVM.LocationList.Contains(x.Location)) select j).AsQueryable();
-            }
+            //if (jobFilteringVM.LocationList != null && jobFilteringVM.LocationList.Count > 0)
+            //{
+            //    query = (from j in query.Where(x => jobFilteringVM.LocationList.Contains(x.Location)) select j).AsQueryable();
+            //}
 
             if (jobFilteringVM.SalaryFrom != 0 && jobFilteringVM.SalaryTo != 0)
             {
@@ -196,17 +196,16 @@ namespace ClipRecruitment.Employer.Services
             var result = (from j in query
                           select new JobViewModel
                           {
-                              IndustryID = j.IndustryID,
+                              Industry = j.Industry,
                               InsolvencyID = j.InsolvencyID,
                               EmployerID = j.EmployerID,
                               SalaryFrom = j.SalaryFrom,
                               SalaryTo = j.SalaryTo,
-                              ShortDescription = j.ShortDescription,
                               IsFullTime = j.IsFullTime,
                               IsPermanent = j.IsPermanent,
                               IsRemote = j.IsRemote,
-                              Location = j.Location,
-                              LongDescription = j.LongDescription,
+                              LocationList = j.LocationList,
+                              Description = j.Description,
                               Position = j.Position,
                               YearOfExperience = j.YearOfExperience,
                               _id = j._id                              

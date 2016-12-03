@@ -1,0 +1,223 @@
+﻿<section class="banner-area" style="background-image: url(images/landing-banner.jpg)">
+    <!--            <div class="searching-block">
+                            <h1>Job Search</h1>
+                            <h3>Search Over 100,000 Jobs</h3>
+                            <form class="form-inline search-form">
+                                <div class="form-group job-category">
+                                    <label><i class="fa fa-search" aria-hidden="true"></i></label>
+                                    <input class="form-control" type="text" placeholder="Keyword: e.g. Engineering, Sales">
+                                    <button class="close-icon" type="reset"><i class="fa fa-times-circle"></i>
+                                    </button>
+                                </div>
+                                <div class="form-group location">
+                                    <label><i class="fa fa-map-marker" aria-hidden="true"></i></label>
+                                    <input class="form-control" type="text" placeholder="Place: e.g. Manchester">
+                                </div>
+                                <div class="submit-form">
+                                    <button type="submit" class="btn btn-danger">Search for your next job <i class="fa fa-angle-double-right"></i></button>
+                                </div>
+                            </form>
+                        </div>-->
+    <!--            <div class="container">
+                            <ul class="banner-menu">
+                                <li><a href="#">Client</a></li>
+                                <li><a href="#">Business</a></li>
+                                <li><a href="#">Technology</a></li>
+                            </ul>
+                        </div>-->
+</section>
+
+<section class="main-contains reg-block">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 reg-title">
+                <h1>Publish a vacancy</h1>
+                <p>Fill your vacancy today!<br>Post a Job Description for Free to start viewing candidate profiles and hundreds
+                    of clips</p>
+            </div>
+        </div>
+        <form class="job-posting-form" name="jobPosting.jobPostingForm" ng-submit="jobPosting.creatJob()">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="jobTitle">Job Title/Position</label>
+                        <select class="form-control" ng-model="jobPosting.job.Position" 
+                            ng-options="position as position for position in jobPosting.jobPositions">
+                                    <option value="">Select Title</option> 
+                                </select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Experience</label>
+                        <select class="form-control" ng-model="jobPosting.job.YearOfExperience" ng-options="ex as ex+' Year(s)' for ex in jobPosting.jobExperiences">
+                                    <option value="">Select Experience</option>                                
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Education Level</label>
+                        <select class="form-control" ng-model="jobPosting.job.EducationLevel" ng-options="ed as ed for ed in jobPosting.educationLevels">
+                                    <option value="">Select Education</option>                                    
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6 no-padding">
+                    <div class="col-sm-12"><label>Salary Estimate</label></div>
+                    <!--<div class="form-group">
+                        <label>Salary Estimate</label>
+                        <select class="form-control">
+                                    <option>Select...</option>
+                                    <option>Estimate 1</option>
+                                    <option>Estimate 2</option>
+                                    <option>Estimate 3</option>
+                                    <option>Estimate 4</option>
+                                    <option>Estimate 5</option>
+                                    <option>Estimate 6</option>
+                                </select>
+                    </div>-->
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <select class="form-control" ng-model="jobPosting.job.SalaryFrom" 
+                                ng-options="s as '£'+s for s in jobPosting.salaryFrom"> 
+                                <option value="">From</option>                                   
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <select class="form-control" ng-model="jobPosting.job.SalaryTo" 
+                            ng-options="s as '£'+s for s in jobPosting.salaryTo">
+                            <option value="">To</option>                                              
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>Job Description</label>
+                        <textarea class="form-control" ng-model="jobPosting.job.Description"></textarea>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>Job Type</label>
+                        <div class="row checkbox">
+                            <div class="col-sm-3 col-xs-12">
+                                <label>
+                                    <input type="checkbox" ng-model="jobPosting.job.IsPermanent"> Permanent
+                                </label>
+                            </div>
+                            <div class="col-sm-3 col-xs-12">
+                                <label> 
+                                    <input type="checkbox" ng-model="jobPosting.job.IsTemporary"> Temporary
+                                </label>
+                            </div>
+                            <div class="col-sm-3 col-xs-12">
+                                <label>
+                                     <input type="checkbox" ng-model="jobPosting.job.IsFullTime"> Full-time
+                                </label>
+                            </div>
+                            <div class="col-sm-3 col-xs-12">
+                                <label>
+                                    <input type="checkbox" ng-model="jobPosting.job.IsPartTime"> Part-time
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Location</label>
+                                <select class="form-control">
+                                    <option>Select...</option>
+                                    <option>Location 1</option>
+                                    <option>Location 2</option>
+                                    <option>Location 3</option>
+                                    <option>Location 4</option>
+                                    <option>Location 5</option>
+                                    <option>Location 6</option>
+                                </select>
+                                <a href="#" class="arrow-button"><span class="label">Leeds</span><span class="arrow"></span></a>
+                                <a href="#" class="arrow-button"><span class="label">Bradford</span><span class="arrow"></span></a>
+                                    <a href="#" class="arrow-button"><span class="label">Huddersfield</span><span class="arrow"></span></a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Skills</label>
+                                <select class="form-control">
+                                    <option>Select...</option>
+                                    <option>Skills 1</option>
+                                    <option>Skills 2</option>
+                                    <option>Skills 3</option>
+                                    <option>Skills 4</option>
+                                    <option>Skills 5</option>
+                                    <option>Skills 6</option>
+                                </select>
+                                <a href="#" class="arrow-button"><span class="label">Litigation</span><span class="arrow"></span></a>
+                                <a href="#" class="arrow-button"><span class="label">Defendant</span><span class="arrow"></span></a>
+                                <a href="#" class="arrow-button"><span class="label">Litigation</span><span class="arrow"></span></a>
+                                <a href="#" class="arrow-button"><span class="label">Applications</span><span class="arrow"></span></a>
+                                <a href="#" class="arrow-button"><span class="label">Court Att...</span><span class="arrow"></span></a>
+                                <a href="#" class="arrow-button"><span class="label">Applications</span><span class="arrow"></span></a>
+                                <a href="#" class="arrow-button"><span class="label">Management</span><span class="arrow"></span></a>
+                                <a href="#" class="arrow-button"><span class="label">Management</span><span class="arrow"></span></a>
+                            </div>
+                        </div>-->
+
+                <div class="position-experience">
+                    <div class="col-lg-6 col-sm-6 col-xs-12 position-block">
+                        <label>Location</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Leeds" 
+                                ng-model="jobPosting.location" 
+                                uib-typeahead="location for location in jobPosting.getLocations($viewValue)"
+                             >
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" 
+                                    ng-click="jobPosting.addLocation(jobPosting.location)"><i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <!-- /input-group -->
+                        <a href="#" class="arrow-button" ng-repeat="location in jobPosting.job.LocationList" 
+                            ng-click="jobPosting.removeLocation($index)">
+                            <span class="label">{{location}}</span><span class="arrow"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="position-experience">
+                    <div class="col-lg-6 col-sm-6 col-xs-12 position-block">
+                        <label>Skills</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" 
+                                placeholder="Management" ng-model="jobPosting.skill" 
+                                uib-typeahead="skill for skill in jobPosting.getSkills($viewValue)">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" 
+                                    ng-click="jobPosting.addSkill(jobPosting.skill)"><i class="fa fa-search"></i>
+                                 </button>
+                             </span>
+                        </div>
+                        <!-- /input-group -->
+                        <a href="#" class="arrow-button" 
+                            ng-repeat="skill in jobPosting.job.SkillSet" 
+                            ng-click="jobPosting.removeSkill($index)">
+                            <span class="label">{{skill}}</span><span class="arrow"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-submit">
+                <button type="submit" class="btn btn-primary" ng-click="jobPosting.createJob()">Post a vacancy to start viewing candidate clips</button>
+            </div>
+        </form>
+
+
+
+    </div>
+</section>

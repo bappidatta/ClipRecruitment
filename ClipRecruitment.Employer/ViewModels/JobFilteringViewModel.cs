@@ -8,7 +8,7 @@ namespace ClipRecruitment.Employer.ViewModels
 {
     public class JobFilteringViewModel
     {
-        public int IndustryID { get; set; }
+        public string Industry { get; set; }
         public string KeyWord { get; set; }
         public List<string> LocationList { get; set; }       
         public int InsolvencyID { get; set; }

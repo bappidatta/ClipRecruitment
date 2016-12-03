@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace ClipRecruitment.Domain.Models
 {
+    [BsonIgnoreExtraElements]
     public class Job
     {
         [BsonId]
@@ -16,12 +17,11 @@ namespace ClipRecruitment.Domain.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string EmployerID { get; set; }
         public string Position { get; set; }
-        public int IndustryID { get; set; }
+        public string Industry { get; set; }
         public Decimal SalaryFrom { get; set; }
         public Decimal SalaryTo { get; set; }
-        public string LongDescription { get; set; }
-        public string ShortDescription { get; set; }
-        public string Location { get; set; }        
+        public string Description { get; set; }
+        public List<string> LocationList { get; set; }
         public int InsolvencyID { get; set; }
         public bool IsFullTime { get; set; }
         public bool IsPartTime { get; set; }
@@ -30,5 +30,9 @@ namespace ClipRecruitment.Domain.Models
         public bool IsRemote { get; set; }
         public bool IsLocal { get; set; }
         public int YearOfExperience { get; set; }
+        public List<string> SkillSet { get; set; }
+        public string EducationLevel { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsArchived { get; set; }
     }
 }

@@ -55,6 +55,7 @@ namespace ClipRecruitment.Web.Controllers
             {
                 try
                 {
+                    jobVM.EmployerID = "5842b98d3e05f232c44167cd";
                     var job = await jobService.CreateJobAsync(jobVM);
                     return Ok(new { Success = job});
                 }
@@ -122,13 +123,20 @@ namespace ClipRecruitment.Web.Controllers
         }
 
 
+
+
+
+
+
+
+
+
         [HttpGet]
         [Route("api/Job/SeedJobs/")]
         public async Task<IHttpActionResult> SeedJobs(int id)
         {
             decimal from = 15000;
             decimal to = 25000;
-            string shortDesc = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.";
             string longDesc = @"Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
                                 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a 
                                 galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also
@@ -152,12 +160,11 @@ namespace ClipRecruitment.Web.Controllers
 
                 await CreateJobAsync(new JobViewModel
                 {
-                    IndustryID = switcher,
+                    
                     InsolvencyID = switcher,
-                    LongDescription = longDesc,
-                    ShortDescription = shortDesc,
+                    Description = longDesc,
                     Position = positins[switcher],
-                    Location = locations[switcher],
+                    LocationList = locations.Take(switcher).ToList(),
                     YearOfExperience = switcher,                    
                     IsFullTime = true, // 
                     IsPartTime = false,

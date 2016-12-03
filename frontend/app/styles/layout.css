@@ -1,7 +1,6 @@
-
 @import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css);
 @import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700);
-
+ 
 body {
     font-family: 'Roboto Condensed', sans-serif;
     font: 14px/1.5;
@@ -91,7 +90,7 @@ header .navbar-nav > li > a .fa {
 .top-strips {
     padding:3px;
 }
-
+ 
 .save-result {
     color:#606061;
     text-decoration:none;
@@ -113,7 +112,7 @@ header .navbar-nav > li > a .fa {
 .main-contains table h4 {
     margin:0;
 }
-
+ 
 footer {
     margin-top:15px;
     padding:30px 0;
@@ -145,9 +144,9 @@ footer .social .fa {
 footer .input-group {
     margin-top:5px;
 }
-
-
-
+ 
+ 
+ 
 .left-search-section {
     padding:25px 0;
 }
@@ -223,10 +222,10 @@ footer .input-group {
 .arrow-button:focus {
     outline: 0 !important;
 }
-
+ 
 /* Pr0gressbar*/
 /*.bs-wizard {margin-top: 40px;}*/
-
+ 
 /*Form Wizard*/
 .bs-wizard {border-bottom: solid 1px #e0e0e0; padding: 0 0 10px 0;}
 .bs-wizard > .bs-wizard-step {padding: 0; position: relative;}
@@ -246,10 +245,10 @@ footer .input-group {
 .bs-wizard > .bs-wizard-step:first-child  > .progress {left: 50%; width: 50%;}
 .bs-wizard > .bs-wizard-step:last-child  > .progress {width: 50%;}
 .bs-wizard > .bs-wizard-step.disabled a.bs-wizard-dot{ pointer-events: none; }
-
-
+ 
+ 
 @media (min-width: 994px) and (max-width: 1200px) {
-
+ 
     .left-search-section ul {
         list-style: outside none none;
         margin-bottom: 16px;
@@ -282,77 +281,77 @@ footer .input-group {
         width:130px;
     }
 }
-
+ 
 @media (min-width: 768px) and (max-width: 994px) {
-
+ 
     .table > thead > tr > th {
         vertical-align: top;
     }
     .table iframe {
         width:108px;
     }
-
+ 
     footer .left-section img {
         margin-bottom: 23px;
     }
-
+ 
     footer h3 {
         margin-top: 0;
     }
-
+ 
     h4, .h4 {
         font-size: 14px;
     }
-
+ 
     table {
         font-size: 12px;
     }
-
+ 
     small, .small {
         font-size: 80%;
         position: relative;
         top: -3px;
     }
-
+ 
     .left-search-section .input-group {
         margin-bottom: 8px;
     }
-
+ 
     .left-search-section ul {
         margin-bottom: 12px;
         margin-top: 12px;
     }
-
+ 
     .label {
         border-radius: 0.25em;
         color: #fff;
         display: inline;
         font-size: 66%;
     }
-
+ 
     .main-contains table td h4 {
         font-size: 13px;
     }
-
+ 
     .left-search-section .btns {
         font-size: 14px;
         margin-top: 24px;
     }
-
+ 
     .left-search-section {
         padding: 13px 0;
     }
-
+ 
     header .nav > li > a {
         display: block;
         padding: 10px 8px;
         position: relative;
     }
-
+ 
     header .navbar-collapse .nav {
         margin-left: -25px;
     }
-
+ 
     header .navbar-default .navbar-nav > li > a {
         color: #606061;
         font-size: 16px;
@@ -366,7 +365,7 @@ footer .input-group {
     .texts-left {
         text-align:left !important;
     }
-
+ 
     .table iframe{
         height: 240px;
         width: 100%;
@@ -390,7 +389,7 @@ footer .input-group {
         display: block;
         font-size: 18px;
     }
-
+ 
     footer .left-section img, footer .left-section p {
         font-size: 14.5px;
         margin-bottom: 20px;
@@ -420,7 +419,7 @@ footer .input-group {
         margin-bottom:20px;
     }
 }
-
+ 
 .main-contains {
     margin-top: 10px;
 }
@@ -572,7 +571,7 @@ footer .input-group {
 .sidebar-feature .icon.bordered {
     border: 2px solid #fff;
     border-radius: 50%;
-
+ 
 }
 .sidebar-feature .icon{
     font-size: 32px;
@@ -612,7 +611,7 @@ footer .input-group {
 .featured-recruit {
     margin-bottom: 10px;
 }
-
+ 
 .sidebar-feature h3 {
     font-size: 32px;
     margin-bottom: 5px;
@@ -771,9 +770,9 @@ footer .input-group {
     margin-top: 0;
 }
 .personal-details-form {
-
+ 
     margin-top: 25px;
-
+ 
 }
 .personal-details-form .form-part:first-child{
     border: 1px dashed #3cb878;
@@ -834,7 +833,7 @@ footer .input-group {
     margin-bottom: 0;
     margin-top: 10px;
 }
-
+ 
 /*new styles 28-11-2016*/
 .searching-block {
     left: 0;
@@ -885,7 +884,7 @@ footer .input-group {
     padding: 5px 0 5px 10px;
     vertical-align: middle;
 }
-
+ 
 .submit-form .btn{
     background-color: #e30061;
     border-radius: 0;
@@ -943,11 +942,29 @@ form label {
     display: block;
     font-size: 12px;
 }
+.job-posting-form {
+    background: #f5f5f5;
+    margin-bottom: 15px;
+    padding: 15px 20px;
+}
+.job-posting-form .arrow-button {
+    margin-right: 15px;
+    margin-top: 12px;
+}
+.form-submit .btn-primary {
+    background-color: #0049dd;
+    font-size: 20px;
+    width: 100%;
+}
+.form-submit {
+    margin-top: 40px;
+    padding: 20px 0;
+}
 /***************************responsive table*************************************/
-
-
+ 
+ 
 @media only screen and (max-width: 768px) {
-
+ 
     /* Force table to not be like tables anymore */
     #no-more-tables table,
     #no-more-tables thead,
@@ -957,18 +974,18 @@ form label {
     #no-more-tables tr {
         display: block;
     }
-
+ 
     /* Hide table headers (but not display: none;, for accessibility) */
     #no-more-tables thead tr {
         position: absolute;
         top: -9999px;
         left: -9999px;
     }
-
+ 
     #no-more-tables tr {
         /*border-top: 1px solid #ccc;*/
     }
-
+ 
     #no-more-tables td {
         /* Behave  like a "row" */
         border: none;
@@ -980,7 +997,7 @@ form label {
         font-size: 12px;
         word-break: break-all;
     }
-
+ 
     #no-more-tables td:before {
         /* Now like a table header */
         position: absolute;
@@ -992,7 +1009,7 @@ form label {
         white-space: nowrap;
         text-align: left;
     }
-
+ 
     /*
     Label the data
     */
@@ -1006,4 +1023,8 @@ form label {
 
 .color-green{
     color: #00e500 !important;
+}
+
+.no-padding{
+    padding: 0px !important;
 }
