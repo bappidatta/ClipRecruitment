@@ -20,7 +20,7 @@ function jobPostingController(jobService, commonService){
         isDeleted: false,
         EmployerID: '',
         EducationLevel: ''
-    };    
+    };
 
 
     vm.jobPositions = ['Software Developer', 'Lawer','Software Engineer',
@@ -57,6 +57,22 @@ function jobPostingController(jobService, commonService){
         //console.log(vm.job);
     }
 
+    vm.isValidJobType = function(){
+        if((vm.job.IsFullTime || vm.job.IsPartTime) && (vm.job.IsPermanent || vm.job.IsTemporary)){
+            return true;
+        }
+        return false;
+    }
+
+    vm.isValidSalary = function(){
+        if(vm.job.SalaryTo >= vm.job.SalaryFrom){
+            vm.jobPostingForm.salaryTo.$invalid = false;
+            vm.jobPostingForm.salaryTo.$valid = true;
+        }else{
+            vm.jobPostingForm.salaryTo.$invalid = true;
+            vm.jobPostingForm.salaryTo.$valid = false;
+        }
+    }
 
      vm.getLocations = function(viewValue){
        if(viewValue != null && viewValue != ''){
@@ -106,7 +122,18 @@ function jobPostingController(jobService, commonService){
         vm.job.SkillSet.splice(index, 1);
     }
         
- 
+    vm.resetJob = function(){
+        vm.job = {
+            LocationList: [],
+            SkillSet: [],
+        }
+    }
+
+    vm.resetForm = function(){
+        vm.jobPostingForm.$setPristine();
+        vm.jobPostingForm.$setUntouched();
+        vm.resetJob();
+    }
 }
 
 export default{

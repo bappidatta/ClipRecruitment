@@ -36,73 +36,125 @@
                     of clips</p>
             </div>
         </div>
-        <form class="job-posting-form" name="jobPosting.jobPostingForm" ng-submit="jobPosting.creatJob()">
+        <form class="job-posting-form" name="jobPosting.jobPostingForm" ng-submit="jobPosting.creatJob()" novalidate>
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="jobTitle">Job Title/Position</label>
-                        <select class="form-control" ng-model="jobPosting.job.Position" 
-                            ng-options="position as position for position in jobPosting.jobPositions">
+                        <label for="jobTitle">Job Title/Position 
+                            <span ng-show="jobPosting.jobPostingForm.position.$touched && jobPosting.jobPostingForm.position.$invalid
+                                        || jobPosting.jobPostingForm.$submitted && jobPosting.jobPostingForm.position.$invalid">
+                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                                </span>
+                                <span ng-show="jobPosting.jobPostingForm.position.$valid">
+                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
+                                </span>
+                        </label>
+                        <select name="position" class="form-control" ng-model="jobPosting.job.Position" 
+                            ng-options="position as position for position in jobPosting.jobPositions" required>
                                     <option value="">Select Title</option> 
-                                </select>
+                         </select>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label>Experience</label>
-                        <select class="form-control" ng-model="jobPosting.job.YearOfExperience" ng-options="ex as ex+' Year(s)' for ex in jobPosting.jobExperiences">
+                        <label>Experience 
+                            <span ng-show="jobPosting.jobPostingForm.experience.$touched && jobPosting.jobPostingForm.experience.$invalid
+                                        || jobPosting.jobPostingForm.$submitted && jobPosting.jobPostingForm.experience.$invalid">
+                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                                </span>
+                                <span ng-show="jobPosting.jobPostingForm.experience.$valid">
+                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
+                                </span>
+                        </label>
+                        <select name="experience" class="form-control" ng-model="jobPosting.job.YearOfExperience" 
+                                ng-options="ex as ex+' Year(s)' for ex in jobPosting.jobExperiences" required>
                                     <option value="">Select Experience</option>                                
                         </select>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label>Education Level</label>
-                        <select class="form-control" ng-model="jobPosting.job.EducationLevel" ng-options="ed as ed for ed in jobPosting.educationLevels">
+                        <label>Education Level 
+                             <span ng-show="jobPosting.jobPostingForm.education.$touched && jobPosting.jobPostingForm.education.$invalid
+                                        || jobPosting.jobPostingForm.$submitted && jobPosting.jobPostingForm.education.$invalid">
+                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                            </span>
+                            <span ng-show="jobPosting.jobPostingForm.education.$valid">
+                                <i class="fa fa-check color-green" aria-hidden="true"></i>
+                            </span>
+                        </label>
+                        <select name="education" class="form-control" ng-model="jobPosting.job.EducationLevel" 
+                            ng-options="ed as ed for ed in jobPosting.educationLevels" required>
                                     <option value="">Select Education</option>                                    
                         </select>
                     </div>
                 </div>
                 <div class="col-sm-6 no-padding">
-                    <div class="col-sm-12"><label>Salary Estimate</label></div>
-                    <!--<div class="form-group">
-                        <label>Salary Estimate</label>
-                        <select class="form-control">
-                                    <option>Select...</option>
-                                    <option>Estimate 1</option>
-                                    <option>Estimate 2</option>
-                                    <option>Estimate 3</option>
-                                    <option>Estimate 4</option>
-                                    <option>Estimate 5</option>
-                                    <option>Estimate 6</option>
-                                </select>
-                    </div>-->
+                    <div class="col-sm-12">
+                        <label>Salary Estimate 
+                        <span ng-show="(jobPosting.jobPostingForm.salaryFrom.$touched && jobPosting.jobPostingForm.salaryFrom.$invalid
+                                        || jobPosting.jobPostingForm.$submitted && jobPosting.jobPostingForm.salaryFrom.$invalid ) ||
+                                        (jobPosting.jobPostingForm.salaryTo.$touched && jobPosting.jobPostingForm.salaryTo.$invalid
+                                        || jobPosting.jobPostingForm.$submitted && jobPosting.jobPostingForm.salaryTo.$invalid )                                           
+                                        ">
+                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                            </span>
+                            <span ng-show="jobPosting.jobPostingForm.salaryFrom.$valid && jobPosting.jobPostingForm.salaryTo.$valid">
+                                <i class="fa fa-check color-green" aria-hidden="true"></i>
+                            </span>
+                        </label>
+                     </div>
 
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <select class="form-control" ng-model="jobPosting.job.SalaryFrom" 
-                                ng-options="s as '£'+s for s in jobPosting.salaryFrom"> 
+                            <select name="salaryFrom" class="form-control" ng-model="jobPosting.job.SalaryFrom" 
+                                ng-options="s as '£'+s for s in jobPosting.salaryFrom"
+                                ng-change="jobPosting.isValidSalary()"
+                                required
+                                > 
                                 <option value="">From</option>                                   
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <select class="form-control" ng-model="jobPosting.job.SalaryTo" 
-                            ng-options="s as '£'+s for s in jobPosting.salaryTo">
-                            <option value="">To</option>                                              
+                        <select name="salaryTo" class="form-control" ng-model="jobPosting.job.SalaryTo" 
+                            ng-options="s as '£'+s for s in jobPosting.salaryTo" 
+                            ng-change="jobPosting.isValidSalary()"
+                            required                            
+                            >
+                            <option value="">To</option>
                         </select>
                     </div>
 
                 </div>
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <label>Job Description</label>
-                        <textarea class="form-control" ng-model="jobPosting.job.Description"></textarea>
+                        <label>Job Description 
+                             <span ng-show="jobPosting.jobPostingForm.description.$touched && jobPosting.jobPostingForm.description.$invalid
+                                        || jobPosting.jobPostingForm.$submitted && jobPosting.jobPostingForm.description.$invalid">
+                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                                </span>
+                                <span ng-show="jobPosting.jobPostingForm.description.$valid">
+                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
+                                </span>
+                        </label>
+                        <textarea name="description" class="form-control" 
+                            ng-model="jobPosting.job.Description"
+                            ng-model-options="{updateOn: 'blur'}" 
+                            required minlength="200" maxlength="2500">
+                        </textarea>
                     </div>
                 </div>
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <label>Job Type</label>
+                        <label>Job Type 
+                            <span ng-show="jobPosting.jobPostingForm.$submitted && !jobPosting.isValidJobType()">
+                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                                </span>
+                                <span ng-show="jobPosting.jobPostingForm.$submitted && jobPosting.isValidJobType()">
+                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
+                                </span>
+                        </label>
                         <div class="row checkbox">
                             <div class="col-sm-3 col-xs-12">
                                 <label>
@@ -127,49 +179,18 @@
                         </div>
                     </div>
                 </div>
-                <!--<div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Location</label>
-                                <select class="form-control">
-                                    <option>Select...</option>
-                                    <option>Location 1</option>
-                                    <option>Location 2</option>
-                                    <option>Location 3</option>
-                                    <option>Location 4</option>
-                                    <option>Location 5</option>
-                                    <option>Location 6</option>
-                                </select>
-                                <a href="#" class="arrow-button"><span class="label">Leeds</span><span class="arrow"></span></a>
-                                <a href="#" class="arrow-button"><span class="label">Bradford</span><span class="arrow"></span></a>
-                                    <a href="#" class="arrow-button"><span class="label">Huddersfield</span><span class="arrow"></span></a>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Skills</label>
-                                <select class="form-control">
-                                    <option>Select...</option>
-                                    <option>Skills 1</option>
-                                    <option>Skills 2</option>
-                                    <option>Skills 3</option>
-                                    <option>Skills 4</option>
-                                    <option>Skills 5</option>
-                                    <option>Skills 6</option>
-                                </select>
-                                <a href="#" class="arrow-button"><span class="label">Litigation</span><span class="arrow"></span></a>
-                                <a href="#" class="arrow-button"><span class="label">Defendant</span><span class="arrow"></span></a>
-                                <a href="#" class="arrow-button"><span class="label">Litigation</span><span class="arrow"></span></a>
-                                <a href="#" class="arrow-button"><span class="label">Applications</span><span class="arrow"></span></a>
-                                <a href="#" class="arrow-button"><span class="label">Court Att...</span><span class="arrow"></span></a>
-                                <a href="#" class="arrow-button"><span class="label">Applications</span><span class="arrow"></span></a>
-                                <a href="#" class="arrow-button"><span class="label">Management</span><span class="arrow"></span></a>
-                                <a href="#" class="arrow-button"><span class="label">Management</span><span class="arrow"></span></a>
-                            </div>
-                        </div>-->
+               
 
                 <div class="position-experience">
                     <div class="col-lg-6 col-sm-6 col-xs-12 position-block">
-                        <label>Location</label>
+                        <label>Location 
+                            <span ng-show="jobPosting.jobPostingForm.$submitted && !jobPosting.job.LocationList.length">
+                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                                </span>
+                                <span ng-show="jobPosting.jobPostingForm.$submitted && jobPosting.job.LocationList.length">
+                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
+                                </span>
+                        </label>
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Leeds" 
                                 ng-model="jobPosting.location" 
@@ -177,7 +198,7 @@
                              >
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" 
-                                    ng-click="jobPosting.addLocation(jobPosting.location)"><i class="fa fa-search"></i>
+                                    ng-click="jobPosting.addLocation(jobPosting.location)"><i class="fa fa-plus-circle"></i>
                                 </button>
                             </span>
                         </div>
@@ -191,16 +212,23 @@
 
                 <div class="position-experience">
                     <div class="col-lg-6 col-sm-6 col-xs-12 position-block">
-                        <label>Skills</label>
+                        <label>Skills 
+                            <span ng-show="jobPosting.jobPostingForm.$submitted && !jobPosting.job.SkillSet.length">
+                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                                </span>
+                                <span ng-show="jobPosting.jobPostingForm.$submitted && jobPosting.job.SkillSet.length">
+                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
+                                </span>
+                        </label>
                         <div class="input-group">
                             <input type="text" class="form-control" 
                                 placeholder="Management" ng-model="jobPosting.skill" 
                                 uib-typeahead="skill for skill in jobPosting.getSkills($viewValue)">
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" 
-                                    ng-click="jobPosting.addSkill(jobPosting.skill)"><i class="fa fa-search"></i>
+                                    ng-click="jobPosting.addSkill(jobPosting.skill)"><i class="fa fa-plus-circle"></i>
                                  </button>
-                             </span>
+                            </span>
                         </div>
                         <!-- /input-group -->
                         <a href="#" class="arrow-button" 

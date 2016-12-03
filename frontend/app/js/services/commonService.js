@@ -16,6 +16,7 @@ function commonService($http) {
         return -1;
     }
 
+
    
   service.getLocations = function(val){
     return $http.get(serviceBase + 'api/Common/GetLocations/', {params: {inputString: val}});
