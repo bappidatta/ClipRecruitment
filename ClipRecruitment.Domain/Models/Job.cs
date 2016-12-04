@@ -13,8 +13,7 @@ namespace ClipRecruitment.Domain.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string _id { get; set; }
-        [BsonRepresentation(BsonType.ObjectId)]
+        public string _id { get; set; }        
         public string EmployerID { get; set; }
         public string Position { get; set; }
         public string Industry { get; set; }

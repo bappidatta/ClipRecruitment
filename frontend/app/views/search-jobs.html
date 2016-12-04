@@ -6,7 +6,7 @@
                         <label>Industry</label>
                         <div class="input-group">                            
                             <select class="form-control" ng-model="jobSearch.searchCriteria.IndustryID" 
-                                    ng-options="ind.id as ind.name for ind in jobSearch.industryTypes"
+                                    ng-options="ind as ind for ind in jobSearch.industryTypes"
                                     ng-change="jobSearch.onIndustryChange(jobSearch.searchCriteria.IndustryID)"
                                     >
                                <option value="">Industry Type</option>
@@ -137,10 +137,10 @@
                                     <a href="#" class="read-more">Read More >></a>
 
                                 </div>
-                            </div>
+                            </div>                            
                         </div><!-- /.result-item -->
 
-                        <h2 class="clearfix pull-left" ng-if="jobSearch.searchResult.length">Search Results [{{jobSearch.searchResult.length}}]</h2>                       
+                        <h2 class="clearfix pull-left" ng-if="jobSearch.searchResult.length">Search Results [{{jobSearch.totalCount}}]</h2>                       
 
                         <br class="clear" />
                         <hr /> 
@@ -165,7 +165,10 @@
                                 </div>
                             </div>
                         </div><!-- /.result-item -->    
-
+                            <a href="#" class="load-more-jobs-btn" ng-click="jobSearch.searchJobs(jobSearch.searchCriteria, true)" 
+                                ng-if="jobSearch.totalCount - jobSearch.searchResult.length != 0">
+                                View {{jobSearch.totalCount - jobSearch.searchResult.length}} more jobs
+                            </a>
                     </div>
                 </div>
             </div>

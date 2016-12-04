@@ -8,8 +8,8 @@ function jobService($http) {
   };
 
   
-  service.searchJobs = function(searchCriteria){
-    return $http.post( serviceBase + 'api/Job/SearchJob/', searchCriteria);
+  service.searchJobs = function(searchCriteria, pageNo){
+    return $http.post( serviceBase + 'api/Job/SearchJob?pageNo='+pageNo,searchCriteria);
   };
 
     service.createJob = function(job){

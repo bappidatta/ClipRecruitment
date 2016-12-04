@@ -119,18 +119,17 @@ namespace ClipRecruitment.Employer.Services
 
     
 
-        public List<JobViewModel> SearchJobs(JobFilteringViewModel jobFilteringVM)
+        public List<JobViewModel> SearchJobs(JobFilteringViewModel jobFilteringVM, int skip, int take, out int count)
         {
+            var query = _db.Jobs.AsQueryable<Job>().AsQueryable();
 
-            var query = _db.Jobs.AsQueryable().AsQueryable();
-            
             // filter by industry type
             if (!string.IsNullOrEmpty(jobFilteringVM.Industry))
             {
-                query = (from j in query.Where(x => x.Industry == jobFilteringVM.Industry)
+                query = (from j in query.Where(x => x.Industry.ToLower().Contains(jobFilteringVM.Industry.ToLower()))
                          select j).AsQueryable();
             }
-            
+
             //filter by insolvency
             //if (jobFilteringVM.InsolvencyID > 0)
             //{
@@ -171,11 +170,11 @@ namespace ClipRecruitment.Employer.Services
             }
 
 
-            // filter by locations
-            //if (jobFilteringVM.LocationList != null && jobFilteringVM.LocationList.Count > 0)
-            //{
-            //    query = (from j in query.Where(x => jobFilteringVM.LocationList.Contains(x.Location)) select j).AsQueryable();
-            //}
+            //filter by locations
+            if (jobFilteringVM.LocationList != null && jobFilteringVM.LocationList.Count > 0)
+            {
+                query = (from j in query.Where(x => jobFilteringVM.LocationList.Contains(x.LocationList[0])) select j).AsQueryable();
+            }
 
             if (jobFilteringVM.SalaryFrom != 0 && jobFilteringVM.SalaryTo != 0)
             {
@@ -192,8 +191,10 @@ namespace ClipRecruitment.Employer.Services
             {
                 query = (from j in query.Where(x => jobFilteringVM.PositionList.Contains(x.Position)) select j).AsQueryable();
             }
-            
-            var result = (from j in query
+
+            count = query.ToList().Count();
+
+            var result = (from j in query.Skip(skip).Take(take)
                           select new JobViewModel
                           {
                               Industry = j.Industry,
@@ -211,6 +212,7 @@ namespace ClipRecruitment.Employer.Services
                               _id = j._id                              
                           }
                          ).ToList();
+            
 
             return result;
         }

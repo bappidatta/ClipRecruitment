@@ -5,9 +5,13 @@ function jobSearchController(jobService, commonService)
     vm.jobList = [];
     vm.selectedJobs = [];
     vm.searchResult = [];
-
-    vm.industryTypes = [{id: 1, name: 'Industry 1'},{id: 2, name: 'Industry 2'},{id: 3, name: 'Industry 3'},
-                        {id: 4, name: 'Industry 4'},{id: 5, name: 'Industry 5'},{id: 6, name: 'Industry 6'}];
+    vm.pageNo = 0;
+    vm.totalCount = 0;
+    vm.industryTypes = [
+        'Accounting', 'Legal', 'Automotive', 'Logistics & Transport', 'Aviation',
+        'Managements & Executive', 'Banking & Finance', 'Manufacturing', 'Charity & Voluntary Work',
+        'Marketing', 'Construction', 'Consultancy', 'Media', 'Military'
+    ];
 
     vm.insolvencyTypes = [{id: 1, name: 'Insolvency 1'},{id: 2, name: 'Insolvency 2'},{id: 3, name: 'Insolvency 3'},
                         {id: 4, name: 'Insolvency 4'},{id: 5, name: 'Insolvency 5'},{id: 6, name: 'Insolvency 6'}];
@@ -16,7 +20,7 @@ function jobSearchController(jobService, commonService)
     vm.salaryTo = [25000, 35000, 45000, 55000, 65000, 75000, 85000, 95000];
 
     vm.searchCriteria = {
-        IndustryID: 0,
+        Industry: '',
         InsolvencyID: 0,
         PositionList: [],        
         IsFullTime: false,
@@ -34,6 +38,7 @@ function jobSearchController(jobService, commonService)
         vm.searchJobs(vm.searchCriteria);
     }
 
+    
     vm.onIndustryChange = function(industryID){        
         if(!commonService.isReal(industryID)){
             vm.searchCriteria.IndustryID = 0;
@@ -72,14 +77,15 @@ function jobSearchController(jobService, commonService)
     }
 
     vm.addLocation = function(location){
-        if(location){            
+        if(location){   
+            let count = vm.searchCriteria.LocationList.length;         
             let index = vm.searchCriteria.LocationList.indexOf(location);
-            if(index < 0){
+            if(index < 0 && count < 1){
                 vm.searchCriteria.LocationList.unshift(location);
                 vm.searchJobs(vm.searchCriteria);
                 vm.location = '';
             }else{
-                alertify.warning('Already Added!');
+                alert('Sorry multiple location search is not allowed!');
             }
         }        
     }
@@ -89,10 +95,26 @@ function jobSearchController(jobService, commonService)
         vm.searchJobs(vm.searchCriteria);
     }
 
-    vm.searchJobs = function(searchCriteria){
-        jobService.searchJobs(searchCriteria).then(function(res){            
-             vm.searchResult = res.data.Success;
-             vm.selectedJobs = [];
+    vm.searchJobs = function(searchCriteria, isPagination){
+        if(isPagination){
+            vm.pageNo += 1;
+        }        
+        else{
+            vm.pageNo = 0;
+        }
+
+        jobService.searchJobs(searchCriteria, vm.pageNo).then(function(res){            
+             if(res.data.Success){
+                 vm.totalCount = res.data.Count;
+                 if(isPagination){
+                     for(var i in res.data.Success){
+                     vm.searchResult.push(res.data.Success[i]);
+                    }
+                 }else{
+                     vm.searchResult = res.data.Success;
+                 }
+             }
+             vm.selectedJobs = [];             
              console.log(vm.searchResult);
         });
     }

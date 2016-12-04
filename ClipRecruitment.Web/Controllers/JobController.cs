@@ -14,7 +14,7 @@ using System.Web.Http.Cors;
 
 namespace ClipRecruitment.Web.Controllers
 {
-    
+    //[Authorize]
     public class JobController : ApiController
     {
         private JobService jobService;
@@ -55,7 +55,7 @@ namespace ClipRecruitment.Web.Controllers
             {
                 try
                 {
-                    jobVM.EmployerID = "5842b98d3e05f232c44167cd";
+                    jobVM.EmployerID = Request.GetOwinContext().Authentication.User.Identity.Name;
                     var job = await jobService.CreateJobAsync(jobVM);
                     return Ok(new { Success = job});
                 }
@@ -66,8 +66,7 @@ namespace ClipRecruitment.Web.Controllers
             }
             return Ok(new { Error = "ModelSate Invalid!" });
         }
-
-
+        
 
         [HttpPost]
         [Route("api/Job/UpdateJob")]
@@ -106,30 +105,30 @@ namespace ClipRecruitment.Web.Controllers
         
         [HttpPost]
         [Route("api/Job/SearchJob/")]
-        public IHttpActionResult SearchJob(JobFilteringViewModel jobFilteringVM)
+        [AllowAnonymous]
+        public IHttpActionResult SearchJob(JobFilteringViewModel jobFilteringVM, int pageNo)
         {
             if(!ModelState.IsValid)
                 return Ok(new { Error = "Invalid ModelState" });
 
             try
             {
-                var jobs = jobService.SearchJobs(jobFilteringVM);
-                return Ok(new { Success = jobs });
+                int count = 0;
+                var jobs = jobService.SearchJobs(
+                    jobFilteringVM,
+                    Pagination.Size * pageNo,
+                    Pagination.Size,
+                    out count
+                    );
+
+                return Ok(new { Success = jobs, Count = count });
             }
             catch(Exception ex)
             {
                 return Ok(new { Error = ex.Message });
             }
         }
-
-
-
-
-
-
-
-
-
+        
 
         [HttpGet]
         [Route("api/Job/SeedJobs/")]
@@ -173,7 +172,7 @@ namespace ClipRecruitment.Web.Controllers
                     IsLocal = true, //
                     IsRemote = false,
                     SalaryFrom = from + 500,
-                    SalaryTo = to + 500,
+                    SalaryTo = to + 500,                    
                 });
                 from += 500;
                 to += 500;
