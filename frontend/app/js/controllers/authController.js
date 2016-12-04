@@ -6,8 +6,7 @@ function authController(authService, localStorageService, $rootScope, $location)
     
     
     vm.signIn = function(userInfo){        
-        authService.signIn(userInfo).then(function(res){
-            console.log(res);
+        authService.signIn(userInfo).then(function(res){            
             localStorage.setItem('authData', {token: res.access_token, userName: userInfo.userName});                
                  localStorageService.set({userName: userInfo.userName});
                  $rootScope.userName = userInfo.userName;

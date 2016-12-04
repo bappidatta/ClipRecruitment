@@ -71,6 +71,8 @@ angular.module('app').factory('authInterceptor', [
                 } else {                  
                     if ($location.$$url == '/Candidate-Signup') {
                         $location.path('/Candidate-Signup');
+                    }else if($location.$$url == '/Employer-Signup'){
+                        $location.path('/Employer-Signup');
                     }else if($location.$$url == '/' || $location.$$url == '/landing'){
                         $location.path('/landing');
                     }

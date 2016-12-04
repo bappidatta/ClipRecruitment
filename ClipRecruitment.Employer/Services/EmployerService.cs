@@ -32,9 +32,13 @@ namespace ClipRecruitment.Employer.Services
             employers = new Employers
             {
                 CompanyName = employerVM.CompanyName,
-                Email = employerVM.Email,
                 Location = employerVM.Location,
-                MobileNo = employerVM.MobileNo
+                MobileNo = employerVM.MobileNo,
+                AddressList = employerVM.AddressList,
+                AuthID = employerVM.AuthID,
+                CompanyContact = employerVM.CompanyContact,
+                IndustryList = employerVM.IndustryList,
+                RegistrationNo = employerVM.RegistrationNo
             };
 
             await _db.Employers.InsertOneAsync(employers);
@@ -54,11 +58,9 @@ namespace ClipRecruitment.Employer.Services
             return (from e in result.Skip(skip).Take(take)
                     select new EmployerViewModel
                     {
-                        CompanyName = e.CompanyName,
-                        Email = e.Email,
+                        CompanyName = e.CompanyName,                        
                         Location = e.Location,
                         MobileNo = e.MobileNo
-
                     }).ToList();
 
         }
@@ -78,7 +80,7 @@ namespace ClipRecruitment.Employer.Services
                 .Set("Location", employerVM.Location)
                 .Set("MobileNo", employerVM.MobileNo);
 
-            var result = _db.Employers.UpdateOneAsync(filter, update);
+            var result = await _db.Employers.UpdateOneAsync(filter, update);
 
             return GetEmployerByID(employerVM._id.ToString());
         }
@@ -101,7 +103,6 @@ namespace ClipRecruitment.Employer.Services
                 {
                     _id = employers._id,
                     CompanyName = employers.CompanyName,
-                    Email = employers.Email,
                     Location = employers.Location,
                     MobileNo = employers.MobileNo
                 };

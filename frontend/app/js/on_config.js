@@ -56,7 +56,14 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
   .state('Candidate Signup', {
     url: '/Candidate-Signup',    
     controller: 'candidateSignupController as cSignup',
-    templateUrl: 'candidate-signup.html'
+    templateUrl: 'candidate-signup.html',
+    title: 'Sign Up'
+  })
+  .state('Employer Signup', {
+    url: '/Employer-Signup',
+    controller: 'employerSignupController as empSignup',
+    templateUrl: 'employer-signup.html',
+    title: 'Sign Up'
   })
 
 

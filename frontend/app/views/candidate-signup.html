@@ -36,7 +36,7 @@
                 <span>Already have a clip Jobs account? <a href="#">Sign In</a></span>
             </div>
         </div>
-        <form class="cadidate-register-form"  name="cSignup.candidateForm" ng-submit="cSignup.signUp()" novalidate>
+        <form class="cadidate-register-form" name="cSignup.candidateForm" ng-submit="cSignup.signUp()" novalidate>
             <div class="row">
                 <div class="col-sm-6 col-xs-12">
                     <div class="form-bg">
@@ -50,11 +50,8 @@
                                     <i class="fa fa-check color-green" aria-hidden="true"></i>
                                 </span>
                             </label>
-                            <input name="firstName" type="text" class="form-control" id="firstName" 
-                                ng-model="cSignup.signUpModel.FirstName" 
-                                ng-model-options="{updateOn: 'blur'}"
-                                required maxlength="20" minlength="2"
-                                >
+                            <input name="firstName" type="text" class="form-control" id="firstName" ng-model="cSignup.signUpModel.FirstName" ng-model-options="{updateOn: 'blur'}"
+                                required maxlength="20" minlength="2">
                         </div>
                         <div class="form-group">
                             <label for="surName">Surname 
@@ -66,11 +63,8 @@
                                     <i class="fa fa-check color-green" aria-hidden="true"></i>
                                 </span>
                             </label>
-                            <input name="surName" type="text" class="form-control" id="surName" 
-                                ng-model="cSignup.signUpModel.SurName"
-                                ng-model-options="{updateOn: 'blur'}"
-                                required maxlength="20" minlength="2"
-                            >
+                            <input name="surName" type="text" class="form-control" id="surName" ng-model="cSignup.signUpModel.SurName" ng-model-options="{updateOn: 'blur'}"
+                                required maxlength="20" minlength="2">
                         </div>
                         <div class="form-group">
                             <label for="emailAddress">Email Address 
@@ -82,11 +76,8 @@
                                     <i class="fa fa-check color-green" aria-hidden="true"></i>
                                 </span>
                             </label>
-                            <input name="email" type="email" class="form-control" id="emailAddress" 
-                                ng-model="cSignup.signUpModel.Email"
-                                ng-model-options="{updateOn: 'blur'}"
-                                required maxlength="30"
-                            >
+                            <input name="email" type="email" class="form-control" id="emailAddress" ng-model="cSignup.signUpModel.Email" ng-model-options="{updateOn: 'blur'}"
+                                required maxlength="30">
                         </div>
                         <div class="form-group">
                             <label for="confirmEmailAddress">Confirm Email Address 
@@ -98,12 +89,8 @@
                                     <i class="fa fa-check color-green" aria-hidden="true"></i>
                                 </span>
                             </label>
-                            <input name="confirmEmail" type="email" class="form-control" id="confirmEmailAddress" 
-                                ng-model="cSignup.signUpModel.ConfirmEmail"
-                                
-                                required maxlength="30"
-                                ng-blur="cSignup.confirmEmail()"                                
-                            >
+                            <input name="confirmEmail" type="email" class="form-control" id="confirmEmailAddress" ng-model="cSignup.signUpModel.ConfirmEmail"
+                                required maxlength="30" ng-change="cSignup.confirmEmail()">
                         </div>
                         <div class="form-group">
                             <label for="enterPassword">Password 
@@ -115,11 +102,8 @@
                                     <i class="fa fa-check color-green" aria-hidden="true"></i>
                                 </span>
                             </label>
-                            <input name="password" type="password" class="form-control" id="enterPassword" 
-                                ng-model="cSignup.signUpModel.Password"
-                                ng-model-options="{updateOn: 'blur'}"
-                                required maxlength="16" minlength="6"
-                                >
+                            <input name="password" type="password" class="form-control" id="enterPassword" ng-model="cSignup.signUpModel.Password" ng-model-options="{updateOn: 'blur'}"
+                                required maxlength="16" minlength="6">
                         </div>
                         <div class="form-group">
                             <label for="enterConfirmPassword">Confirm Password 
@@ -131,11 +115,8 @@
                                     <i class="fa fa-check color-green" aria-hidden="true"></i>
                                 </span>
                             </label>
-                            <input name="confirmPassword" type="password" class="form-control" id="enterConfirmPassword" 
-                                ng-model="cSignup.signUpModel.ConfirmPassword"
-                                ng-blur="cSignup.confirmPassword()"
-                                required maxlength="16" minlength="6"
-                                >
+                            <input name="confirmPassword" type="password" class="form-control" id="enterConfirmPassword" ng-model="cSignup.signUpModel.ConfirmPassword"
+                                ng-change="cSignup.confirmPassword()" required maxlength="16" minlength="6">
                         </div>
                     </div>
                 </div>
@@ -252,12 +233,8 @@
                                     <i class="fa fa-check color-green" aria-hidden="true"></i>
                                 </span>
                             </label>
-                            <input name="location" type="text" class="form-control" ng-model="cSignup.signUpModel.Location" 
-                                    uib-typeahead="location for location in cSignup.getLocation($viewValue)"
-                                    ng-model-options="{updateOn: 'blur'}"
-                                    required 
-                                    maxlength="20" minlength="2"
-                                    >
+                            <input name="location" type="text" class="form-control" ng-model="cSignup.signUpModel.Location" uib-typeahead="location for location in cSignup.getLocation($viewValue)"
+                                ng-model-options="{updateOn: 'blur'}" required maxlength="20" minlength="2">
                         </div>
                         <div class="form-group">
                             <label for="">Current Salary 
@@ -269,9 +246,8 @@
                                     <i class="fa fa-check color-green" aria-hidden="true"></i>
                                 </span>
                             </label>
-                            <select name="salery" class="form-control" ng-model="cSignup.signUpModel.CurrentSalary" 
-                                    ng-options="s as '£'+s for s in cSignup.salaryRange"
-                                    required>
+                            <select name="salery" class="form-control" ng-model="cSignup.signUpModel.CurrentSalary" ng-options="s as '£'+s for s in cSignup.salaryRange"
+                                required>
                                         <option value="">Select your current Salary</option>
                                         <option>{{s}}</option>
                                     </select>
@@ -291,10 +267,13 @@
                                                 <span>OneDrive</span></a></li>
                                 <li><a href="#"><i class="fa fa-dropbox" aria-hidden="true"></i>
                                                 <span>Dropbox</span></a></li>
+                                <li><a href="#"><i class="fa fa-clipboard" aria-hidden="true"></i>
+                                                <span>Professional Clip</span><p>[Recommended]</p></a></li>
                             </ul>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-success">Submit</button>
+                            <a href="" class="terms">Terms and conditions of registering <span class="caret"></span></a>
+                            <div class="form-submit">
+                                <button class="btn btn-warning" type="submit">Submit</button>
+                            </div>
                         </div>
                     </div>
                 </div>

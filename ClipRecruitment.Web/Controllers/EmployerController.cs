@@ -1,6 +1,10 @@
-﻿using ClipRecruitment.Employer.Services;
+﻿using AspNet.Identity.MongoDB;
+using ClipRecruitment.Employer.Services;
 using ClipRecruitment.Employer.ViewModels;
 using ClipRecruitment.Web.App_Start;
+using ClipRecruitment.Web.Models;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +14,7 @@ using System.Web.Http;
 
 namespace ClipRecruitment.Web.Controllers
 {
+    [Authorize]
     public class EmployerController : ApiController
     {
         private EmployerService employerService;
@@ -17,6 +22,68 @@ namespace ClipRecruitment.Web.Controllers
         public EmployerController(EmployerService employerService)
         {
             this.employerService = employerService;
+
+            UserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(HttpContext.Current.GetOwinContext()
+                                                        .Get<ApplicationIdentityContext>().Users));
+        }
+
+
+        private ApplicationUserManager _userManager;
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+
+        private SignInHelper _helper;
+        private SignInHelper SignInHelper
+        {
+            get
+            {
+                if (_helper == null)
+                {
+                    _helper = new SignInHelper(UserManager, AuthenticationManager);
+                }
+                return _helper;
+            }
+        }
+
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.Current.GetOwinContext().Authentication;
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IHttpActionResult> SignUp(EmployerViewModel employerVM)
+        {
+
+            if (!ModelState.IsValid)
+                return Ok(new { Error = "Invalid data submitted!" });
+
+
+            var user = new ApplicationUser { UserName = employerVM.Email, Email = employerVM.Email, IsEmployer = true };
+            try
+            {
+                var result = await UserManager.CreateAsync(user, employerVM.Password);
+                employerVM.AuthID = user.Id;
+                await employerService.CreateEmployerAsync(employerVM);
+            }
+            catch (Exception)
+            {
+                return Ok(new { Error = "Someting went wrong while creating user profile!" });
+            }
+            return Ok(new { Success = "User account created successfully!" });
         }
 
         /// <summary>

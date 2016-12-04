@@ -88,6 +88,7 @@
                         <label>Salary</label>
                         <form class="form-inline range-sal">
                             <div class="form-group">
+                                <label for="exampleInputEmail2">From</label>
                                 <select class="form-control" ng-model="jobSearch.searchCriteria.SalaryFrom" 
                                         ng-options="s as '£'+s for s in jobSearch.salaryFrom"
                                         ng-change="jobSearch.onIndustryChange(jobSearch.searchCriteria.IndustryID)"
