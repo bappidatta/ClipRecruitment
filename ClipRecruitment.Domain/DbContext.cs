@@ -79,6 +79,14 @@ namespace ClipRecruitment.Domain
             }
         }
 
+        public IMongoCollection<Notification> Notification
+        {
+            get
+            {
+                return getDb().GetCollection<Notification>("Notification");
+            }
+        }
+
         private IMongoDatabase getDb()
         {
             if (this.db == null)
