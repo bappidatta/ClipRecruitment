@@ -11,6 +11,12 @@ namespace ClipRecruitment.Domain.Models
     [BsonIgnoreExtraElements]
     public class Job
     {
+        public Job()
+        {
+            LocationList = new List<string>();
+            SkillSet = new List<string>();
+            ApplicationList = new List<Application>();
+        }
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string _id { get; set; }        
@@ -33,5 +39,13 @@ namespace ClipRecruitment.Domain.Models
         public string EducationLevel { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsArchived { get; set; }
+        public List<Application> ApplicationList { get; set; }
+    }
+
+
+    public class Application
+    {
+        public string ApplicantId { get; set; }
+        public DateTime ApplicationDate { get; set; }
     }
 }

@@ -14,7 +14,7 @@ using System.Web.Http.Cors;
 
 namespace ClipRecruitment.Web.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class JobController : ApiController
     {
         private JobService jobService;
@@ -24,6 +24,14 @@ namespace ClipRecruitment.Web.Controllers
         {
             this.jobService = jobService;
             this.commonService = commonService;
+        }
+
+        private string _userId
+        {
+            get
+            {
+                return Request.GetOwinContext().Authentication.User.Identity.Name;
+            }
         }
 
         [AllowAnonymous]
@@ -128,8 +136,17 @@ namespace ClipRecruitment.Web.Controllers
                 return Ok(new { Error = ex.Message });
             }
         }
-        
 
+        [HttpGet]
+        [Route("api/Job/IsApplied")]
+        public IHttpActionResult IsApplied(string jobId)
+        {
+            if (jobService.IsApplied(jobId, _userId))
+                return Ok(new { Success = true });
+            return Ok(new { Success = false });
+        }
+
+        [AllowAnonymous]
         [HttpGet]
         [Route("api/Job/SeedJobs/")]
         public async Task<IHttpActionResult> SeedJobs(int id)
@@ -185,6 +202,8 @@ namespace ClipRecruitment.Web.Controllers
             return Ok(true);
 
         }
+
+
 
     }
 }

@@ -114,7 +114,7 @@
                 <div class="col-lg-9 col-md-9 col-sm-9 left-padding-off bg-white">
                     <h2 class="clearfix pull-left" ng-if="jobSearch.selectedJobs.length">Jobs Selected [{{jobSearch.selectedJobs.length}}]</h2>
                     <div class="pull-right jobs-apply-block" ng-if="jobSearch.selectedJobs.length">
-                        You are applying to {{jobSearch.selectedJobs.length}} Job(s) <a href="#" class="apply-btn">Apply Now</a>
+                        You are applying to {{jobSearch.selectedJobs.length}} Job(s) <a href="#" ng-click="jobSearch.applyJobs(jobSearch.selectedJobs)" class="apply-btn">Apply Now</a>
                     </div>
 
                     <br class="clear" />

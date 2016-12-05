@@ -42,8 +42,6 @@ namespace ClipRecruitment.Employer.Services
                 YearOfExperience = jobVM.YearOfExperience,
                 SkillSet = jobVM.SkillSet, 
                 EducationLevel = jobVM.EducationLevel
-                
-                
             };
 
             await _db.Jobs.InsertOneAsync(job);
@@ -111,14 +109,19 @@ namespace ClipRecruitment.Employer.Services
                     Description = job.Description,
                     Position = job.Position,
                     YearOfExperience = job.YearOfExperience,
-                    _id = job._id
+                    _id = job._id,
+                    ApplicationList = job.ApplicationList,
+                    EducationLevel = job.EducationLevel,
+                    SkillSet = job.SkillSet,
+                    IsArchived = job.IsArchived,
+                    IsLocal = job.IsLocal,
+                    IsPartTime = job.IsPartTime,
+                    IsTemporary = job.IsTemporary
                 };
             }
             return null;
         }   
-
-    
-
+        
         public List<JobViewModel> SearchJobs(JobFilteringViewModel jobFilteringVM, int skip, int take, out int count)
         {
             var query = _db.Jobs.AsQueryable<Job>().AsQueryable();
@@ -216,6 +219,61 @@ namespace ClipRecruitment.Employer.Services
 
             return result;
         }
+
+        public List<Application> GetApplicationsByJobId(string jobId)
+        {
+            var query = _db.Jobs.AsQueryable();
+            var result = (from j in query.Where(x => x._id == jobId) select j.ApplicationList).SingleOrDefault();
+            return result;
+        }
         
+        public bool IsApplied(List<JobViewModel> jobList, string applicantId)
+        {
+            foreach(var item in jobList)
+            {
+                var applications = GetApplicationsByJobId(item._id);
+                if (applications != null && applications.Count > 0)
+                {
+                    List<string> applicants = applications.Select(x => x.ApplicantId).ToList();
+                    if (applicants != null && applicants.Contains(applicantId))
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        public bool IsApplied(string jobId, string applicantId)
+        {
+            var applications = GetApplicationsByJobId(jobId);
+            if (applications != null && applications.Count > 0)
+            {
+                List<string> applicants = applications.Select(x => x.ApplicantId).ToList();
+                if (applicants != null && applicants.Contains(applicantId))
+                    return true;
+            }
+            return false;
+        }
+
+        public void AddApplicant(List<JobViewModel> jobList, string applicantId)
+        {
+            foreach(var item in jobList)
+            {                
+                var filter = Builders<Job>.Filter.Eq("_id", item._id);
+                //var update = Builders<Job>.Update.Push<Application>("ApplicationList", 
+                //            new Application {
+                //                ApplicantId = applicantId,
+                //                ApplicationDate = DateTime.UtcNow });
+
+
+                var update = Builders<Job>.Update.Push("ApplicationList", new Application
+                {
+                    ApplicantId = applicantId,
+                    ApplicationDate = DateTime.UtcNow
+                });
+                _db.Jobs.UpdateOne(filter, update);
+            }
+        }
+        
+
     }
 }

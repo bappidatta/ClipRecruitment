@@ -64,6 +64,11 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
     controller: 'employerSignupController as empSignup',
     templateUrl: 'employer-signup.html',
     title: 'Sign Up'
+  }).state('Job Application', {
+    url: '/Apply-Jobs',
+    controller: 'jobApplicationController as applyJobs',
+    templateUrl: 'job-application.html',
+    title: 'Apply Jobs'
   })
 
 

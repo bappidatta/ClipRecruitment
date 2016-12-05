@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using ClipRecruitment.Domain.Models;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,8 @@ namespace ClipRecruitment.Employer.ViewModels
         public bool IsArchived { get; set; }
         public int YearOfExperience { get; set; }
         public List<string> SkillSet { get; set; }
-        
+        public List<Application> ApplicationList { get; set; }
+        public bool IsApplied { get; set; }
 
     }
 }

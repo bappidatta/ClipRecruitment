@@ -1,0 +1,50 @@
+<section class="banner-area" style="background-image: url(images/landing-banner.jpg)" ng-init="applyJobs.init()">
+
+</section>
+
+<section class="main-contains reg-block">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 reg-title">
+                <h1>Apply</h1>
+                <p>You have selected to apply for <strong>{{applyJobs.selectedJobs.length}} Jobs.</strong></p>
+            </div>
+        </div>
+        <div class="table-responsive" style="height: 600px;">
+            
+        <table class="table table-condensed" style="border-radius: 3px; box-shadow: 0 0 3px gray; font-size: 16px;">
+            <thead>
+                <tr>
+                    <th>Job Title</th>
+                    <th></th>
+                    <th>Estimated Salary</th>
+                    <th>Location</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="job in applyJobs.selectedJobs">
+                    <td style="max-width: 200px;">{{$index+1 + '. ' + job.Position}}</td>
+                    <td style="max-width: 120px;">
+                        <span><a href="#" class="badge" style="margin-left: 25px;">Read More &gt;&gt;</a></span>
+                     </td>
+                    <td><span class="badge" style="border: 2px solid #fff; border-radius: 3px; background-color: #02528e; padding: 10px;">
+                        £{{job.SalaryFrom}} - £{{job.SalaryTo}}
+                        </span></td>
+                    <td>{{job.LocationList[0]}}</td>
+                    <td>
+                        <span style="color: maroon;"><i class="fa fa-floppy-o" aria-hidden="true"></i></span>
+                        <span ng-click="applyJobs.removeJob($index)" style="cursor: pointer;"><i class="fa fa-trash" aria-hidden="true"></i></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        </div>
+
+        <div class="form-submit">
+            <button type="button" class="btn btn-primary" 
+            ng-click="applyJobs.applyForJobs(applyJobs.selectedJobs)">Apply for Jobs</button>
+        </div>
+    </div>
+</section>

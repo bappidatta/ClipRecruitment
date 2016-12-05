@@ -9,6 +9,10 @@ function candidateService($http) {
         return $http.post(serviceBase + 'api/Candidate/SignUp/', userInfo);
     }
 
+    service.applyForJobs = function (selectedJobs) {
+        return $http.post(serviceBase + 'api/Candidate/ApplyToJobs/', selectedJobs);
+    }
+
     return service;
 }
 

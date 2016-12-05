@@ -1,6 +1,8 @@
 ﻿using AspNet.Identity.MongoDB;
 using ClipRecruitment.Candidate.Services;
 using ClipRecruitment.Candidate.ViewModels;
+using ClipRecruitment.Employer.Services;
+using ClipRecruitment.Employer.ViewModels;
 using ClipRecruitment.Web.App_Start;
 using ClipRecruitment.Web.Models;
 using Microsoft.AspNet.Identity.Owin;
@@ -9,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -19,10 +22,12 @@ namespace ClipRecruitment.Web.Controllers
     public class CandidateController : ApiController
     {
         private CandidateService candidateService;
+        private JobService jobService;
 
-        public CandidateController(CandidateService candidateService)
+        public CandidateController(CandidateService candidateService, JobService jobService)
         {
             this.candidateService = candidateService;
+            this.jobService = jobService;
             UserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(HttpContext.Current.GetOwinContext()
                                                         .Get<ApplicationIdentityContext>().Users));
         }
@@ -63,6 +68,15 @@ namespace ClipRecruitment.Web.Controllers
             }
         }
 
+        private string _userId
+        {
+            get
+            {
+                return Request.GetOwinContext().Authentication.User.Identity.Name;
+            }
+        }
+
+
         [AllowAnonymous]
         [HttpPost]
         public async Task<IHttpActionResult> SignUp(CandidateViewModel candidateVM)
@@ -87,11 +101,6 @@ namespace ClipRecruitment.Web.Controllers
         }
 
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         [HttpGet]
         [Route("api/Candidate/GetAllCandidates/")]
         public IHttpActionResult GetAllCandidates(int pageNo)
@@ -112,11 +121,7 @@ namespace ClipRecruitment.Web.Controllers
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="candidateVM"></param>
-        /// <returns></returns>
+        
         [HttpPost]
         [Route("api/Candidate/Createcandidate/")]
         public async Task<IHttpActionResult> CreateCandidateAsync(CandidateViewModel candidateVM)
@@ -136,11 +141,7 @@ namespace ClipRecruitment.Web.Controllers
             return Ok(new { Error = "Could Not Saved Data!" });
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="candidateVM"></param>
-        /// <returns></returns>
+      
         [HttpPost]
         [Route("api/Candidate/UpdateCandidate")]
         public async Task<IHttpActionResult> UpdateCandidate(CandidateViewModel candidateVM)
@@ -175,5 +176,28 @@ namespace ClipRecruitment.Web.Controllers
                 return Ok(new { Error = ex.Message });
             }
         }
+
+
+        [HttpPost]
+        [Route("api/Candidate/ApplyToJobs/")]
+        public IHttpActionResult ApplyToJobs(List<JobViewModel> jobList)
+        {
+            if (!ModelState.IsValid)
+                return Ok(new { Error = "Invalid Data Submitted" });            
+            if (!jobService.IsApplied(jobList, _userId))
+            {
+                try
+                {
+                    jobService.AddApplicant(jobList, _userId);
+                    return Ok(new { Success = "Applied to jobs!" });
+                }
+                catch(Exception ex)
+                {
+                    return Ok(new { Error = "Cannot apply!" });
+                }
+            }
+            return Ok(new { Error = "Already applied!" });
+        }
+        
     }
 }
