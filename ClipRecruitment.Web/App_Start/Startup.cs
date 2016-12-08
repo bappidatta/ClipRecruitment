@@ -4,11 +4,11 @@ using Microsoft.Owin.Security.OAuth;
 using Microsoft.AspNet.Identity;
 using Owin;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.ModelBinding;
 using ClipRecruitment.Web.Providers;
+using Microsoft.AspNet.SignalR;
+using Microsoft.Owin.Cors;
+using System.Web.Cors;
+using System.Threading.Tasks;
 
 [assembly: OwinStartup(typeof(ClipRecruitment.Web.App_Start.Startup))]
 namespace ClipRecruitment.Web.App_Start
@@ -17,13 +17,34 @@ namespace ClipRecruitment.Web.App_Start
     {
         public void Configuration(IAppBuilder app)
         {
-            app.MapSignalR();
+
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions()
+            {
+                Provider = new OAuthBearerAuthenticationProvider()
+                {
+                    OnRequestToken = context =>
+                    {
+                        if (context.Request.Path.Value.Contains("signalr"))
+                        {
+                            var token = context.Request.Query.Get("Bearer_Token");
+                            if (!string.IsNullOrEmpty(token))
+                            {
+                                context.Token = token;
+                            }
+                        }
+                        return Task.FromResult(context);
+                    }
+                }
+            });
+
+
+            app.UseCors(CorsOptions.AllowAll);            
+            app.MapSignalR(new HubConfiguration { EnableJSONP = true});
             app.CreatePerOwinContext(ApplicationIdentityContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
             app.UseCookieAuthentication(new CookieAuthenticationOptions());
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-            
             app.UseOAuthBearerTokens(new OAuthAuthorizationServerOptions
             {
                 TokenEndpointPath = new PathString("/Token"),
@@ -32,7 +53,8 @@ namespace ClipRecruitment.Web.App_Start
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
                 AllowInsecureHttp = true
             });
-                         
+
+                            
         }
     }
 

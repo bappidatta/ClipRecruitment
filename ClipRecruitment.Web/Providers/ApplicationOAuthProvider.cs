@@ -26,14 +26,14 @@ namespace ClipRecruitment.Web.Providers
 
             _publicClientId = publicClientId;
         }
-
+        
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+            /*context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
             context.Response.Headers.Add("Access-Control-Allow-Headers",
                                    new string[] { "Authorization", "Content-Type" });
             context.Response.Headers.Add("Access-Control-Allow-Methods",
-                                   new string[] { "OPTIONS", "POST" });
+                                   new string[] { "OPTIONS", "POST" });*/
 
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 

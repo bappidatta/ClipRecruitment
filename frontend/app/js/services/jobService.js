@@ -3,6 +3,7 @@ function jobService($http) {
   var serviceBase = 'http://localhost:57154/';
   const service = {};
   service.selectedJobs = [];
+  service.searchCriteria = null;
   
   service.getAllJob = function(pageNo){
       return $http.get( serviceBase + 'api/Job/GetAllJob', {params: {pageNo: pageNo}});

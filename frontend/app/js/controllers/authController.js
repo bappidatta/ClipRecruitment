@@ -1,24 +1,41 @@
-function authController(authService, localStorageService, $rootScope, $location){
-    'ngInject';
-    
+function authController(authService, $rootScope, $location){
+    'ngInject';    
     const vm = this;
-    vm.userInfo = {};
+    //signalRService.init();
+    vm.userInfo = {
+        userName: 'contact@testcompany.com',
+        password: 'Hello123.'
+    };
     
     
-    vm.signIn = function(userInfo){        
-        authService.signIn(userInfo).then(function(res){            
-            localStorage.setItem('authData', {token: res.access_token, userName: userInfo.userName});                
-                 localStorageService.set({userName: userInfo.userName});
-                 $rootScope.userName = userInfo.userName;
-                 sessionStorage.setItem('token', res.data.access_token);
-                 $rootScope.signOut = vm.signOut;
-                 $location.path('/landing');
+    vm.signIn = function(userInfo){  
+        if(!$rootScope.notifications){
+                $rootScope.notifications = [];
+            }
+            authService.signIn(userInfo).then(function(res){
+            authService.getUnreadNotifications(userInfo.userName).then(function(res){
+                console.log(res.data.Success);                
+                localStorage.setItem('notifications', JSON.stringify(res.data.Success));
+                $rootScope.notifications = res.data.Success;
+            });
+            console.log(res);          
+            localStorage.setItem('token', res.data.access_token);
+            localStorage.setItem('userName', userInfo.userName);
+            $rootScope.signOut = vm.signOut;
+
+            if(localStorage.selectedJobs){
+                $location.path('/Apply-Jobs');
+            }
+            $location.path('/landing');
+
         });
     }
 
     vm.signOut = function(){
-            sessionStorage.removeItem('token');
-            $rootScope.userName = '';
+            localStorage.removeItem('token');
+            localStorage.removeItem('userName');
+            $rootScope.userName = null;
+            $rootScope.notifications = [];
             $location.path('/landing');
     }
 }

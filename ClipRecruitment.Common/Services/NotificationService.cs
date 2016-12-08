@@ -14,39 +14,56 @@ namespace ClipRecruitment.Common.Services
     public class NotificationService
     {
         private Notification notification;
-        private DbContext _db;
+        private DbContext _db;        
 
         public NotificationService(DbContext db)
         {
             _db = db;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="notificationVM"></param>
-        /// <returns></returns>
-        public async Task<NotificationViewModel> createNotification(NotificationViewModel notificationVM)
+
+        public async Task<NotificationViewModel> CreateNotification(NotificationViewModel notificationVM)
         {
             notification = new Notification
             {
-                userId = notificationVM.userId,
-                status = notificationVM.status,
-                title = notificationVM.title,
-                details = notificationVM.details,
-                setDate = DateTime.Now
+                UserId = notificationVM.UserId,
+                IsRead = notificationVM.IsRead,
+                Title = notificationVM.Title,
+                Details = notificationVM.Details,
+                Date = DateTime.Now,
+                Link = notificationVM.Link
             };
 
             await _db.Notification.InsertOneAsync(notification);
 
             return GetNotificationById(notification._id);
         }
+        
+        public NotificationViewModel ForNewJobApplication(string userId)
+        {
+            notification = new Notification
+            {
+                UserId = userId,
+                Date = DateTime.UtcNow,
+                Details = "A new application have been submitted for this job!",
+                IsRead = false,
+                Link = "Click here to view the application",
+                Title = "New Application"
+            };
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="notificationID"></param>
-        /// <returns></returns>
+            _db.Notification.InsertOne(notification);
+            return new NotificationViewModel
+            {
+                UserId = notification.UserId,
+                Date = notification.Date,
+                Details = notification.Details,
+                IsRead = notification.IsRead,
+                Link = notification.Link,
+                Title = notification.Title,
+                _id = notification._id
+            };
+        }
+               
         public NotificationViewModel GetNotificationById(string notificationID)
         {
             var id = new ObjectId(notificationID);
@@ -58,36 +75,32 @@ namespace ClipRecruitment.Common.Services
                 return new NotificationViewModel
                 {
                     _id = notifications._id,
-                    userId = notification.userId,
-                    status = notification.status,
-                    title = notification.title,
-                    details = notification.details,
-                    setDate = notification.setDate
+                    UserId = notification.UserId,
+                    IsRead = notification.IsRead,
+                    Title = notification.Title,
+                    Details = notification.Details,
+                    Date = notification.Date,
+                    Link = notifications.Link
                 };
             }
-
             return null;
         }
-
-        /// <summary>
-        /// Get List of notification By user ID
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
+             
         public List<NotificationViewModel> GetNotificationListByUserId(string userId)
         {
             var result = _db.Notification.AsQueryable<Notification>();
             return (from n in result
-                    where n.userId == userId
+                    where n.UserId == userId && n.IsRead == false
                     select new NotificationViewModel
                     {
                         _id = n._id,
-                        userId = n.userId,
-                        status = n.status,
-                        title = n.title,
-                        details = n.details,
-                        setDate = n.setDate
+                        UserId = n.UserId,
+                        IsRead = n.IsRead,
+                        Title = n.Title,
+                        Details = n.Details,
+                        Date = n.Date
                     }).ToList();
         }
+        
     }
 }

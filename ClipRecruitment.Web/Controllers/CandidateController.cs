@@ -1,11 +1,14 @@
 ﻿using AspNet.Identity.MongoDB;
 using ClipRecruitment.Candidate.Services;
 using ClipRecruitment.Candidate.ViewModels;
+using ClipRecruitment.Common.Services;
 using ClipRecruitment.Employer.Services;
 using ClipRecruitment.Employer.ViewModels;
 using ClipRecruitment.Web.App_Start;
 using ClipRecruitment.Web.Models;
+using ClipRecruitment.Web.NotificationHubs;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.SignalR;
 using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
@@ -18,18 +21,22 @@ using System.Web.Http;
 
 namespace ClipRecruitment.Web.Controllers
 {
-    [Authorize]
+    [System.Web.Http.Authorize]
     public class CandidateController : ApiController
     {
         private CandidateService candidateService;
         private JobService jobService;
-
-        public CandidateController(CandidateService candidateService, JobService jobService)
+        private NotificationService notificationService;
+        private IHubContext hubContext;
+        public CandidateController(CandidateService candidateService, JobService jobService, 
+            NotificationService notificationService)
         {
             this.candidateService = candidateService;
             this.jobService = jobService;
+            this.notificationService = notificationService;
             UserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(HttpContext.Current.GetOwinContext()
                                                         .Get<ApplicationIdentityContext>().Users));
+            this.hubContext = GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
         }
 
 
@@ -189,6 +196,10 @@ namespace ClipRecruitment.Web.Controllers
                 try
                 {
                     jobService.AddApplicant(jobList, _userId);
+                    string empId = jobList[0].EmployerID;
+                    var notification = notificationService.ForNewJobApplication(empId);
+                    //hubContext.Clients.User(empId).onNewJobApplication(notification);
+                    hubContext.Clients.All.onNewJobApplication(notification);
                     return Ok(new { Success = "Applied to jobs!" });
                 }
                 catch(Exception ex)

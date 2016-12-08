@@ -24,6 +24,6 @@ namespace ClipRecruitment.Web
             container.Verify();
             GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
         }
-                
+        
     }
 }

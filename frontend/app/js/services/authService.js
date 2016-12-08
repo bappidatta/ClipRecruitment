@@ -10,6 +10,15 @@ function authService($http) {
         userName: ''
     }
 
+
+    service.isAuth = function(){
+        if(localStorage.token){
+            return true;
+        }
+        return false;
+    };
+
+    
     service.signIn = function (userInfo) {
         var data = 'grant_type=password&username=' + userInfo.userName +
             '&password=' + userInfo.password;
@@ -32,6 +41,11 @@ function authService($http) {
 
     service.signOut = function () {        
         return $http.get(serviceBase + 'api/Account/SignOut/');
+    }
+
+    
+    service.getUnreadNotifications = function(userName){
+        return $http.get(serviceBase + 'api/Notification/GetNotificationListByUserId/', {params: {userId: userName}});
     }
 
 

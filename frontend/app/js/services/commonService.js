@@ -30,7 +30,6 @@ function commonService($http) {
     return $http.get(serviceBase + 'api/Common/GetSkills/', {params: {inputString: val}});
   }
 
-
   service.getUser = function(userName){
     return $http.get(serviceBase + 'api/Common/GetUser/', {params: {userName}});
   }

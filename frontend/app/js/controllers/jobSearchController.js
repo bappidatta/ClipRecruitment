@@ -1,4 +1,4 @@
-function jobSearchController(jobService, commonService, $location) {
+function jobSearchController(jobService, commonService, $location, authService) {
     'ngInject';
     const vm = this;
     vm.jobList = [];
@@ -30,11 +30,23 @@ function jobSearchController(jobService, commonService, $location) {
         IsRemote: false,
         LocationList: [],
         SalaryFrom: 15000,
-        SalaryTo: 55000
+        SalaryTo: 95000
     }
 
     vm.init = function () {
-        vm.searchJobs(vm.searchCriteria);
+        if(jobService.searchCriteria != null){
+            if(jobService.searchCriteria.LocationList.length > 0){
+                vm.searchCriteria.LocationList = jobService.searchCriteria.LocationList;                
+            }
+            if(jobService.searchCriteria.PositionList.length > 0){
+                vm.searchCriteria.PositionList = jobService.searchCriteria.PositionList;
+            }
+            
+            vm.searchJobs(vm.searchCriteria);
+        }
+        else{
+            vm.searchJobs(vm.searchCriteria);
+        }
     }
 
 
@@ -119,7 +131,11 @@ function jobSearchController(jobService, commonService, $location) {
     }
 
     //select job for application
-    vm.selectJob = function (job) {
+    vm.selectJob = function (job) {    
+        if(!authService.isAuth()){
+            alert('Please Login to Apply Now!');
+            return;
+        }
 
         jobService.isApplied(job._id).then(function (res) {
             if (res.data.Success) {
@@ -136,9 +152,7 @@ function jobSearchController(jobService, commonService, $location) {
                     vm.searchResult.splice(index2, 1);
                 }
             }
-        })
-
-
+        });
     }
 
     vm.getLocations = function (viewValue) {

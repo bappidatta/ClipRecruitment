@@ -4,6 +4,7 @@ import angular from 'angular';
 import constants from './constants';
 import onConfig  from './on_config';
 import onRun     from './on_run';
+import 'signalr';
 import 'angular-animate';
 import 'angular-sanitize';
 import 'angular-ui-router';
@@ -60,13 +61,18 @@ angular.module('app').factory('authInterceptor', [
         return {
             request: function (config) {
                 config.headers = config.headers || {};
-                if ($window.sessionStorage.token) {                    
-                    config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+                if ($window.localStorage.token) {                    
+                    config.headers.Authorization = 'Bearer ' + $window.localStorage.token;
                     $rootScope.userName = $window.localStorage.userName;
+                    if(localStorage.notifications){
+                       $rootScope.notifications = JSON.parse(localStorage.notifications);
+                    }
                     $rootScope.signOut = function(){
-                        $window.sessionStorage.removeItem('token');
-                        $location.path('/landing');
-                        $rootScope.userName = '';
+                        $window.localStorage.removeItem('token');
+                        $rootScope.userName = null;
+                        $rootScope.notifications = [];
+                        localStorage.removeItem('notifications');
+                        $location.path('/landing');                        
                     }
                 } else {                  
                     if ($location.$$url == '/Candidate-Signup') {
@@ -75,6 +81,8 @@ angular.module('app').factory('authInterceptor', [
                         $location.path('/Employer-Signup');
                     }else if($location.$$url == '/' || $location.$$url == '/landing'){
                         $location.path('/landing');
+                    }else if($location.$$url == '/Search-Jobs'){
+                        $location.path('/Search-Jobs');
                     }
                     else {
                         $location.path('/SignIn');

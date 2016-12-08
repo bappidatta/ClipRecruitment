@@ -2,6 +2,8 @@
 using ClipRecruitment.Employer.Services;
 using ClipRecruitment.Employer.ViewModels;
 using ClipRecruitment.Web.App_Start;
+using ClipRecruitment.Web.NotificationHubs;
+using Microsoft.AspNet.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,16 +16,17 @@ using System.Web.Http.Cors;
 
 namespace ClipRecruitment.Web.Controllers
 {
-    [Authorize]
+    [System.Web.Http.Authorize]
     public class JobController : ApiController
     {
         private JobService jobService;
         private CommonService commonService;
-        
+        private IHubContext hubContext;
         public JobController(JobService jobService, CommonService commonService)
         {
             this.jobService = jobService;
             this.commonService = commonService;
+            this.hubContext = GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
         }
 
         private string _userId
@@ -46,7 +49,7 @@ namespace ClipRecruitment.Web.Controllers
                     skip: (pageNo * Pagination.Size), 
                     take: Pagination.Size, 
                     count: out count);
-
+                hubContext.Clients.All.GetAllJob(result);
                 return Ok(new { Success = result, Count = count });
             }
             catch(Exception ex)

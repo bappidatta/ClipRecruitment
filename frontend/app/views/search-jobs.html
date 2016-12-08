@@ -166,8 +166,8 @@
                             </div>
                         </div><!-- /.result-item -->    
                             <a href="#" class="load-more-jobs-btn" ng-click="jobSearch.searchJobs(jobSearch.searchCriteria, true)" 
-                                ng-if="jobSearch.totalCount - jobSearch.searchResult.length != 0">
-                                View {{jobSearch.totalCount - jobSearch.searchResult.length}} more jobs
+                                ng-if="jobSearch.totalCount - (jobSearch.searchResult.length + jobSearch.selectedJobs.length) != 0">
+                                View {{jobSearch.totalCount - (jobSearch.searchResult.length + jobSearch.selectedJobs.length)}} more jobs
                             </a>
                     </div>
                 </div>

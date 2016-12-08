@@ -17,8 +17,8 @@ namespace ClipRecruitment.Web
 
             // Enable CORS [Cross Origin Resource Sharing] Globally 
             // for all controllers 
-            var corsAttr = new EnableCorsAttribute(origins:"*", headers: "*", methods: "*");
-            config.EnableCors(corsAttr);
+            //var corsAttr = new EnableCorsAttribute(origins: "*", headers: "*", methods: "*");
+            //config.EnableCors(corsAttr);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

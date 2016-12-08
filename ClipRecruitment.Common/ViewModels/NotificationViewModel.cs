@@ -13,10 +13,11 @@ namespace ClipRecruitment.Common.ViewModels
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string _id { get; set; }
-        public string userId { get; set; }
-        public string status { get; set; }
-        public string title { get; set; }
-        public string details { get; set; }
-        public DateTime setDate { get; set; }
+        public string UserId { get; set; }
+        public bool IsRead { get; set; }
+        public string Title { get; set; }
+        public string Details { get; set; }
+        public DateTime Date { get; set; }
+        public string Link { get; set; }
     }
 }

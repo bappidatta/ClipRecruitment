@@ -32,7 +32,7 @@ namespace ClipRecruitment.Web.Controllers
             {
                 try
                 {
-                    var notification = await notificationService.createNotification(notificationVM);
+                    var notification = await notificationService.CreateNotification(notificationVM);
                     return Ok(new { Success = notification });
                 }catch(Exception ex)
                 {
