@@ -21,6 +21,7 @@ function signalRService($rootScope){
             }
             $rootScope.notifications.push(i);
             $rootScope.$apply();
+            localStorage.setItem('notifications', JSON.stringify($rootScope.notifications));            
             console.log($rootScope.notifications);              
             return;
             //$rootScope.$emit('onNewJobApplication', i);

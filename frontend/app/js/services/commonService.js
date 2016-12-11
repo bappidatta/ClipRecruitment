@@ -35,6 +35,10 @@ function commonService($http) {
   }
   
   
+    service.getUnreadNotifications = function(userName){
+        return $http.get(serviceBase + 'api/Notification/GetNotificationListByUserId/', {params: {userId: userName}});
+    }
+    
   return service;
   
 } // end of service
