@@ -1,5 +1,6 @@
 function jobSearchController(jobService, commonService, $location, authService) {
     'ngInject';
+   
     const vm = this;
     vm.jobList = [];
     vm.selectedJobs = [];

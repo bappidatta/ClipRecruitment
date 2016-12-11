@@ -20,7 +20,8 @@ function signalRService($rootScope){
                 $rootScope.notifications = [];
             }
             $rootScope.notifications.push(i);
-            console.log(i);              
+            $rootScope.$apply();
+            console.log($rootScope.notifications);              
             return;
             //$rootScope.$emit('onNewJobApplication', i);
              

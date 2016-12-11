@@ -190,7 +190,9 @@ namespace ClipRecruitment.Web.Controllers
         public IHttpActionResult ApplyToJobs(List<JobViewModel> jobList)
         {
             if (!ModelState.IsValid)
-                return Ok(new { Error = "Invalid Data Submitted" });            
+                return Ok(new { Error = "Invalid Data Submitted" });
+            if (jobList.Count < 1)
+                return Ok(new { Error = "No Job Found!" });
             if (!jobService.IsApplied(jobList, _userId))
             {
                 try
@@ -198,8 +200,9 @@ namespace ClipRecruitment.Web.Controllers
                     jobService.AddApplicant(jobList, _userId);
                     string empId = jobList[0].EmployerID;
                     var notification = notificationService.ForNewJobApplication(empId);
+                    hubContext.Clients.Group(empId).onNewJobApplication(notification);
                     //hubContext.Clients.User(empId).onNewJobApplication(notification);
-                    hubContext.Clients.All.onNewJobApplication(notification);
+                    //hubContext.Clients.All.onNewJobApplication(notification);
                     return Ok(new { Success = "Applied to jobs!" });
                 }
                 catch(Exception ex)

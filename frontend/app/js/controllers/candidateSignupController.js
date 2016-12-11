@@ -1,5 +1,6 @@
 function candidateSignupController(commonService, candidateService, $location) {
     'ngInject';
+    
     const vm = this;
     vm.salaryRange = [10000, 20000, 30000, 40000, 50000, 60000];
 

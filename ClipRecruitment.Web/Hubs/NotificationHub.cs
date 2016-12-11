@@ -5,6 +5,7 @@ using Microsoft.AspNet.SignalR.Hubs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace ClipRecruitment.Web.NotificationHubs
@@ -15,8 +16,17 @@ namespace ClipRecruitment.Web.NotificationHubs
     {
         public void Send()
         {
-            Clients.All.onNewJobApplication("HELLO");
+            //Clients.All.onNewJobApplication("HELLO");
         }
-        
+
+        public override Task OnConnected()
+        {
+            string name = Context.User.Identity.Name;
+
+            Groups.Add(Context.ConnectionId, name);
+
+            return base.OnConnected();
+        }
+
     }
 }

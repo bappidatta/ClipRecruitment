@@ -1,5 +1,6 @@
 function jobPostingController(jobService, commonService){
     'ngInject';
+    
     const vm = this;
     vm.job = {
         Position: '',

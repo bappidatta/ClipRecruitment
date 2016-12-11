@@ -34,6 +34,7 @@ function commonService($http) {
     return $http.get(serviceBase + 'api/Common/GetUser/', {params: {userName}});
   }
   
+  
   return service;
   
 } // end of service

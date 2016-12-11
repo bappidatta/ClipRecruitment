@@ -1,5 +1,6 @@
 function employerSignupController(commonService, employerService, $location) {
     'ngInject';
+    
     const vm = this;
     vm.signUpModel = {
         AddressList: [],

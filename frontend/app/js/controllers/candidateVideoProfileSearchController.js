@@ -1,6 +1,6 @@
 function candidateVideoProfileSearchController(candidateVideoProfileSearchService, commonService, $sce) {
     'ngInject';
-
+    
     const vm = this;
 
     vm.searchCriteria = {

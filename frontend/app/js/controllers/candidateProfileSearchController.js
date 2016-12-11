@@ -1,6 +1,5 @@
 function candidateProfileSearchController(candidateProfileSearchService, commonService, $sce) {
-    'ngInject';
-
+    'ngInject';    
     const vm = this;
     vm.searchCriteria = {
         isVideoProfileSearch: false,
