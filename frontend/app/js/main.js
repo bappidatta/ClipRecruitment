@@ -5,19 +5,21 @@ import constants from './constants';
 import onConfig  from './on_config';
 import onRun     from './on_run';
 import 'signalr';
+import 'angular-toastr';
 import 'angular-animate';
 import 'angular-sanitize';
 import 'angular-ui-router';
 import 'angular-ui-grid';
 import 'angular-ui-bootstrap';
 import 'angular-ui-bootstrap-datetimepicker';
-import 'ng-alertify';
+import 'ng-flow';
 import 'bootstrap';
 import './templates';
 import './filters';
 import './controllers';
 import './services';
 import './directives';
+
 
 // create and bootstrap application
 const requires = [
@@ -27,7 +29,8 @@ const requires = [
   'ui.grid',
   'ui.bootstrap',
   'ui.bootstrap.datetimepicker',
-  'Alertify',
+  'flow',
+  'toastr',  
   'templates',
   'app.filters',
   'app.controllers',

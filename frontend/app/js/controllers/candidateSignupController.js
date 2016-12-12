@@ -11,25 +11,35 @@ function candidateSignupController(commonService, candidateService, $location) {
         IndustryList: []
     }
 
-    vm.signUp = function () {
+    vm.redirectSignIn = function(){  
+        console.log('redireting...');      
+        $location.path('/SignIn')
+    }
+
+    vm.browseFile = function(id){        
+        $('#'+id).click();
+    }
+
+    vm.checkSingle = function(flow){
+        console.log(flow);
+    }
+
+    vm.signUp = function () {        
         if (vm.candidateForm.$valid) {
             if (vm.signUpModel.IndustryList.length < 1) {
                 // error
                 console.log('error');
                 return;
             }
-
             candidateService.signUp(vm.signUpModel).then(function (res) {
                 if (res.data.Success) {
-                    $location.path('/SignIn');
+                    vm.CV.upload();
+                    //$location.path('/SignIn');
                 }
             });
-
-
         } else {
             console.log('invalid');
         }
-
     }
 
     vm.getLocation = function (viewValue) {

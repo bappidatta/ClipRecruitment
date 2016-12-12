@@ -8,6 +8,7 @@ function landingController(jobService, signalRService, commonService, $location,
     vm.selectedJobs = [];
     vm.init = function(){
         vm.getAllJob();        
+        //toastr.warning('test');
     }
         
     vm.getAllJob = function(){

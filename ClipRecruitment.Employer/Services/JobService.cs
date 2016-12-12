@@ -193,6 +193,7 @@ namespace ClipRecruitment.Employer.Services
             if (jobFilteringVM.PositionList.Count > 0)
             {
                 query = (from j in query.Where(x => jobFilteringVM.PositionList.Contains(x.Position)) select j).AsQueryable();
+                //query = (from j in query.Where(x => jobFilteringVM.PositionList.Contains(x.Position.ToLower())) select j).AsQueryable();
             }
 
             count = query.ToList().Count();

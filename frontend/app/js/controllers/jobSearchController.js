@@ -35,6 +35,7 @@ function jobSearchController(jobService, commonService, $location, authService) 
     }
 
     vm.init = function () {
+        console.log(jobService.searchCriteria);
         if(jobService.searchCriteria != null){
             if(jobService.searchCriteria.LocationList.length > 0){
                 vm.searchCriteria.LocationList = jobService.searchCriteria.LocationList;                
@@ -107,7 +108,7 @@ function jobSearchController(jobService, commonService, $location, authService) 
         vm.searchJobs(vm.searchCriteria);
     }
 
-    vm.searchJobs = function (searchCriteria, isPagination) {
+    vm.searchJobs = function (searchCriteria, isPagination) {        
         if (isPagination) {
             vm.pageNo += 1;
         }

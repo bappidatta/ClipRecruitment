@@ -28,6 +28,7 @@ namespace ClipRecruitment.Web.Controllers
         private JobService jobService;
         private NotificationService notificationService;
         private IHubContext hubContext;
+        
         public CandidateController(CandidateService candidateService, JobService jobService, 
             NotificationService notificationService)
         {
@@ -36,7 +37,7 @@ namespace ClipRecruitment.Web.Controllers
             this.notificationService = notificationService;
             UserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(HttpContext.Current.GetOwinContext()
                                                         .Get<ApplicationIdentityContext>().Users));
-            this.hubContext = GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
+            this.hubContext = GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();                        
         }
 
 

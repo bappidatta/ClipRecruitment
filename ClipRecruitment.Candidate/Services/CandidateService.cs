@@ -188,63 +188,64 @@ namespace ClipRecruitment.Candidate.Services
         public List<CandidateViewModel> SearchCandidates(CandidateFilteringViewModel candidateFilteringVM)
         {
             var query = _db.Candidates.AsQueryable().AsQueryable();
-            List<IQueryable> queryList = new List<IQueryable>();
+            //List<IQueryable> queryList = new List<IQueryable>();
 
-            if (!String.IsNullOrEmpty(candidateFilteringVM.Profile.Trim()))
-            {
-                query = (from c in query.Where(x => x.Profile.ToLower().Contains(candidateFilteringVM.Profile.ToLower())) select c).AsQueryable();
-            }
+            //if (!String.IsNullOrEmpty(candidateFilteringVM.Profile.Trim()))
+            //{
+            //    query = (from c in query.Where(x => x.Profile.ToLower().Contains(candidateFilteringVM.Profile.ToLower())) select c).AsQueryable();
+            //}
 
-            if (candidateFilteringVM.PositionList != null && candidateFilteringVM.PositionList.Count() > 0)
-            {
-                foreach (string position in candidateFilteringVM.PositionList)
-                {
-                    query = (from c in query.Where(x => x.Position.ToLower().Contains(position.ToLower())) select c).AsQueryable();
-                }
+            //if (candidateFilteringVM.PositionList != null && candidateFilteringVM.PositionList.Count() > 0)
+            //{
+            //    foreach (string position in candidateFilteringVM.PositionList)
+            //    {
+            //        query = (from c in query.Where(x => x.Position.ToLower().Contains(position.ToLower())) select c).AsQueryable();
+            //    }
 
-            }
+            //}
 
-            query = (from c in query.Where(x => x.IsFullTime == candidateFilteringVM.IsFullTime) select c).AsQueryable();
+            //query = (from c in query.Where(x => x.IsFullTime == candidateFilteringVM.IsFullTime) select c).AsQueryable();
 
-            query = (from c in query.Where(x => x.IsPermanent == candidateFilteringVM.IsPermanent) select c).AsQueryable();
+            //query = (from c in query.Where(x => x.IsPermanent == candidateFilteringVM.IsPermanent) select c).AsQueryable();
 
-            if (!candidateFilteringVM.isVideoProfileSearch)
-            {
-                query = (from c in query.Where(x => x.IsPartTime == candidateFilteringVM.IsPartTime) select c).AsQueryable();
+            //if (!candidateFilteringVM.isVideoProfileSearch)
+            //{
+            //    query = (from c in query.Where(x => x.IsPartTime == candidateFilteringVM.IsPartTime) select c).AsQueryable();
 
-                query = (from c in query.Where(x => x.IsTemporary == candidateFilteringVM.IsTemporary) select c).AsQueryable();
+            //    query = (from c in query.Where(x => x.IsTemporary == candidateFilteringVM.IsTemporary) select c).AsQueryable();
 
-                query = (from c in query.Where(x => x.IsRemote == candidateFilteringVM.IsRemote) select c).AsQueryable();
+            //    query = (from c in query.Where(x => x.IsRemote == candidateFilteringVM.IsRemote) select c).AsQueryable();
 
-                query = (from c in query.Where(x => x.IsLocum == candidateFilteringVM.IsLocum) select c).AsQueryable();
+            //    query = (from c in query.Where(x => x.IsLocum == candidateFilteringVM.IsLocum) select c).AsQueryable();
 
 
-                if (candidateFilteringVM.ExpectedSalaryFrom != 0 && candidateFilteringVM.ExpectedSalaryTo != 0)
-                {
-                    query = (from c in query.Where(x =>
-                        (x.ExpectedSalaryFrom >= candidateFilteringVM.ExpectedSalaryFrom && x.ExpectedSalaryFrom < candidateFilteringVM.ExpectedSalaryTo)
-                        && (x.ExpectedSalaryTo <= candidateFilteringVM.ExpectedSalaryTo && x.ExpectedSalaryTo > candidateFilteringVM.ExpectedSalaryFrom)
-                        )
-                             select c).AsQueryable();
-                }
-            }
-
+            //    if (candidateFilteringVM.ExpectedSalaryFrom != 0 && candidateFilteringVM.ExpectedSalaryTo != 0)
+            //    {
+            //        query = (from c in query.Where(x =>
+            //            (x.ExpectedSalaryFrom >= candidateFilteringVM.ExpectedSalaryFrom && x.ExpectedSalaryFrom < candidateFilteringVM.ExpectedSalaryTo)
+            //            && (x.ExpectedSalaryTo <= candidateFilteringVM.ExpectedSalaryTo && x.ExpectedSalaryTo > candidateFilteringVM.ExpectedSalaryFrom)
+            //            )
+            //                 select c).AsQueryable();
+            //    }
+            //}
+            // by location 
             if (candidateFilteringVM.LocationList != null && candidateFilteringVM.LocationList.Count() > 0)
             {
-                foreach (string location in candidateFilteringVM.LocationList)
-                {
-                    query = (from c in query.Where(x => x.Location.ToLower().Contains(location.ToLower())) select c).AsQueryable();
-                }
+                //foreach (string location in candidateFilteringVM.LocationList)
+                //{
+                //    query = (from c in query.Where(x => x.Location.ToLower().Contains(location.ToLower())) select c).AsQueryable();
+                //}
+                query = (from c in query.Where(x=> candidateFilteringVM.LocationList.Contains(x.Location)) select c).AsQueryable();
             }
 
-            if (candidateFilteringVM.Skills != null && candidateFilteringVM.Skills.Count() > 0)
-            {
-                foreach (string skill in candidateFilteringVM.Skills)
-                {
-                    query = (from c in query.Where(x => x.Skills.Contains(skill)) select c).AsQueryable();
-                }
+            //if (candidateFilteringVM.Skills != null && candidateFilteringVM.Skills.Count() > 0)
+            //{
+            //    foreach (string skill in candidateFilteringVM.Skills)
+            //    {
+            //        query = (from c in query.Where(x => x.Skills.Contains(skill)) select c).AsQueryable();
+            //    }
 
-            }
+            //}
 
 
             var result = (from c in query
