@@ -33,7 +33,7 @@ namespace ClipRecruitment.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("api/documents/upload")]
-        public async Task<object> Upload()
+        public async Task<IHttpActionResult> Upload()
         {
             // Check if the request contains multipart/form-data.
             if (!Request.Content.IsMimeMultipartContent())
@@ -50,18 +50,21 @@ namespace ClipRecruitment.Web.Controllers
                 int chunkNumber = Convert.ToInt32(provider.FormData["flowChunkNumber"]);
                 int totalChunks = Convert.ToInt32(provider.FormData["flowTotalChunks"]);
                 string identifier = provider.FormData["flowIdentifier"];
-                string filename = provider.FormData["flowFilename"];
+                string filename = Guid.NewGuid() +  provider.FormData["flowFilename"];
                 // Rename generated file
                 MultipartFileData chunk = provider.FileData[0]; // Only one file in multipart message
                 RenameChunk(chunk, chunkNumber, identifier);
                 // Assemble chunks into single file if they're all here
                 TryAssembleFile(identifier, totalChunks, filename);
                 // Success
-                return Request.CreateResponse(HttpStatusCode.OK);
+
+                return Ok(new { fileName = filename });
+                //return Request.CreateResponse(HttpStatusCode.OK);
             }
-            catch (System.Exception e)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
+            catch (Exception e)
+            {                
+                return InternalServerError();
+                //return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
             }
 
         }

@@ -1,6 +1,6 @@
-function candidateSignupController(commonService, candidateService, $location) {
+function candidateSignupController(commonService, candidateService, $location, authService) {
     'ngInject';
-    
+
     const vm = this;
     vm.salaryRange = [10000, 20000, 30000, 40000, 50000, 60000];
 
@@ -8,40 +8,57 @@ function candidateSignupController(commonService, candidateService, $location) {
         FirstName: '',
         Surname: '',
         CurrentSalary: '',
-        IndustryList: []
+        IndustryList: [],
+        DocumentList: []
     }
 
-    vm.redirectSignIn = function(){  
-        console.log('redireting...');      
-        $location.path('/SignIn')
-    }
+    vm.uploads = {
+        start: function () {            
+            this.cv.upload();
+        }
+    };
 
-    vm.browseFile = function(id){        
-        $('#'+id).click();
+    // enable file browser window
+    vm.browseFile = function (id) {
+        $('#' + id).click();
     }
-
-    vm.checkSingle = function(flow){
-        console.log(flow);
-    }
-
-    vm.signUp = function () {        
-        if (vm.candidateForm.$valid) {
-            if (vm.signUpModel.IndustryList.length < 1) {
-                // error
-                console.log('error');
-                return;
-            }
-            candidateService.signUp(vm.signUpModel).then(function (res) {
-                if (res.data.Success) {
-                    vm.CV.upload();
-                    //$location.path('/SignIn');
-                }
-            });
+    // stores the response.fileName into DocumentList and attempts to upload next file if available, otherwise attempts to signup
+    vm.onFileUploadSuccess = function (response, nextFile) {
+        response = JSON.parse(response);
+        vm.signUpModel.DocumentList.push(response.fileName);
+        if (nextFile) {
+            nextFile.upload();
         } else {
-            console.log('invalid');
+            vm.signUp();
         }
     }
 
+    // handles form submission and form validation. if form is valid initiates file uploading chain
+    vm.handleFormSubmission = function () {      
+        if (!vm.candidateForm.$valid) {
+            return;
+        }
+        
+        if (vm.signUpModel.IndustryList.length < 1) {
+            return;
+        }
+        vm.uploads.start();
+    }
+
+
+    // sign up process starts
+    vm.signUp = function () {
+        console.log(vm.signUpModel);
+        candidateService.signUp(vm.signUpModel).then(function (res) {
+            if (res.data.Success) {
+                console.log('signing in user...');
+                authService.signIn({userName: vm.signUpModel.Email, password: vm.signUpModel.Password});
+                // $location.path('/');
+            }
+        });
+    }
+
+    // get location suggestions from server
     vm.getLocation = function (viewValue) {
         if (viewValue != null && viewValue != '') {
             return commonService.getLocations(viewValue).then(function (res) {
@@ -59,6 +76,7 @@ function candidateSignupController(commonService, candidateService, $location) {
         }
     }
 
+    // match the Password with ConfirmPassword
     vm.confirmPassword = function () {
         if (vm.signUpModel.Password != vm.signUpModel.ConfirmPassword) {
             vm.candidateForm.confirmPassword.$setValidity('confirmPassword', false);
@@ -73,7 +91,8 @@ function candidateSignupController(commonService, candidateService, $location) {
 
     }
 
-    vm.toggleIndustry = function (isTrue, industry) {
+    // if checkbox state checked is true then push 
+    vm.toggleIndustry = function (isTrue, industry) {        
         let index = vm.signUpModel.IndustryList.indexOf(industry);
         if (isTrue && index < 0) {
             vm.signUpModel.IndustryList.push(industry);
@@ -82,12 +101,6 @@ function candidateSignupController(commonService, candidateService, $location) {
         }
     }
 
-    vm.empty = function (object) {
-        for (var prop in object) {
-            object[prop] = '';
-        }
-        return object;
-    }
 }
 
 

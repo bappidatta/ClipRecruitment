@@ -89,10 +89,8 @@ namespace ClipRecruitment.Web.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> SignUp(CandidateViewModel candidateVM)
         {
-
             if (!ModelState.IsValid)
                 return Ok(new { Error = "Invalid data submitted!" });
-
 
             var user = new ApplicationUser { UserName = candidateVM.Email, Email = candidateVM.Email, IsEmployer = false };
             try

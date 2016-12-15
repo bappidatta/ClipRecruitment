@@ -10,6 +10,12 @@ namespace ClipRecruitment.Domain.Models
 {
     public class Candidates
     {
+        public Candidates()
+        {
+            DocumentList = new List<string>();
+            IndustryList = new List<string>();
+            Skills = new List<string>();
+        }
 
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -41,6 +47,7 @@ namespace ClipRecruitment.Domain.Models
         public List<string> IndustryList { get; set; }
         public string FirstName { get; set; }
         public string Surname { get; set; }
+        public List<string> DocumentList { get; set; }
 
     }
 }

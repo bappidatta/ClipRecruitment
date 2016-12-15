@@ -1,337 +1,304 @@
 ﻿<section class="banner-area" style="background-image: url(images/landing-banner.jpg)">
-    <div class="searching-block">
-        <h1>Job Search</h1>
-        <h3>Search Over 100,000 Jobs</h3>
-        <form class="form-inline search-form">
-            <div class="form-group job-category">
-                <label><i class="fa fa-search" aria-hidden="true"></i></label>
-                <input class="form-control" type="text" placeholder="Keyword: e.g. Engineering, Sales">
-                <button class="close-icon" type="reset"><i class="fa fa-times-circle"></i>
-                        </button>
-            </div>
-            <div class="form-group location">
-                <label><i class="fa fa-map-marker" aria-hidden="true"></i></label>
-                <input class="form-control" type="text" placeholder="Place: e.g. Manchester">
-            </div>
-            <div class="submit-form">
-                <button type="submit" class="btn btn-danger">Search for your next job <i class="fa fa-angle-double-right"></i></button>
-            </div>
-        </form>
-    </div>
-    <!--            <div class="container">
-                            <ul class="banner-menu">
-                                <li><a href="#">Client</a></li>
-                                <li><a href="#">Business</a></li>
-                                <li><a href="#">Technology</a></li>
-                            </ul>
-                        </div>-->
+   <div class="searching-block">
+      <h1>Job Search</h1>
+      <h3>Search Over 100,000 Jobs</h3>
+      <form class="form-inline search-form">
+         <div class="form-group job-category">
+            <label><i class="fa fa-search" aria-hidden="true"></i></label>
+            <input class="form-control" type="text" placeholder="Keyword: e.g. Engineering, Sales">
+            <button class="close-icon" type="reset"><i class="fa fa-times-circle"></i>
+            </button>
+         </div>
+         <div class="form-group location">
+            <label><i class="fa fa-map-marker" aria-hidden="true"></i></label>
+            <input class="form-control" type="text" placeholder="Place: e.g. Manchester">
+         </div>
+         <div class="submit-form">
+            <button type="submit" class="btn btn-danger">Search for your next job <i class="fa fa-angle-double-right"></i></button>
+         </div>
+      </form>
+   </div>
+   <!--            <div class="container">
+      <ul class="banner-menu">
+          <li><a href="#">Client</a></li>
+          <li><a href="#">Business</a></li>
+          <li><a href="#">Technology</a></li>
+      </ul>
+      </div>-->
 </section>
-
 <section class="main-contains reg-block">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 reg-title">
-                <h1>Register</h1>
-                <p>Increase your chances of securing a job by spending a few moments registering with us now.</p>
-                <span>Already have a clip Jobs account? <a href="#">Sign In</a></span>
+   <div class="container">
+      <div class="row">
+         <div class="col-sm-12 reg-title">
+            <h1>Register</h1>
+            <p>Increase your chances of securing a job by spending a few moments registering with us now.</p>
+            <span>Already have a clip Jobs account? <a href="#">Sign In</a></span>
+         </div>
+      </div>
+      <form class="cadidate-register-form" name="cSignup.candidateForm" ng-submit="cSignup.handleFormSubmission($flow)" novalidate>
+         <div class="row">
+            <div class="col-sm-6 col-xs-12">
+               <div class="form-bg">
+                  <div class="form-group">
+                     <label for="firstName">First Name 
+                     <span ng-show="cSignup.candidateForm.firstName.$touched && cSignup.candidateForm.firstName.$invalid
+                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.firstName.$invalid">
+                     <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                     </span>
+                     <span ng-show="cSignup.candidateForm.firstName.$valid">
+                     <i class="fa fa-check color-green" aria-hidden="true"></i>
+                     </span>
+                     </label>
+                     <input name="firstName" type="text" class="form-control" id="firstName" ng-model="cSignup.signUpModel.FirstName" ng-model-options="{updateOn: 'blur'}"
+                        required maxlength="20" minlength="2">
+                  </div>
+                  <div class="form-group">
+                     <label for="surName">Surname 
+                     <span ng-show="cSignup.candidateForm.surName.$touched && cSignup.candidateForm.surName.$invalid
+                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.surName.$invalid">
+                     <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                     </span>
+                     <span ng-show="cSignup.candidateForm.surName.$valid">
+                     <i class="fa fa-check color-green" aria-hidden="true"></i>
+                     </span>
+                     </label>
+                     <input name="surName" type="text" class="form-control" id="surName" ng-model="cSignup.signUpModel.SurName" ng-model-options="{updateOn: 'blur'}"
+                        required maxlength="20" minlength="2">
+                  </div>
+                  <div class="form-group">
+                     <label for="emailAddress">Email Address 
+                     <span ng-show="cSignup.candidateForm.email.$touched && cSignup.candidateForm.email.$invalid
+                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.email.$invalid">
+                     <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                     </span>
+                     <span ng-show="cSignup.candidateForm.email.$valid">
+                     <i class="fa fa-check color-green" aria-hidden="true"></i>
+                     </span>
+                     </label>
+                     <input name="email" type="email" class="form-control" id="emailAddress" ng-model="cSignup.signUpModel.Email" ng-model-options="{updateOn: 'blur'}"
+                        required maxlength="30">
+                  </div>
+                  <div class="form-group">
+                     <label for="confirmEmailAddress">Confirm Email Address 
+                     <span ng-show="cSignup.candidateForm.confirmEmail.$touched && cSignup.candidateForm.confirmEmail.$invalid
+                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.confirmEmail.$invalid">
+                     <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                     </span>
+                     <span ng-show="cSignup.candidateForm.confirmEmail.$valid">
+                     <i class="fa fa-check color-green" aria-hidden="true"></i>
+                     </span>
+                     </label>
+                     <input name="confirmEmail" type="email" class="form-control" id="confirmEmailAddress" ng-model="cSignup.signUpModel.ConfirmEmail"
+                        required maxlength="30" ng-change="cSignup.confirmEmail()">
+                  </div>
+                  <div class="form-group">
+                     <label for="enterPassword">Password 
+                     <span ng-show="cSignup.candidateForm.password.$touched && cSignup.candidateForm.password.$invalid 
+                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.password.$invalid">
+                     <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                     </span>
+                     <span ng-show="cSignup.candidateForm.password.$valid">
+                     <i class="fa fa-check color-green" aria-hidden="true"></i>
+                     </span>
+                     </label>
+                     <input name="password" type="password" class="form-control" id="enterPassword" ng-model="cSignup.signUpModel.Password" ng-model-options="{updateOn: 'blur'}"
+                        required maxlength="16" minlength="6">
+                  </div>
+                  <div class="form-group">
+                     <label for="enterConfirmPassword">Confirm Password 
+                     <span ng-show="cSignup.candidateForm.confirmPassword.$touched && cSignup.candidateForm.confirmPassword.$invalid 
+                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.confirmPassword.$invalid">
+                     <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                     </span>
+                     <span ng-show="cSignup.candidateForm.confirmPassword.$valid">
+                     <i class="fa fa-check color-green" aria-hidden="true"></i>
+                     </span>
+                     </label>
+                     <input name="confirmPassword" type="password" class="form-control" id="enterConfirmPassword" ng-model="cSignup.signUpModel.ConfirmPassword"
+                        ng-change="cSignup.confirmPassword()" required maxlength="16" minlength="6">
+                  </div>
+               </div>
             </div>
-        </div>
-
-        <form class="cadidate-register-form" name="cSignup.candidateForm" ng-submit="cSignup.signUp($flow)" novalidate>
-            <div class="row">
-                <div class="col-sm-6 col-xs-12">
-                    <div class="form-bg">
-                        <div class="form-group">
-                            <label for="firstName">First Name 
-                                <span ng-show="cSignup.candidateForm.firstName.$touched && cSignup.candidateForm.firstName.$invalid
-                                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.firstName.$invalid">
-                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
-                                </span>
-                                <span ng-show="cSignup.candidateForm.firstName.$valid">
-                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
-                                </span>
-                            </label>
-                            <input name="firstName" type="text" class="form-control" id="firstName" ng-model="cSignup.signUpModel.FirstName" ng-model-options="{updateOn: 'blur'}"
-                                required maxlength="20" minlength="2">
-                        </div>
-                        <div class="form-group">
-                            <label for="surName">Surname 
-                                <span ng-show="cSignup.candidateForm.surName.$touched && cSignup.candidateForm.surName.$invalid
-                                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.surName.$invalid">
-                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
-                                </span>
-                                <span ng-show="cSignup.candidateForm.surName.$valid">
-                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
-                                </span>
-                            </label>
-                            <input name="surName" type="text" class="form-control" id="surName" ng-model="cSignup.signUpModel.SurName" ng-model-options="{updateOn: 'blur'}"
-                                required maxlength="20" minlength="2">
-                        </div>
-                        <div class="form-group">
-                            <label for="emailAddress">Email Address 
-                                <span ng-show="cSignup.candidateForm.email.$touched && cSignup.candidateForm.email.$invalid
-                                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.email.$invalid">
-                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
-                                </span>
-                                <span ng-show="cSignup.candidateForm.email.$valid">
-                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
-                                </span>
-                            </label>
-                            <input name="email" type="email" class="form-control" id="emailAddress" ng-model="cSignup.signUpModel.Email" ng-model-options="{updateOn: 'blur'}"
-                                required maxlength="30">
-                        </div>
-                        <div class="form-group">
-                            <label for="confirmEmailAddress">Confirm Email Address 
-                                 <span ng-show="cSignup.candidateForm.confirmEmail.$touched && cSignup.candidateForm.confirmEmail.$invalid
-                                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.confirmEmail.$invalid">
-                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
-                                </span>
-                                <span ng-show="cSignup.candidateForm.confirmEmail.$valid">
-                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
-                                </span>
-                            </label>
-                            <input name="confirmEmail" type="email" class="form-control" id="confirmEmailAddress" ng-model="cSignup.signUpModel.ConfirmEmail"
-                                required maxlength="30" ng-change="cSignup.confirmEmail()">
-                        </div>
-                        <div class="form-group">
-                            <label for="enterPassword">Password 
-                                 <span ng-show="cSignup.candidateForm.password.$touched && cSignup.candidateForm.password.$invalid 
-                                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.password.$invalid">
-                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
-                                </span>
-                                <span ng-show="cSignup.candidateForm.password.$valid">
-                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
-                                </span>
-                            </label>
-                            <input name="password" type="password" class="form-control" id="enterPassword" ng-model="cSignup.signUpModel.Password" ng-model-options="{updateOn: 'blur'}"
-                                required maxlength="16" minlength="6">
-                        </div>
-                        <div class="form-group">
-                            <label for="enterConfirmPassword">Confirm Password 
-                                 <span ng-show="cSignup.candidateForm.confirmPassword.$touched && cSignup.candidateForm.confirmPassword.$invalid 
-                                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.confirmPassword.$invalid">
-                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
-                                </span>
-                                <span ng-show="cSignup.candidateForm.confirmPassword.$valid">
-                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
-                                </span>
-                            </label>
-                            <input name="confirmPassword" type="password" class="form-control" id="enterConfirmPassword" ng-model="cSignup.signUpModel.ConfirmPassword"
-                                ng-change="cSignup.confirmPassword()" required maxlength="16" minlength="6">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xs-12">
-                    <div class="form-bg">
-                        <label>Your Sector 
-                            <span ng-show="cSignup.candidateForm.$submitted && !cSignup.signUpModel.IndustryList.length">
-                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
-                                </span>
-                                <span ng-show="cSignup.candidateForm.$submitted && cSignup.signUpModel.IndustryList.length">
-                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
-                                </span>
+            <div class="col-sm-6 col-xs-12">
+               <div class="form-bg">
+                  <label>Your Sector 
+                  <span ng-show="cSignup.candidateForm.$submitted && !cSignup.signUpModel.IndustryList.length">
+                  <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                  </span>
+                  <span ng-show="cSignup.candidateForm.$submitted && cSignup.signUpModel.IndustryList.length">
+                  <i class="fa fa-check color-green" aria-hidden="true"></i>
+                  </span>
+                  </label>
+                  <div class="row checkbox">
+                     <div class="col-sm-6 col-xs-12">
+                        <label>
+                        <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.isAccounting, 'Accounting')" 
+                           ng-model="cSignup.isAccounting"> Accounting
                         </label>
-                        <div class="row checkbox">
-                            <div class="col-sm-6 col-xs-12">
-                                <label>
-                                            <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.isAccounting, 'Accounting')" 
-                                                                    ng-model="cSignup.isAccounting"> Accounting
-                                        </label>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <label>
-                                            <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Legal, 'Legal')" 
-                                                                    ng-model="cSignup.Legal"> Legal
-                                        </label>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <label>
-                                            <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Automotive, 'Automotive')" 
-                                                                    ng-model="cSignup.Automotive"> Automotive
-                                        </label>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <label>
-                                            <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Logistics, 'Logistics & Transport')" 
-                                                                    ng-model="cSignup.Logistics"> Logistics & Transport
-                                        </label>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <label>
-                                            <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Aviation, 'Aviation')" 
-                                                                    ng-model="cSignup.Aviation"> Aviation
-                                        </label>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <label>
-                                            <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Managements, 'Managements & Executive')" 
-                                                                    ng-model="cSignup.Managements"> Managements & Executive
-                                        </label>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <label>
-                                            <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Banking, 'Banking & Finance')" 
-                                                                    ng-model="cSignup.Banking"> Banking & Finance
-                                        </label>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <label>
-                                            <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Manufacturing, 'Manufacturing')" 
-                                                                    ng-model="cSignup.Manufacturing"> Manufacturing
-                                        </label>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <label>
-                                            <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Voluntary, 'Charity & Voluntary Work')" 
-                                                                    ng-model="cSignup.Voluntary"> Charity & Voluntary Work
-                                        </label>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <label>
-                                            <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Marketing, 'Marketing')" 
-                                                                    ng-model="cSignup.Marketing"> Marketing
-                                        </label>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <label>
-                                            <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Construction, 'Construction')" 
-                                                                    ng-model="cSignup.Construction"> Construction
-                                        </label>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <label>
-                                            <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Media, 'Media')" 
-                                                                    ng-model="cSignup.Media"> Media
-                                        </label>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <label>
-                                            <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Consultancy, 'Consultancy')" 
-                                                                    ng-model="cSignup.Consultancy"> Consultancy
-                                        </label>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <label>
-                                            <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Military, 'Military')" 
-                                                                    ng-model="cSignup.Military"> Military
-                                        </label>
-                            </div>
+                     </div>
+                     <div class="col-sm-6 col-xs-12">
+                        <label>
+                        <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Legal, 'Legal')" 
+                           ng-model="cSignup.Legal"> Legal
+                        </label>
+                     </div>
+                     <div class="col-sm-6 col-xs-12">
+                        <label>
+                        <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Automotive, 'Automotive')" 
+                           ng-model="cSignup.Automotive"> Automotive
+                        </label>
+                     </div>
+                     <div class="col-sm-6 col-xs-12">
+                        <label>
+                        <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Logistics, 'Logistics & Transport')" 
+                           ng-model="cSignup.Logistics"> Logistics & Transport
+                        </label>
+                     </div>
+                     <div class="col-sm-6 col-xs-12">
+                        <label>
+                        <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Aviation, 'Aviation')" 
+                           ng-model="cSignup.Aviation"> Aviation
+                        </label>
+                     </div>
+                     <div class="col-sm-6 col-xs-12">
+                        <label>
+                        <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Managements, 'Managements & Executive')" 
+                           ng-model="cSignup.Managements"> Managements & Executive
+                        </label>
+                     </div>
+                     <div class="col-sm-6 col-xs-12">
+                        <label>
+                        <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Banking, 'Banking & Finance')" 
+                           ng-model="cSignup.Banking"> Banking & Finance
+                        </label>
+                     </div>
+                     <div class="col-sm-6 col-xs-12">
+                        <label>
+                        <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Manufacturing, 'Manufacturing')" 
+                           ng-model="cSignup.Manufacturing"> Manufacturing
+                        </label>
+                     </div>
+                     <div class="col-sm-6 col-xs-12">
+                        <label>
+                        <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Voluntary, 'Charity & Voluntary Work')" 
+                           ng-model="cSignup.Voluntary"> Charity & Voluntary Work
+                        </label>
+                     </div>
+                     <div class="col-sm-6 col-xs-12">
+                        <label>
+                        <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Marketing, 'Marketing')" 
+                           ng-model="cSignup.Marketing"> Marketing
+                        </label>
+                     </div>
+                     <div class="col-sm-6 col-xs-12">
+                        <label>
+                        <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Construction, 'Construction')" 
+                           ng-model="cSignup.Construction"> Construction
+                        </label>
+                     </div>
+                     <div class="col-sm-6 col-xs-12">
+                        <label>
+                        <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Media, 'Media')" 
+                           ng-model="cSignup.Media"> Media
+                        </label>
+                     </div>
+                     <div class="col-sm-6 col-xs-12">
+                        <label>
+                        <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Consultancy, 'Consultancy')" 
+                           ng-model="cSignup.Consultancy"> Consultancy
+                        </label>
+                     </div>
+                     <div class="col-sm-6 col-xs-12">
+                        <label>
+                        <input type="checkbox" ng-change="cSignup.toggleIndustry(cSignup.Military, 'Military')" 
+                           ng-model="cSignup.Military"> Military
+                        </label>
+                     </div>
+                  </div>
+                  <div class="form-group" flow-init="{target: 'http://localhost:57154/api/documents/upload', singleFile: 'true'}" set-bytes="$file"
+                     ng-class="dropClass" flow-name="cSignup.uploads['cv']" flow-file-success="cSignup.onFileUploadSuccess($message, cSignup.uploads.clip)">
+                     <div class="col-sm-12 col-xs-12 no-padding">
+                        <label for="uploadCV">Upload your CV</label>
+                        <input id="cvbrowser" type="file" flow-btn style="visibility: hidden; position: absolute;"/>
+                        <div class="input-group">
+                           <input type="text" class="form-control" ng-model="cSignup.uploads['cv'].files[0].relativePath">
+                           <span class="input-group-btn">
+                           <button class="btn btn-default" type="button" style="padding: 6px;" ng-click="cSignup.browseFile('cvbrowser')">
+                           <i class="fa fa-cloud-upload color-cloud-blue" aria-hidden="true" style="font-size: 15px;" >
+                           </i>
+                           </button>
+                           </span>
                         </div>
-                        <div class="form-group" flow-init="{target: 'http://localhost:57154/api/documents/upload'}" set-bytes="$file"
-                            ng-class="dropClass" flow-name="cSignup.CV" 
-                            flow-complete="cSignup.Clip.upload()"
-                            flow-fileAdded="cSignup.checkSingle()"
-                            >
-                            <div class="col-sm-12 col-xs-12 no-padding">
-                                <label for="uploadCV">Upload your CV</label>
-                            <input id="cvbrowser" type="file" ng-model="cSignup.signUpModel.CV" flow-btn  style="visibility: hidden;"/>
-                            <div class="input-group">
-                            <input type="text" class="form-control">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" style="padding: 6px;"
-                                    ng-click="cSignup.browseFile('cvbrowser')"><i class="fa fa-cloud-upload color-cloud-blue" aria-hidden="true"
-                                    style="font-size: 15px;"
-                                    ></i>
-                                </button>
-                            </span>
-                        </div>
-
-                            <span class="form-sub">We accept DOC, DOCX, PDF & RTF formates</span>
-                            </div>
-
-                            <div class="col-sm-12 col-xs-12 no-padding">                                
-                                <div class="attched-items">
-                                    <ul>
-                                        <li ng-repeat="file in cSignup.CV.files">{{file.name}}</li>                                        
-                                    </ul>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Current Location 
-                                <span ng-show="cSignup.candidateForm.location.$touched && cSignup.candidateForm.location.$invalid 
-                                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.location.$invalid">
-                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
-                                </span>
-                                <span ng-show="cSignup.candidateForm.location.$valid">
-                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
-                                </span>
-                            </label>
-                            <input name="location" type="text" class="form-control" ng-model="cSignup.signUpModel.Location" uib-typeahead="location for location in cSignup.getLocation($viewValue)"
-                                ng-model-options="{updateOn: 'blur'}" required maxlength="20" minlength="2">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Current Salary 
-                                <span ng-show="cSignup.candidateForm.salery.$touched && cSignup.candidateForm.salery.$invalid
-                                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.salery.$invalid">
-                                    <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
-                                </span>
-                                <span ng-show="cSignup.candidateForm.salery.$valid">
-                                    <i class="fa fa-check color-green" aria-hidden="true"></i>
-                                </span>
-                            </label>
-                            <select name="salery" class="form-control" ng-model="cSignup.signUpModel.CurrentSalary" ng-options="s as '£'+s for s in cSignup.salaryRange"
-                                required>
-                                        <option value="">Select your current Salary</option>
-                                        <option>{{s}}</option>
-                                    </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="form-bg">
-                        <div class="form-group">
-                            <label>Upload your clip</label>
-                            <ul class="clip-cat">
-                                <li><a href="#"><i class="fa fa-camera-retro" aria-hidden="true"></i> <span>Record from webcam</span></a></li>
-                                <li><a href="#"><i class="fa fa-mobile" aria-hidden="true"></i><span>Record from phone</span></a></li>
-                                <li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i>
-                                                <span>This Device</span></a></li>
-                                <li><a href="#"><i class="fa fa-cloud" aria-hidden="true"></i>
-                                                <span>OneDrive</span></a></li>
-                                <li><a href="#"><i class="fa fa-dropbox" aria-hidden="true"></i>
-                                                <span>Dropbox</span></a></li>
-                                <li flow-init="{target: 'http://localhost:57154/api/documents/upload'}" set-bytes="$file"
-                                    ng-class="dropClass" flow-name="cSignup.Clip" flow-complete="cSignup.redirectSignIn()">
-                                
-                                    <a href="#" ng-click="cSignup.browseFile('clipfile')"><i class="fa fa-clipboard" ng-class="cSignup.Clip.files.length != 0 ? 'color-green' : ''" aria-hidden="true"></i>
-                                    
-                                                <span>Professional Clip</span><p>[Recommended]</p></a>
-                                                <input id="clipfile" type="file" flow-btn style="visibility: hidden;"/>
-                                </li>
-                            </ul>
-                            <a href="" class="terms">Terms and conditions of registering <span class="caret"></span></a>
-                            <div class="form-submit">
-                                <button class="btn btn-warning" type="submit">Submit</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        <span class="form-sub">We accept DOC, DOCX, PDF & RTF formats</span>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label for="">Current Location 
+                     <span ng-show="cSignup.candidateForm.location.$touched && cSignup.candidateForm.location.$invalid 
+                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.location.$invalid">
+                     <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                     </span>
+                     <span ng-show="cSignup.candidateForm.location.$valid">
+                     <i class="fa fa-check color-green" aria-hidden="true"></i>
+                     </span>
+                     </label>
+                     <input name="location" type="text" class="form-control" ng-model="cSignup.signUpModel.Location" uib-typeahead="location for location in cSignup.getLocation($viewValue)"
+                        ng-model-options="{updateOn: 'blur'}" required maxlength="20" minlength="2">
+                  </div>
+                  <div class="form-group">
+                     <label for="">Current Salary 
+                     <span ng-show="cSignup.candidateForm.salery.$touched && cSignup.candidateForm.salery.$invalid
+                        || cSignup.candidateForm.$submitted && cSignup.candidateForm.salery.$invalid">
+                     <i class="fa fa-exclamation color-red" aria-hidden="true"></i>
+                     </span>
+                     <span ng-show="cSignup.candidateForm.salery.$valid">
+                     <i class="fa fa-check color-green" aria-hidden="true"></i>
+                     </span>
+                     </label>
+                     <select name="salery" class="form-control" 
+                        ng-model="cSignup.signUpModel.CurrentSalary" 
+                        ng-options="s as '£'+s for s in cSignup.salaryRange"
+                        required>
+                        <option value="">Select your current Salary</option>
+                        <option>{{s}}</option>
+                     </select>
+                  </div>
+               </div>
             </div>
-        </form>
-
-
-
-
-
-    </div>
+            <div class="col-sm-12">
+               <div class="form-bg">
+                  <div class="form-group">
+                     <label>Upload your clip</label>
+                     <ul class="clip-cat">
+                        <li><a href="#"><i class="fa fa-camera-retro" aria-hidden="true"></i> <span>Record from webcam</span></a></li>
+                        <li><a href="#"><i class="fa fa-mobile" aria-hidden="true"></i><span>Record from phone</span></a></li>
+                        <li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i>
+                           <span>This Device</span></a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-cloud" aria-hidden="true"></i>
+                           <span>OneDrive</span></a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-dropbox" aria-hidden="true"></i>
+                           <span>Dropbox</span></a>
+                        </li>
+                        <li flow-init="{target: 'http://localhost:57154/api/documents/upload', singleFile: 'true'}" set-bytes="$file" ng-class="dropClass"
+                           flow-name="cSignup.uploads['clip']" flow-file-success="cSignup.onFileUploadSuccess($message, false)">
+                           <a href="#" ng-click="cSignup.browseFile('clipfile')">
+                              <i class="fa fa-clipboard" ng-class="cSignup.uploads['clip'].files.length != 0 ? 'color-green' : ''" aria-hidden="true"></i>
+                              <span>Professional Clip</span>
+                              <p>[Recommended]</p>
+                           </a>
+                           <input id="clipfile" type="file" flow-btn style="visibility: hidden;"/>
+                        </li>
+                     </ul>
+                     <a href="" class="terms">Terms and conditions of registering <span class="caret"></span></a>
+                     <div class="form-submit">
+                        <button class="btn btn-warning" type="submit">Submit</button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </form>
+   </div>
 </section>
-<!--
-<section>
-    <h1>File Upload</h1>
-    <div flow-init="{target: 'http://localhost:53576/api/documents/upload'}" set-bytes="$file" ng-class="dropClass">
-
-        <input type="file" flow-btn/> Input OR Other element as upload button
-        <button type="button" ng-click="uploadItem($flow)" class="btn btn-primary">Upload File</button>
-
-
-        <table>
-            <tr ng-repeat="file in $flow.files">
-                <td>{{$index+1}}</td>
-                <td>{{file.name}}</td>
-                <td>{{file.msg}}</td>
-            </tr>
-        </table>
-    </div>
-</section>-->

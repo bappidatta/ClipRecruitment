@@ -58,7 +58,8 @@ namespace ClipRecruitment.Candidate.Services
                 AuthID = candidateVM.AuthID,
                 FirstName = candidateVM.FirstName,
                 IndustryList = candidateVM.IndustryList,
-                Surname = candidateVM.Surname,                
+                Surname = candidateVM.Surname,    
+                DocumentList = candidateVM.DocumentList           
             };
 
             await _db.Candidates.InsertOneAsync(candidates);

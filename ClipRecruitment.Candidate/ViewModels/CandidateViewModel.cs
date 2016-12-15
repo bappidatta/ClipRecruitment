@@ -11,6 +11,13 @@ namespace ClipRecruitment.Candidate.ViewModels
 {
     public class CandidateViewModel
     {
+        public CandidateViewModel()
+        {
+            DocumentList = new List<string>();
+            IndustryList = new List<string>();
+            Skills = new List<string>();
+        }
+
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string _id { get; set; }
@@ -47,6 +54,7 @@ namespace ClipRecruitment.Candidate.ViewModels
         public string ConfirmEmail { get; set; }
         [BsonRepresentation(BsonType.ObjectId)]
         public string AuthID { get; set; }
+        public List<string> DocumentList { get; set; }
 
     }
 }
