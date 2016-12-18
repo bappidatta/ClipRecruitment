@@ -12,6 +12,10 @@ function candidateVideoProfileSearchService($http) {
     return $http.post('http://localhost:57154/api/Candidate/SearchCandidate',candidateVM);
   };
 
+  service.fetchVideo = function(fileName){
+    return $http.get('http://localhost:57154/api/Candidate/ClipStream/', {params: {fileName: fileName}});
+  }
+
   return service;
 }
 

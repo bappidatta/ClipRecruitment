@@ -86,7 +86,7 @@
             <a href="#" class="save-result pull-right"><i class="fa fa-floppy-o"></i> Save Results</a>
             <br class="clear" />
             <hr />
-            <div id="no-more-tables">                
+            <div id="no-more-tables">
                 <table class="table ">
                     <thead>
                         <tr>
@@ -101,13 +101,18 @@
                             <th>Expected Salary</th>
                         </tr>
                     </thead>
-                    <tbody  ng-repeat="candidate in candidateVideoProfileSearch.CandidateList">
-                        
+                    <tbody ng-repeat="candidate in candidateVideoProfileSearch.CandidateList">
+
                         <tr>
-                            <td rowspan="2">
+                            <!--<td rowspan="2">
 
                                 <iframe id="ytplayer" type="text/html" width="210" height="118" ng-src="{{candidateVideoProfileSearch.trustSrc(candidate.VideoUrl)}}"
                                     frameborder="0" allowfullscreen></iframe>
+                            </td>-->
+                            <td>
+                                <video width="480" height="320" controls="controls" >
+                                    <source ng-src="{{candidateVideoProfileSearch.trustSrc(candidate.VideoUrl)}}" type="video/mp4">
+                                </video>
                             </td>
                             <td data-title="Name">
                                 <h4> {{candidate.CandidateName}} </h4>

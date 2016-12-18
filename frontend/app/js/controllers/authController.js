@@ -1,4 +1,4 @@
-function authController(authService, $rootScope, $location) {
+function authController(authService) {
     'ngInject';
     const vm = this;  
     // default for testing  
@@ -10,7 +10,6 @@ function authController(authService, $rootScope, $location) {
 
     vm.signIn = function (userInfo) {        
         authService.signIn(userInfo);
-
     }
 }
 

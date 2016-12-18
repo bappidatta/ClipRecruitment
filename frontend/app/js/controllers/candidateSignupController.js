@@ -25,7 +25,8 @@ function candidateSignupController(commonService, candidateService, $location, a
     // stores the response.fileName into DocumentList and attempts to upload next file if available, otherwise attempts to signup
     vm.onFileUploadSuccess = function (response, nextFile) {
         response = JSON.parse(response);
-        vm.signUpModel.DocumentList.push(response.fileName);
+        console.log(response);
+        vm.signUpModel.DocumentList.push(response);
         if (nextFile) {
             nextFile.upload();
         } else {

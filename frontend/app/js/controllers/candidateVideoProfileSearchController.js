@@ -17,14 +17,24 @@ function candidateVideoProfileSearchController(candidateVideoProfileSearchServic
     vm.searchResultFound=0;
 
     vm.trustSrc = function (src) {
-        return $sce.trustAsResourceUrl(src);
+        let base = 'http://localhost:57154/api/Candidate/ClipStream?fileName=';
+        return $sce.trustAsResourceUrl(base+src);
     };
 
     vm.init = function () {
         candidateVideoProfileSearchService.getAllCandidates(0).then(function (res) {
             vm.CandidateList = res.data.Success;
+            console.log(res.data);
             vm.searchResultFound = vm.CandidateList.length;
         });        
+    }
+
+
+    vm.fetchVideo = function(fileName){
+        console.log(fileName);
+        candidateVideoProfileSearchService.fetchVideo(fileName).then(function(res){
+            console.log(res);
+        })
     }
 
 /*

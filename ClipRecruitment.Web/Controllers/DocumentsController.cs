@@ -40,25 +40,26 @@ namespace ClipRecruitment.Web.Controllers
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
-
+            
             if (!Directory.Exists(root)) Directory.CreateDirectory(root);
             var provider = new MultipartFormDataStreamProvider(root);
-
+            
             try
             {
                 await Request.Content.ReadAsMultipartAsync(provider);
                 int chunkNumber = Convert.ToInt32(provider.FormData["flowChunkNumber"]);
                 int totalChunks = Convert.ToInt32(provider.FormData["flowTotalChunks"]);
                 string identifier = provider.FormData["flowIdentifier"];
-                string filename = Guid.NewGuid() +  provider.FormData["flowFilename"];
+                string fileGuid = Guid.NewGuid() +  provider.FormData["flowFilename"];
+
                 // Rename generated file
                 MultipartFileData chunk = provider.FileData[0]; // Only one file in multipart message
                 RenameChunk(chunk, chunkNumber, identifier);
                 // Assemble chunks into single file if they're all here
-                TryAssembleFile(identifier, totalChunks, filename);
+                TryAssembleFile(identifier, totalChunks, fileGuid);
                 // Success
-
-                return Ok(new { fileName = filename });
+                
+                return Ok(new { FileName = provider.FormData["flowFilename"], Guid = fileGuid });
                 //return Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception e)

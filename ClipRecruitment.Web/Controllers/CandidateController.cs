@@ -5,6 +5,7 @@ using ClipRecruitment.Common.Services;
 using ClipRecruitment.Employer.Services;
 using ClipRecruitment.Employer.ViewModels;
 using ClipRecruitment.Web.App_Start;
+using ClipRecruitment.Web.HelperClasses;
 using ClipRecruitment.Web.Models;
 using ClipRecruitment.Web.NotificationHubs;
 using Microsoft.AspNet.Identity.Owin;
@@ -15,13 +16,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
 namespace ClipRecruitment.Web.Controllers
 {
-    [System.Web.Http.Authorize]
+    //[System.Web.Http.Authorize]
     public class CandidateController : ApiController
     {
         private CandidateService candidateService;
@@ -210,6 +212,22 @@ namespace ClipRecruitment.Web.Controllers
                 }
             }
             return Ok(new { Error = "Already applied!" });
+        }
+        
+
+        [HttpGet]
+        [Route("api/Candidate/ClipStream/")]
+        public HttpResponseMessage ClipStream(string fileName)
+        {
+            var video = new VideoStream(fileName);
+            var response = Request.CreateResponse();
+            response.Headers.CacheControl = new CacheControlHeaderValue()
+            {
+                Public = true,
+                MaxAge = new TimeSpan(0, 0, 0, 0)
+            };
+            response.Content = new PushStreamContent(video.WriteToStream, new MediaTypeHeaderValue("video/mp4"));            
+            return response;
         }
         
     }

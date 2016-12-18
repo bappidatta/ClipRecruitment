@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using ClipRecruitment.Domain.Models;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace ClipRecruitment.Candidate.ViewModels
     {
         public CandidateViewModel()
         {
-            DocumentList = new List<string>();
+            DocumentList = new List<Document>();
             IndustryList = new List<string>();
             Skills = new List<string>();
         }
@@ -54,7 +55,7 @@ namespace ClipRecruitment.Candidate.ViewModels
         public string ConfirmEmail { get; set; }
         [BsonRepresentation(BsonType.ObjectId)]
         public string AuthID { get; set; }
-        public List<string> DocumentList { get; set; }
+        public List<Document> DocumentList { get; set; }
 
     }
 }

@@ -26,6 +26,8 @@ function candidateProfileSearchController(candidateProfileSearchService, commonS
 
     vm.init = function () {
         candidateProfileSearchService.getAllCandidates(0).then(function (res) {
+            console.log(res.data);
+            
             vm.CandidateList = res.data.Success;
             vm.searchResultFound = vm.CandidateList.length;
         });
@@ -36,7 +38,7 @@ function candidateProfileSearchController(candidateProfileSearchService, commonS
      */
     vm.search = function () {
         candidateProfileSearchService.searchCandidates(vm.searchCriteria).then(function (res) {
-            vm.CandidateList = res.data.Success;
+            vm.CandidateList = res.data.Success;            
             vm.searchResultFound = vm.CandidateList.length;
             console.log(vm.CandidateList);
         });

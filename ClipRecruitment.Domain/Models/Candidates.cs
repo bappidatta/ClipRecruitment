@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace ClipRecruitment.Domain.Models
 {
+    [BsonIgnoreExtraElements]
     public class Candidates
     {
         public Candidates()
         {
-            DocumentList = new List<string>();
+            DocumentList = new List<Document>();
             IndustryList = new List<string>();
             Skills = new List<string>();
         }
@@ -47,7 +48,13 @@ namespace ClipRecruitment.Domain.Models
         public List<string> IndustryList { get; set; }
         public string FirstName { get; set; }
         public string Surname { get; set; }
-        public List<string> DocumentList { get; set; }
+        public List<Document> DocumentList { get; set; }
 
+    }
+
+    public class Document
+    {
+        public string FileName { get; set; }
+        public string Guid { get; set; }
     }
 }

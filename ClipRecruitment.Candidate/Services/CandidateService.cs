@@ -22,12 +22,7 @@ namespace ClipRecruitment.Candidate.Services
         {
             this._db = db;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="candidateVM"></param>
-        /// <returns></returns>
+                
         public async Task<CandidateViewModel> CreateCandidateAsync(CandidateViewModel candidateVM)
         {
 
@@ -67,10 +62,6 @@ namespace ClipRecruitment.Candidate.Services
             return GetCandidateByID(candidates._id);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public List<CandidateViewModel> GetAllCandidateList(int skip, int take, out int count)
         {
             count = _db.Candidates.Find(new BsonDocument()).ToList().Count();
@@ -81,7 +72,7 @@ namespace ClipRecruitment.Candidate.Services
                     {
                         _id = c._id,
                         CandidateName = c.CandidateName,
-                        VideoUrl = c.VideoUrl,
+                        VideoUrl = c.DocumentList[1].Guid,
                         ImageUrl = c.ImageUrl,
                         Objectives = c.Objectives,
                         Profile = c.Profile,
@@ -100,15 +91,11 @@ namespace ClipRecruitment.Candidate.Services
                         Skills = c.Skills,
                         MobileNo = c.MobileNo,
                         Email = c.Email,
-                        Sex = c.Sex
+                        Sex = c.Sex, 
+                        DocumentList = c.DocumentList
                     }).ToList();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="candidateVM"></param>
-        /// <returns></returns>
         public async Task<CandidateViewModel> UpdateCandidate(CandidateViewModel candidateVM)
         {
             var id = new ObjectId(candidateVM._id);
@@ -136,17 +123,11 @@ namespace ClipRecruitment.Candidate.Services
                 .Set("Email", candidateVM.Email)
                 .Set("Sex", candidateVM.Sex);
 
-            var result = _db.Candidates.UpdateOneAsync(filter, update);
+            var result = await _db.Candidates.UpdateOneAsync(filter, update);
 
             return GetCandidateByID(candidateVM._id.ToString());
         }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="candidateId"></param>
-        /// <returns></returns>
+        
         public CandidateViewModel GetCandidateByID(string candidateId)
         {
             var id = new ObjectId(candidateId);
@@ -179,7 +160,8 @@ namespace ClipRecruitment.Candidate.Services
                     Skills = candidates.Skills,
                     MobileNo = candidates.MobileNo,
                     Email = candidates.Email,
-                    Sex = candidates.Sex
+                    Sex = candidates.Sex,
+                    DocumentList = candidates.DocumentList
                 };
             }
             //var candidate = BsonSerializer.Deserialize<CandidateViewModel>(result);
@@ -254,7 +236,7 @@ namespace ClipRecruitment.Candidate.Services
                           {
                               _id = c._id,
                               CandidateName = c.CandidateName,
-                              VideoUrl = c.VideoUrl,
+                              VideoUrl = c.DocumentList[1].Guid,
                               ImageUrl = c.ImageUrl,
                               Objectives = c.Objectives,
                               Profile = c.Profile,
@@ -273,10 +255,13 @@ namespace ClipRecruitment.Candidate.Services
                               Skills = c.Skills,
                               MobileNo = c.MobileNo,
                               Email = c.Email,
-                              Sex = c.Sex
+                              Sex = c.Sex,
+                              DocumentList = c.DocumentList,
+                              
                           }).ToList();
 
             return result;
         }
+              
     }
 }
