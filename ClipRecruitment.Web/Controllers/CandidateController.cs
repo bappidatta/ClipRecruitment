@@ -221,11 +221,11 @@ namespace ClipRecruitment.Web.Controllers
         {
             var video = new VideoStream(fileName);
             var response = Request.CreateResponse();
-            response.Headers.CacheControl = new CacheControlHeaderValue()
-            {
-                Public = true,
-                MaxAge = new TimeSpan(0, 0, 0, 0)
-            };
+            //response.Headers.CacheControl = new CacheControlHeaderValue()
+            //{
+            //    Public = true,
+            //    MaxAge = new TimeSpan(0, 0, 0, 0)
+            //};
             response.Content = new PushStreamContent(video.WriteToStream, new MediaTypeHeaderValue("video/mp4"));            
             return response;
         }

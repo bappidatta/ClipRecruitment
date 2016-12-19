@@ -1,4 +1,4 @@
-function candidateSignupController(commonService, candidateService, $location, authService) {
+function candidateSignupController(commonService, candidateService, $location, authService, jobService) {
     'ngInject';
 
     const vm = this;
@@ -33,7 +33,6 @@ function candidateSignupController(commonService, candidateService, $location, a
             vm.signUp();
         }
     }
-
     // handles form submission and form validation. if form is valid initiates file uploading chain
     vm.handleFormSubmission = function () {      
         if (!vm.candidateForm.$valid) {
@@ -45,8 +44,6 @@ function candidateSignupController(commonService, candidateService, $location, a
         }
         vm.uploads.start();
     }
-
-
     // sign up process starts
     vm.signUp = function () {
         console.log(vm.signUpModel);
@@ -58,7 +55,6 @@ function candidateSignupController(commonService, candidateService, $location, a
             }
         });
     }
-
     // get location suggestions from server
     vm.getLocation = function (viewValue) {
         if (viewValue != null && viewValue != '') {
@@ -87,7 +83,6 @@ function candidateSignupController(commonService, candidateService, $location, a
         }
     }
 
-
     vm.resetForm = function () {
 
     }
@@ -100,6 +95,21 @@ function candidateSignupController(commonService, candidateService, $location, a
         } else {
             vm.signUpModel.IndustryList.splice(index, 1);
         }
+    }
+
+    // search Jobs 
+    vm.searchCriteria = {LocationList: [], PositionList: []};
+    vm.searchJobs = function(keyword, place){   
+        console.log(place,keyword)
+        if(place){
+            vm.searchCriteria.LocationList.push(place);
+        }             
+        if(keyword){
+            vm.searchCriteria.PositionList.push(keyword);
+        }
+        jobService.searchCriteria = vm.searchCriteria;
+
+        $location.path('/Search-Jobs');
     }
 
 }

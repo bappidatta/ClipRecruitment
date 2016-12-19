@@ -10,6 +10,7 @@ function authController(authService) {
 
     vm.signIn = function (userInfo) {        
         authService.signIn(userInfo);
+
     }
 }
 

@@ -17,7 +17,7 @@ function candidateVideoProfileSearchController(candidateVideoProfileSearchServic
     vm.searchResultFound=0;
 
     vm.trustSrc = function (src) {
-        let base = 'http://localhost:57154/api/Candidate/ClipStream?fileName=';
+        let base = 'http://localhost:57154/api/Candidate/ClipStream?fileName=';        
         return $sce.trustAsResourceUrl(base+src);
     };
 
