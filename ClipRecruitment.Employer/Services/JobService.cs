@@ -192,8 +192,16 @@ namespace ClipRecruitment.Employer.Services
             // experience and position 
             if (jobFilteringVM.PositionList.Count > 0)
             {
-                query = (from j in query.Where(x => jobFilteringVM.PositionList.Contains(x.Position)) select j).AsQueryable();
+                //List<string> posList = (from j in query select j.Position.ToLower()).ToList();
+
+
+                List<string> positionlist = jobFilteringVM.PositionList.ConvertAll(x => x.ToLower());
+                
+                query = (from j in query.Where(x => positionlist.Contains(x.Position.ToLower())) select j).AsQueryable();
+
+                //query = (from j in query.Where(x => jobFilteringVM.PositionList.Contains(x.Position)) select j).AsQueryable();
                 //query = (from j in query.Where(x => jobFilteringVM.PositionList.Contains(x.Position.ToLower())) select j).AsQueryable();
+                //query = (from j in query.Where(x => jobFilteringVM.PositionList.ConvertAll(m => m.ToLower()).Contains(x.Position.ToLower())) select j).AsQueryable();
             }
 
             count = query.ToList().Count();

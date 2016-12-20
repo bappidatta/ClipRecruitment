@@ -173,10 +173,10 @@ namespace ClipRecruitment.Candidate.Services
             var query = _db.Candidates.AsQueryable().AsQueryable();
             //List<IQueryable> queryList = new List<IQueryable>();
 
-            //if (!String.IsNullOrEmpty(candidateFilteringVM.Profile.Trim()))
-            //{
-            //    query = (from c in query.Where(x => x.Profile.ToLower().Contains(candidateFilteringVM.Profile.ToLower())) select c).AsQueryable();
-            //}
+            if (!String.IsNullOrEmpty(candidateFilteringVM.Profile.Trim()))
+            {
+                query = (from c in query.Where(x => x.Profile.ToLower().Contains(candidateFilteringVM.Profile.ToLower())) select c).AsQueryable();
+            }
 
             //if (candidateFilteringVM.PositionList != null && candidateFilteringVM.PositionList.Count() > 0)
             //{
