@@ -29,7 +29,7 @@ function candidateVideoProfileSearchController(candidateVideoProfileSearchServic
         });        
     }
 
-
+    vm.video = false;
     vm.fetchVideo = function(fileName){
         console.log(fileName);
         candidateVideoProfileSearchService.fetchVideo(fileName).then(function(res){
