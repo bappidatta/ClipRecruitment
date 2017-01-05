@@ -216,7 +216,9 @@
                      </div>
                   </div>
                   <div class="form-group" flow-init="{target: 'http://localhost:57154/api/documents/upload', singleFile: 'true'}" set-bytes="$file"
-                     ng-class="dropClass" flow-name="cSignup.uploads['cv']" flow-file-success="cSignup.onFileUploadSuccess($message, cSignup.uploads.clip)">
+                     ng-class="dropClass" flow-name="cSignup.uploads['cv']" flow-file-success="cSignup.onFileUploadSuccess($message, cSignup.uploads.clip)"
+                     flow-file-added="!!{doc:1,docx:1,pdf:1,rtf:1}[$file.getExtension()]"
+                     >
                      <div class="col-sm-12 col-xs-12 no-padding">
                         <label for="uploadCV">Upload your CV</label>
                         <input id="cvbrowser" type="file" flow-btn style="visibility: hidden; position: absolute;"/>
@@ -282,13 +284,15 @@
                            <span>Dropbox</span></a>
                         </li>
                         <li flow-init="{target: 'http://localhost:57154/api/documents/upload', singleFile: 'true'}" set-bytes="$file" ng-class="dropClass"
-                           flow-name="cSignup.uploads['clip']" flow-file-success="cSignup.onFileUploadSuccess($message, false)">
+                           flow-name="cSignup.uploads['clip']" flow-file-success="cSignup.onFileUploadSuccess($message, false)" 
+                           flow-file-added="!!{mp4:1}[$file.getExtension()]"
+                           >
                            <a href="#" ng-click="cSignup.browseFile('clipfile')">
                               <i class="fa fa-clipboard" ng-class="cSignup.uploads['clip'].files.length != 0 ? 'color-green' : ''" aria-hidden="true"></i>
                               <span>Professional Clip</span>
                               <p>[Recommended]</p>
                            </a>
-                           <input id="clipfile" type="file" flow-btn style="visibility: hidden;"/>
+                           <input id="clipfile" class="hidden" type="file" flow-btn/>
                         </li>
                      </ul>
                      <a href="" class="terms">Terms and conditions of registering <span class="caret"></span></a>

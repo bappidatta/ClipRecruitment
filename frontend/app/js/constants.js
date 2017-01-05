@@ -1,6 +1,6 @@
 const AppSettings = {
-  appTitle: 'Example Application',
-  apiUrl: '/api/v1'
+  appTitle: 'ClipJobs',
+  apiUrl: 'http://localhost:57154/',  
 };
 
 export default AppSettings;

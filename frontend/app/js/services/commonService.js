@@ -1,6 +1,5 @@
-function commonService($http) {
-  'ngInject';
-  var serviceBase = 'http://localhost:57154/';
+function commonService($http, AppSettings) {
+  'ngInject';  
   const service = {};
   
   service.isReal = function(item){
@@ -19,24 +18,24 @@ function commonService($http) {
 
    
   service.getLocations = function(val){
-    return $http.get(serviceBase + 'api/Common/GetLocations/', {params: {inputString: val}});
+    return $http.get(AppSettings.apiUrl + 'api/Common/GetLocations/', {params: {inputString: val}});
   }
 
   service.getPositions = function(val){
-    return $http.get(serviceBase + 'api/Common/GetPositions/', {params: {inputString: val}});
+    return $http.get(AppSettings.apiUrl + 'api/Common/GetPositions/', {params: {inputString: val}});
   }
 
    service.getSkills = function(val){
-    return $http.get(serviceBase + 'api/Common/GetSkills/', {params: {inputString: val}});
+    return $http.get(AppSettings.apiUrl + 'api/Common/GetSkills/', {params: {inputString: val}});
   }
 
   service.getUser = function(userName){
-    return $http.get(serviceBase + 'api/Common/GetUser/', {params: {userName}});
+    return $http.get(AppSettings.apiUrl + 'api/Common/GetUser/', {params: {userName}});
   }
   
   
     service.getUnreadNotifications = function(userName){
-        return $http.get(serviceBase + 'api/Notification/GetNotificationListByUserId/', {params: {userId: userName}});
+        return $http.get(AppSettings.apiUrl + 'api/Notification/GetNotificationListByUserId/', {params: {userId: userName}});
     }
     
   return service;

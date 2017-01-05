@@ -1,6 +1,5 @@
-function authService($http, $rootScope, $location) {
-    'ngInject';
-    var serviceBase = 'http://localhost:57154/';
+function authService($http, $rootScope, $location, AppSettings) {
+    'ngInject';    
     const service = {
 
     };
@@ -19,7 +18,7 @@ function authService($http, $rootScope, $location) {
 
         $http({
             method: 'POST',
-            url: serviceBase + 'token',
+            url: AppSettings.apiUrl + 'token',
             data: data,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -50,7 +49,7 @@ function authService($http, $rootScope, $location) {
             $location.path('/landing');
         })
 
-        //return $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+        //return $http.post(AppSettings.apiUrl + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
     }
 
     service.signOut = function () {
@@ -63,7 +62,7 @@ function authService($http, $rootScope, $location) {
 
 
     service.getUnreadNotifications = function (userName) {
-        return $http.get(serviceBase + 'api/Notification/GetNotificationListByUserId/', { params: { userId: userName } });
+        return $http.get(AppSettings.apiUrl + 'Notification/GetNotificationListByUserId/', { params: { userId: userName } });
     }
 
 

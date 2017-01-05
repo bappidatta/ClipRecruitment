@@ -1,28 +1,27 @@
-function jobService($http) {
+function jobService($http, AppSettings) {
   'ngInject';
-  var serviceBase = 'http://localhost:57154/';
   const service = {};
   service.selectedJobs = [];
   service.searchCriteria = null;
   
   service.getAllJob = function(pageNo){
-      return $http.get( serviceBase + 'api/Job/GetAllJob', {params: {pageNo: pageNo}});
+      return $http.get( AppSettings.apiUrl + 'api/Job/GetAllJob', {params: {pageNo: pageNo}});
   };
   
   service.searchJobs = function(searchCriteria, pageNo){
-    return $http.post( serviceBase + 'api/Job/SearchJob?pageNo='+pageNo,searchCriteria);
+    return $http.post( AppSettings.apiUrl + 'api/Job/SearchJob?pageNo='+pageNo,searchCriteria);
   };
 
   service.createJob = function(job){
-      return $http.post(serviceBase + 'api/Job/CreateJob/', job);
+      return $http.post(AppSettings.apiUrl + 'api/Job/CreateJob/', job);
   };
 
   service.updateJob = function(job){
-      return $http.post(serviceBase + 'api/Job/Update/', job);
+      return $http.post(AppSettings.apiUrl + 'api/Job/Update/', job);
   };
 
   service.isApplied = function(jobId){
-    return $http.get(serviceBase + 'api/Job/IsApplied/', {params: {jobId: jobId}});
+    return $http.get(AppSettings.apiUrl + 'api/Job/IsApplied/', {params: {jobId: jobId}});
   }
 
 

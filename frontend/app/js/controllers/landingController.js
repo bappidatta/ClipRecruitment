@@ -1,4 +1,4 @@
-function landingController(jobService, signalRService, commonService, $location, authService){
+function landingController(jobService, signalRService, commonService, $location, authService, AppSettings){
     'ngInject';
  signalRService.init();
     const vm = this;
@@ -7,6 +7,8 @@ function landingController(jobService, signalRService, commonService, $location,
     vm.jobPostings = [];    
     vm.selectedJobs = [];
     vm.init = function(){
+        console.log(AppSettings.apiUrl);
+        
         vm.getAllJob();        
         //toastr.warning('test');
     }

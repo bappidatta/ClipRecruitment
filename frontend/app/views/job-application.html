@@ -38,7 +38,7 @@
                     </div>
                     <div class="submit-applications">
                         <p><strong>Submit Application(s)</strong></p>
-                        <p>You have selected to apply for <strong>8 Jobs.</strong> You application will be submitted with the following Clip together with your ClipJobs CV. Please review documents before clicking Apply.</p>
+                        <p>You have selected to apply for <strong>{{applyJobs.selectedJobs.length}} Jobs.</strong> You application will be submitted with the following Clip together with your ClipJobs CV. Please review documents before clicking Apply.</p>
                         <div class="row">
                             <div class="col-sm-2 col-xs-12">
                                 <h3>My Clip</h3>
@@ -57,28 +57,27 @@
                             </div>
                             <div class="col-sm-5 col-xs-12">
                                 <h3>My Documents</h3>
-                                <div class="attched-items">
+                                <div class="attched-items" flow-init="{target: 'http://localhost:57154/api/documents/upload'}" set-bytes="$file" ng-class="dropClass"
+                                        flow-name="applyJobs.documents"
+                                        flow-file-added="!!{doc:1,pdf:1,docx:1,rtf:1}[$file.getExtension()]"
+                                        flow-file-success="applyJobs.onFileUploadSuccess($message, cSignup.uploads.clip)"
+                                        >
                                     <ul>
-                                        <li><i class="fa fa-file-word-o"></i> My Work Sample.doc</li>
-                                        <li><i class="fa fa-file-pdf-o"></i> Samply Application.pdf</li>
-                                        <li><i class="fa fa-file-pdf-o"></i> Samply Application.pdf</li>
+                                        <li ng-repeat="doc in applyJobs.documents.files">{{doc.name}}</li>
+                                        <!--<li><i class="fa fa-file-pdf-o"></i> Samply Application.pdf</li>
+                                        <li><i class="fa fa-file-pdf-o"></i> Samply Application.pdf</li>-->
                                     </ul>
-                                    <button class="btn btn-primary" type="submit">Attach Document(s)</button>
+                                    <button class="btn btn-primary" type="button" ng-click="applyJobs.browseFile('docbrowser')">Attach Document(s)</button>
+                                    <input id="docbrowser" type="file" class="hidden" flow-btn/>
                                 </div>
                             </div>
                         </div>
                         <a href="" class="terms">Terms and conditions of registering <span class="caret"></span></a>
-                    </div>     
-
-
-                    <div class="form-submit">
-                        <button class="btn btn-success" type="submit" ng-click="applyJobs.applyForJobs(applyJobs.selectedJobs)">Apply for Jobs</button>
                     </div>
-
+                    <div class="form-submit">
+                        <button class="btn btn-success" type="submit" ng-click="applyJobs.handleFormSubmission()">Apply for Jobs</button>
+                    </div>
                 </form>
-
-
-
             </div>
         </section>
 

@@ -1,13 +1,11 @@
-function signalRService($rootScope){
-    'ngInject';
-    var serviceBase = 'http://localhost:57154';
-    
+function signalRService($rootScope, AppSettings){
+    'ngInject';    
     return {
         init: function () {
             var token =  localStorage.token;
                  
             if(token){
-            var connection = $.hubConnection(serviceBase + '/signalr', {useDefaultPath: false, qs: 'Bearer_Token='+ token});
+            var connection = $.hubConnection(AppSettings.apiUrl + 'signalr', {useDefaultPath: false, qs: 'Bearer_Token='+ token});
             var hub = connection.createHubProxy('notification');
             //var connection = $.hubConnection(serviceBase);            
             // hub.on('GetAllJob', function (i) {

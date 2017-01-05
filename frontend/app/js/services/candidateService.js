@@ -1,16 +1,13 @@
-function candidateService($http) {
-    'ngInject';
-    var serviceBase = 'http://localhost:57154/';
-    const service = {
-
-    };
+function candidateService($http, AppSettings) {
+    'ngInject';    
+    const service = {};
 
     service.signUp = function (userInfo) {
-        return $http.post(serviceBase + 'api/Candidate/SignUp/', userInfo);
+        return $http.post(AppSettings.apiUrl + 'api/Candidate/SignUp/', userInfo);
     }
 
     service.applyForJobs = function (selectedJobs) {
-        return $http.post(serviceBase + 'api/Candidate/ApplyToJobs/', selectedJobs);
+        return $http.post(AppSettings.apiUrl + 'api/Candidate/ApplyToJobs/', selectedJobs);
     }
 
 
